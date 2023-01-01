@@ -1,0 +1,146 @@
+:root {
+  --color-light: hsl(200, 100%, 70%);
+  --color-lighter: hsl(200, 100%, 75%);
+  --color-lightest: hsl(200, 100%, 85%);
+  --color-dark: hsl(200, 100%, 20%);
+  --color-darker: hsl(200, 100%, 10%);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html.blurred::after {
+  content: "";
+  position: fixed;
+  top: calc(50% - 30px);
+  left: calc(50% - 30px);
+  width: 60px;
+  height: 60px;
+  border: 10px solid var(--color-light);
+  border-right-color: var(--color-darker);
+  border-radius: 50%;
+  opacity: .5;
+  animation: rotation 1s forwards infinite;
+}
+
+html.blurred body {
+  filter: blur(10px);
+  overflow: hidden;
+}
+
+body {
+  background-color: var(--color-lightest);
+  color: var(--color-darker);
+  font-family: sans-serif;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+}
+
+.header-left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  margin: .5rem;
+  padding: .5rem;
+  border-right: 2px solid var(--color-darker);
+}
+
+.weather-icon {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.weather-icon.large {
+  width: 80px;
+  height: 80px;
+}
+
+.header-current-temp {
+  margin-left: 1rem;
+  font-size: 2rem;
+}
+
+.header-right {
+  display: grid;
+  justify-content: space-around;
+  width: 50%;
+  gap: .5rem;
+  grid-template-columns: repeat(3, auto);
+  grid-template-rows: repeat(2, auto);
+}
+
+.info-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.label {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 0.6rem;
+  color:var(--color-dark);
+}
+
+.value-sub-info {
+  font-weight: lighter;
+  font-size: 0.75rem;
+}
+
+.day-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 75px);
+  gap: 0.5rem;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.day-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid var(--color-darker);
+  border-radius: 0.25rem;
+  padding: 0.25rem;
+}
+
+.day-card-date {
+  font-size: .75rem;
+  color: var(--color-dark);
+  margin-top: .5rem;
+}
+
+.hour-section {
+  width: 100%;
+  text-align: center;
+  border-spacing: 0;
+}
+
+.hour-row {
+  background-color: var(--color-lighter);
+}
+
+.hour-row:nth-child(2n) {
+  background-color: var(--color-light);
+}
+
+.hour-row > td {
+  padding: 0.25rem 0.5rem;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
