@@ -18,9 +18,14 @@ function positionSuccess({ coords }) {
 }
 
 function positionError() {
-  alert(
-    'There was an error getting your location. Please allow us to use your location and refresh the page.'
-  );
+  const lat = 48.92;
+  const lng = 24.71;
+  getWeather(lat, lng, Intl.DateTimeFormat().resolvedOptions().timeZone)
+    .then(renderWeather)
+    .catch((err) => {
+      console.log(err);
+      alert('Error getting weather...');
+    });
 }
 
 function renderWeather({ current, daily, hourly }) {
@@ -36,12 +41,11 @@ function setValue(selector, value, { parent = document } = {}) {
 }
 
 function getIconUrl(iconCode) {
-  return `icons/${ICON_MAP.get(iconCode)}.svg`;
+  return `images/${ICON_MAP.get(iconCode)}.svg`;
 }
 
 const currentIcon = document.querySelector('[data-current-icon]');
 function renderCurrentWeather(current) {
-  console.log('DATA: ', current);
   currentIcon.src = getIconUrl(current.iconCode);
   setValue('current-temp', current.currentTemp);
   setValue('current-high', current.highTemp);
