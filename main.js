@@ -4,6 +4,13 @@ import { getWeather } from './weather';
 
 navigator.geolocation.getCurrentPosition(positionSuccess, positionError);
 
+const currentDate = new Intl.DateTimeFormat(undefined, {
+  dateStyle: 'full',
+  timeStyle: 'short',
+}).format(new Date());
+
+document.querySelector('[data-current-date]').textContent = currentDate;
+
 function positionSuccess({ coords }) {
   getWeather(
     coords.latitude,
@@ -70,7 +77,10 @@ function renderDailyWeather(daily) {
   });
 }
 
-const HOUR_FORMATTER = new Intl.DateTimeFormat(undefined, { hour: 'numeric' });
+const HOUR_FORMATTER = new Intl.DateTimeFormat(undefined, {
+  hour: 'numeric',
+  minute: 'numeric',
+});
 const hourlySection = document.querySelector('[data-hour-section]');
 const hourRowTemplate = document.getElementById('hour-row-template');
 function renderHourlyWeather(hourly) {

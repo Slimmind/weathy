@@ -1,6 +1,6 @@
 :root {
-  --color-light: hsl(200, 100%, 70%);
-  --color-lighter: hsl(200, 100%, 75%);
+  --color-light: hsl(200, 100%, 75%);
+  --color-lighter: hsl(200, 100%, 80%);
   --color-lightest: hsl(200, 100%, 85%);
   --color-dark: hsl(200, 100%, 20%);
   --color-darker: hsl(200, 100%, 10%);
@@ -53,8 +53,20 @@ body {
 }
 
 .header {
+}
+
+.header-columns {
   display: flex;
   align-items: center;
+}
+
+.header-date {
+  margin-bottom: 1rem;
+  padding: .5rem;
+  background-color: var(--color-lighter);
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: bold;
 }
 
 .header-left {
