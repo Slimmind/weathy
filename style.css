@@ -130,8 +130,7 @@ body {
 }
 
 .value-sub-info {
-  font-weight: lighter;
-  font-size: 0.75rem;
+  font-size: 0.6rem;
 }
 
 .day-section {
@@ -170,6 +169,12 @@ body {
 
 .hour-row:nth-child(2n) {
   background-color: var(--color-light);
+}
+
+.hour-row > th {
+  padding: 1rem;
+  border-top: 2px solid var(--color-darker);
+  border-bottom: 2px solid var(--color-darker);
 }
 
 .hour-row > td {

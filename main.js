@@ -82,19 +82,31 @@ const HOUR_FORMATTER = new Intl.DateTimeFormat(undefined, {
 });
 const hourlySection = document.querySelector('[data-hour-section]');
 const hourRowTemplate = document.getElementById('hour-row-template');
+const emptyHourRowTemplate = document.getElementById('empty-hour-row-template');
 function renderHourlyWeather(hourly) {
   hourlySection.innerHTML = '';
+  let element;
   hourly.forEach((hour) => {
-    const element = hourRowTemplate.content.cloneNode(true);
-    setValue('temp', hour.temp, { parent: element });
-    setValue('fl-temp', hour.feelsLike, { parent: element });
-    setValue('wind', hour.windSpeed, { parent: element });
-    setValue('precip', hour.precip, { parent: element });
-    setValue('day', DAY_FORMATTER.format(hour.timestamp), { parent: element });
-    setValue('time', HOUR_FORMATTER.format(hour.timestamp), {
-      parent: element,
-    });
-    element.querySelector('[data-icon]').src = getIconUrl(hour.iconCode);
+    if (HOUR_FORMATTER.format(hour.timestamp) === '00:00') {
+      element = emptyHourRowTemplate.content.cloneNode(true);
+      setValue('day', DAY_FORMATTER.format(hour.timestamp), {
+        parent: element,
+      });
+    } else {
+      element = hourRowTemplate.content.cloneNode(true);
+      setValue('temp', hour.temp, { parent: element });
+      setValue('fl-temp', hour.feelsLike, { parent: element });
+      setValue('wind', hour.windSpeed, { parent: element });
+      setValue('precip', hour.precip, { parent: element });
+      setValue('day', DAY_FORMATTER.format(hour.timestamp), {
+        parent: element,
+      });
+      setValue('time', HOUR_FORMATTER.format(hour.timestamp), {
+        parent: element,
+      });
+      element.querySelector('[data-icon]').src = getIconUrl(hour.iconCode);
+    }
+
     hourlySection.append(element);
   });
 }
