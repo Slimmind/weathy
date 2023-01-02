@@ -4,9 +4,8 @@ import { getWeather } from './weather';
 
 navigator.geolocation.getCurrentPosition(positionSuccess, positionError);
 
-const currentDate = new Intl.DateTimeFormat(undefined, {
+const currentDate = new Intl.DateTimeFormat('en-GB', {
   dateStyle: 'full',
-  timeStyle: 'short',
 }).format(new Date());
 
 document.querySelector('[data-current-date]').textContent = currentDate;
@@ -63,7 +62,7 @@ function renderCurrentWeather(current) {
   setValue('current-precip', current.precip);
 }
 
-const DAY_FORMATTER = new Intl.DateTimeFormat(undefined, { weekday: 'long' });
+const DAY_FORMATTER = new Intl.DateTimeFormat('en-GB', { weekday: 'long' });
 const dailySection = document.querySelector('[data-day-section]');
 const dayCardTemplate = document.getElementById('day-card-template');
 function renderDailyWeather(daily) {
