@@ -46,8 +46,28 @@ function setValue(selector, value, { parent = document } = {}) {
   parent.querySelector(`[data-${selector}]`).textContent = value;
 }
 
-function getIconUrl(iconCode) {
-  return `images/${ICON_MAP.get(iconCode)}.svg`;
+function getIconUrl(iconCode, hour) {
+  return `images/${ICON_MAP.get(handleIconCode(iconCode, hour))}.svg`;
+}
+
+function handleIconCode(iconCode, hour) {
+  const time = hour || new Date().getHours();
+  const isNightTime = time < 6 || time > 18;
+
+  if (isNightTime) {
+    switch (iconCode) {
+      case 0:
+        return 100;
+      case 1:
+        return 101;
+      case 2:
+        return 200;
+      default:
+        return iconCode;
+    }
+  }
+
+  return iconCode;
 }
 
 const currentIcon = document.querySelector('[data-current-icon]');
@@ -104,7 +124,10 @@ function renderHourlyWeather(hourly) {
       setValue('time', HOUR_FORMATTER.format(hour.timestamp), {
         parent: element,
       });
-      element.querySelector('[data-icon]').src = getIconUrl(hour.iconCode);
+      element.querySelector('[data-icon]').src = getIconUrl(
+        hour.iconCode,
+        new Date(hour.timestamp).getHours()
+      );
     }
 
     hourlySection.append(element);

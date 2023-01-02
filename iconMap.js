@@ -10,6 +10,8 @@ addMapping(
 );
 addMapping([71, 73, 75, 77, 85, 86], 'snowflake');
 addMapping([95, 96, 99], 'cloud-bolt');
+addMapping([100, 101], 'moon');
+addMapping([200], 'cloud-moon');
 
 function addMapping(values, icon) {
   values.forEach((value) => {
