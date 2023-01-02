@@ -52,9 +52,6 @@ body {
   transition: opacity 1s;
 }
 
-.header {
-}
-
 .header-columns {
   display: flex;
   align-items: center;
@@ -80,14 +77,19 @@ body {
 }
 
 .weather-icon {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   object-fit: contain;
 }
 
+.weather-icon.middle {
+  width: 60px;
+  height: 60px;
+}
+
 .weather-icon.large {
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
 }
 
 .header-current-temp {
@@ -135,7 +137,7 @@ body {
 
 .day-section {
   display: grid;
-  grid-template-columns: repeat(auto-fit, 100px);
+  grid-template-columns: repeat(auto-fit, 110px);
   gap: 0.5rem;
   justify-content: center;
   padding: 1rem;
