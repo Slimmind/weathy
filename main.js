@@ -8,7 +8,7 @@ const currentDate = new Intl.DateTimeFormat('en-GB', {
   dateStyle: 'full',
 }).format(new Date());
 
-document.querySelector('[data-current-date]').textContent = currentDate;
+document.querySelector('[data-current-date]').textContent = `${currentDate}`;
 
 function positionSuccess({ coords }) {
   getWeather(
@@ -133,3 +133,12 @@ function renderHourlyWeather(hourly) {
     hourlySection.append(element);
   });
 }
+
+fetch('http://www.geoplugin.net/json.gp')
+  .then((response) => response.json())
+  .then(
+    (jsonResponse) =>
+      (document.querySelector(
+        '[data-current-city]'
+      ).textContent = `${jsonResponse.geoplugin_city}:`)
+  );
