@@ -20,11 +20,17 @@ fetch('http://www.geoplugin.net/json.gp')
       });
   });
 
+function getLocalDate(dateValue, view) {
+  return new Intl.DateTimeFormat('en-GB', {
+    dateStyle: view,
+  }).format(dateValue);
+}
+
 const currentDate = new Intl.DateTimeFormat('en-GB', {
   dateStyle: 'full',
 }).format(new Date());
 
-document.querySelector('[data-current-date]').textContent = `${currentDate}`;
+document.querySelector('[data-current-date]').textContent = getLocalDate(new Date(), 'full');
 
 function renderWeather({ current, daily, hourly }) {
   renderCurrentWeather(current);
@@ -75,15 +81,18 @@ function renderCurrentWeather(current) {
 }
 
 const DAY_FORMATTER = new Intl.DateTimeFormat('en-GB', { weekday: 'long' });
+const CARD_DATE_FORMATTER = new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric' })
 const dailySection = document.querySelector('[data-day-section]');
 const dayCardTemplate = document.getElementById('day-card-template');
 function renderDailyWeather(daily) {
   dailySection.innerHTML = '';
   daily.forEach((day) => {
     const element = dayCardTemplate.content.cloneNode(true);
+    setValue('card-calendar', CARD_DATE_FORMATTER.format(day.timestamp), { parent: element });
     setValue('temp', day.maxTemp, { parent: element });
     setValue('date', DAY_FORMATTER.format(day.timestamp), { parent: element });
     element.querySelector('[data-icon]').src = getIconUrl(day.iconCode);
+
     dailySection.append(element);
   });
 }

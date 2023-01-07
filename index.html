@@ -4,6 +4,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> 
 </head>
 
 <body>
@@ -56,36 +59,43 @@
 
   <section class="day-section" data-day-section>
     <div class="day-card">
+      <p class="day-card-calendar" data-card-calendar></p>
       <img src="images/cloud.svg" class="weather-icon" alt="">
       <div class="day-card-date">Monday</div>
       <div>32&deg;</div>
     </div>
     <div class="day-card">
+      <p class="day-card-calendar" data-card-calendar></p>
       <img src="images/cloud.svg" class="weather-icon" alt="">
       <div class="day-card-date">Tuesday</div>
       <div>32&deg;</div>
     </div>
     <div class="day-card">
+      <p class="day-card-calendar" data-card-calendar></p>
       <img src="images/cloud.svg" class="weather-icon" alt="">
       <div class="day-card-date">Wednesday</div>
       <div>32&deg;</div>
     </div>
     <div class="day-card">
+      <p class="day-card-calendar" data-card-calendar></p>
       <img src="images/cloud.svg" class="weather-icon" alt="">
       <div class="day-card-date">Thursday</div>
       <div>32&deg;</div>
     </div>
     <div class="day-card">
+      <p class="day-card-calendar" data-card-calendar></p>
       <img src="images/cloud.svg" class="weather-icon" alt="">
       <div class="day-card-date">Friday</div>
       <div>32&deg;</div>
     </div>
     <div class="day-card">
+      <p class="day-card-calendar" data-card-calendar></p>
       <img src="images/cloud.svg" class="weather-icon" alt="">
       <div class="day-card-date">Saturday</div>
       <div>32&deg;</div>
     </div>
     <div class="day-card">
+      <p class="day-card-calendar" data-card-calendar></p>
       <img src="images/cloud.svg" class="weather-icon" alt="">
       <div class="day-card-date">Sunday</div>
       <div>32&deg;</div>
@@ -484,9 +494,10 @@
 
   <template id="day-card-template">
     <div class="day-card">
+      <p class="day-card-calendar" data-card-calendar></p>
       <img data-icon class="weather-icon middle" alt="">
       <div class="day-card-date" data-date></div>
-      <div>
+      <div class="day-card-temperature">
         <span data-temp></span>
         <span>&deg;</span>
       </div>
