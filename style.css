@@ -93,7 +93,7 @@ body {
 
 .weather-icon.large {
   width: 100px;
-  height: 100px;
+  height: auto;
 }
 
 .header-current-temp {
@@ -194,6 +194,10 @@ body {
   .day-card {
     width: calc(100% / 8);
     max-width: 120px;
+  }
+
+  .weather-icon.large {
+    width: 160px;
   }
 }
 

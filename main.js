@@ -2,37 +2,29 @@ import { ICON_MAP } from './iconMap';
 import './style.css';
 import { getWeather } from './weather';
 
-navigator.geolocation.getCurrentPosition(positionSuccess, positionError);
+fetch('http://www.geoplugin.net/json.gp')
+  .then((response) => response.json())
+  .then((data) => {
+    document.querySelector(
+      '[data-current-city]'
+    ).textContent = `${data.geoplugin_city}:`;
+    getWeather(
+      data.geoplugin_latitude,
+      data.geoplugin_longitude,
+      Intl.DateTimeFormat().resolvedOptions().timeZone
+    )
+      .then(renderWeather)
+      .catch((err) => {
+        console.log(err);
+        alert('Error getting weather...');
+      });
+  });
 
 const currentDate = new Intl.DateTimeFormat('en-GB', {
   dateStyle: 'full',
 }).format(new Date());
 
 document.querySelector('[data-current-date]').textContent = `${currentDate}`;
-
-function positionSuccess({ coords }) {
-  getWeather(
-    coords.latitude,
-    coords.longitude,
-    Intl.DateTimeFormat().resolvedOptions().timeZone
-  )
-    .then(renderWeather)
-    .catch((err) => {
-      console.log(err);
-      alert('Error getting weather...');
-    });
-}
-
-function positionError() {
-  const lat = 48.92;
-  const lng = 24.71;
-  getWeather(lat, lng, Intl.DateTimeFormat().resolvedOptions().timeZone)
-    .then(renderWeather)
-    .catch((err) => {
-      console.log(err);
-      alert('Error getting weather...');
-    });
-}
 
 function renderWeather({ current, daily, hourly }) {
   renderCurrentWeather(current);
@@ -133,12 +125,3 @@ function renderHourlyWeather(hourly) {
     hourlySection.append(element);
   });
 }
-
-fetch('http://www.geoplugin.net/json.gp')
-  .then((response) => response.json())
-  .then(
-    (jsonResponse) =>
-      (document.querySelector(
-        '[data-current-city]'
-      ).textContent = `${jsonResponse.geoplugin_city}:`)
-  );
