@@ -30,7 +30,10 @@ const currentDate = new Intl.DateTimeFormat('en-GB', {
   dateStyle: 'full',
 }).format(new Date());
 
-document.querySelector('[data-current-date]').textContent = getLocalDate(new Date(), 'full');
+document.querySelector('[data-current-date]').textContent = getLocalDate(
+  new Date(),
+  'full'
+);
 
 function renderWeather({ current, daily, hourly }) {
   renderCurrentWeather(current);
@@ -81,14 +84,19 @@ function renderCurrentWeather(current) {
 }
 
 const DAY_FORMATTER = new Intl.DateTimeFormat('en-GB', { weekday: 'long' });
-const CARD_DATE_FORMATTER = new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric' })
+const CARD_DATE_FORMATTER = new Intl.DateTimeFormat('en-US', {
+  month: 'long',
+  day: 'numeric',
+});
 const dailySection = document.querySelector('[data-day-section]');
 const dayCardTemplate = document.getElementById('day-card-template');
 function renderDailyWeather(daily) {
   dailySection.innerHTML = '';
   daily.forEach((day) => {
     const element = dayCardTemplate.content.cloneNode(true);
-    setValue('card-calendar', CARD_DATE_FORMATTER.format(day.timestamp), { parent: element });
+    setValue('card-calendar', CARD_DATE_FORMATTER.format(day.timestamp), {
+      parent: element,
+    });
     setValue('temp', day.maxTemp, { parent: element });
     setValue('date', DAY_FORMATTER.format(day.timestamp), { parent: element });
     element.querySelector('[data-icon]').src = getIconUrl(day.iconCode);
@@ -134,3 +142,16 @@ function renderHourlyWeather(hourly) {
     hourlySection.append(element);
   });
 }
+
+function svgToBase64Image(svgElement) {
+  var div = document.createElement('div');
+  div.appendChild(svgElement.cloneNode(true));
+  var b64 = window.btoa(div.innerHTML);
+  return 'data:image/svg+xml;base64,' + b64;
+}
+const svgs = document.getElementsByTagName('svg');
+const urls = [];
+for (var i = 0; i < svgs.length; i++)
+  urls.push('url("' + svgToBase64Image(svgs[i]) + '")');
+const url = urls.join(',');
+document.querySelector('.pattern').style.background = url;
