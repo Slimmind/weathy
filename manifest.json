@@ -44,7 +44,7 @@
   "orientation": "portrait-primary",
   "background_color": "#fff",
   "theme_color": "#80d4ff",
-  "description": "A simple weather forecast app",
+  "description": "A simple weather forecast pwa-app",
   "dir": "ltr",
   "lang": "en-US"
 }

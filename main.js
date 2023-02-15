@@ -2,6 +2,22 @@ import { ICON_MAP } from './iconMap';
 import './style.css';
 import { getWeather } from './weather';
 
+// if (navigator.geolocation) {
+//   navigator.geolocation.getCurrentPosition(async (position) => {
+//     try {
+//       const weatherData = await getWeather(
+//         position.coords.latitude,
+//         position.coords.longitude,
+//         Intl.DateTimeFormat().resolvedOptions().timeZone
+//       );
+//       await renderWeather(weatherData);
+//     } catch (err) {
+//       console.log(err);
+//       alert('Error getting weather...');
+//     }
+//   });
+// } else {
+// }
 fetch('http://www.geoplugin.net/json.gp')
   .then((response) => response.json())
   .then((data) => {
