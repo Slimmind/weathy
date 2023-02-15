@@ -2,39 +2,69 @@ import { ICON_MAP } from './iconMap';
 import './style.css';
 import { getWeather } from './weather';
 
-// if (navigator.geolocation) {
-//   navigator.geolocation.getCurrentPosition(async (position) => {
-//     try {
-//       const weatherData = await getWeather(
-//         position.coords.latitude,
-//         position.coords.longitude,
-//         Intl.DateTimeFormat().resolvedOptions().timeZone
-//       );
-//       await renderWeather(weatherData);
-//     } catch (err) {
-//       console.log(err);
-//       alert('Error getting weather...');
-//     }
-//   });
-// } else {
+// async function initialize() {
+//   try {
+//     const position = await new Promise((resolve, reject) => {
+//       navigator.geolocation.getCurrentPosition(resolve, reject);
+//     });
+//     const latitude = position.coords.latitude;
+//     const longitude = position.coords.longitude;
+//     const locationResponse = await fetch(
+//       `https://geocode.maps.co/reverse?lat=${latitude}&lon=${longitude}`
+//     );
+//     const locationData = await locationResponse.json();
+//     const weatherData = await getWeather(
+//       latitude,
+//       longitude,
+//       Intl.DateTimeFormat().resolvedOptions().timeZone
+//     );
+
+//     document.querySelector(
+//       '[data-current-city]'
+//     ).textContent = `${locationData.address.city}:`;
+
+//     renderWeather(weatherData);
+//   } catch (error) {
+//     console.log(err);
+//     alert('Error getting weather...');
+//   }
 // }
-fetch('http://www.geoplugin.net/json.gp')
-  .then((response) => response.json())
-  .then((data) => {
-    document.querySelector(
-      '[data-current-city]'
-    ).textContent = `${data.geoplugin_city}:`;
-    getWeather(
-      data.geoplugin_latitude,
-      data.geoplugin_longitude,
-      Intl.DateTimeFormat().resolvedOptions().timeZone
-    )
-      .then(renderWeather)
-      .catch((err) => {
-        console.log(err);
-        alert('Error getting weather...');
-      });
-  });
+
+function initialize() {
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  })
+    .then((position) => {
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+      const locationUrl = `https://geocode.maps.co/reverse?lat=${latitude}&lon=${longitude}`;
+
+      return Promise.all([
+        fetch(locationUrl).then((res) => res.json()),
+        getWeather(
+          latitude,
+          longitude,
+          Intl.DateTimeFormat().resolvedOptions().timeZone
+        ),
+      ]);
+    })
+    .then(([locationData, weatherData]) => {
+      document.querySelector(
+        '[data-current-city]'
+      ).textContent = `${locationData.address.city}:`;
+      renderWeather(weatherData);
+    })
+    .catch((error) => {
+      console.log(error);
+      alert('Error getting weather...');
+    });
+}
+
+if (navigator.geolocation) {
+  initialize();
+} else {
+  alert('Please allow us to your geolocation =^..^=');
+}
 
 function getLocalDate(dateValue, view) {
   return new Intl.DateTimeFormat('en-GB', {
