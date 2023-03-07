@@ -2,23 +2,42 @@ import { ICON_MAP } from './iconMap';
 import './style.css';
 import { getWeather } from './weather';
 
-fetch('http://www.geoplugin.net/json.gp')
-  .then((response) => response.json())
-  .then((data) => {
-    document.querySelector(
-      '[data-current-city]'
-    ).textContent = `${data.geoplugin_city}:`;
-    getWeather(
-      data.geoplugin_latitude,
-      data.geoplugin_longitude,
-      Intl.DateTimeFormat().resolvedOptions().timeZone
-    )
-      .then(renderWeather)
-      .catch((err) => {
-        console.log(err);
-        alert('Error getting weather...');
+async function init() {
+  if ('geolocation' in navigator) {
+    try {
+      const position = await new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject);
       });
-  });
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+      renderData(latitude, longitude);
+      console.log('GET COORDS BY GEO_API');
+    } catch (error) {
+      console.log(error);
+      getCurrentPositionByIp();
+    }
+  } else {
+    getCurrentPositionByIp();
+  }
+}
+
+init();
+
+async function getCurrentPositionByIp() {
+  const response = await fetch('http://www.geoplugin.net/json.gp');
+  const { geoplugin_latitude, geoplugin_longitude } = await response.json();
+  renderData(geoplugin_latitude, geoplugin_longitude);
+  console.log('GET COORDS BY IP_ADDRESS');
+}
+
+function renderData(lat, lng) {
+  getWeather(lat, lng, Intl.DateTimeFormat().resolvedOptions().timeZone)
+    .then(renderWeather)
+    .catch((err) => {
+      console.log(err);
+      alert('Error getting weather...');
+    });
+}
 
 function getLocalDate(dateValue, view) {
   return new Intl.DateTimeFormat('en-GB', {
