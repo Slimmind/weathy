@@ -1,0 +1,64 @@
+:root {
+  --color-light: hsl(200, 100%, 75%);
+  --color-lighter: hsl(200, 100%, 80%);
+  --color-lightest: hsl(200, 100%, 85%);
+  --color-dark: hsl(200, 100%, 20%);
+  --color-darker: hsl(200, 100%, 10%);
+  --color-border: hsla(200, 100%, 25%, .5);
+  --color-bar: hsla(200, 100%, 25%, .3);
+
+  --tab: 640px;
+  --desk: 1200px;
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: url('./assets/bg-pattern.svg');
+}
+
+ul {
+  list-style: none;
+}
+
+.pattern {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  z-index: -1;
+}
+
+.pattern svg {
+  display: none;
+}
+
+.App {
+  height: 100vh;
+  padding-top: 70px;
+  color: var(--color-dark);
+  font-family: 'Roboto', sans-serif;
+  overflow: scroll;
+  scroll-behavior: smooth;
+  transition: opacity 1s;
+}
+
+.weather-icon {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.weather-icon--middle {
+  width: 60px;
+  height: 60px;
+}
+
+.weather-icon--large {
+  width: 100px;
+  height: auto;
+}

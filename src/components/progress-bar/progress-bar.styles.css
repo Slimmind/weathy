@@ -1,0 +1,31 @@
+.progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(-45deg, var(--color-border), var(--color-border) 10px, var(--color-bar) 10px, var(--color-bar) 20px);
+  background-size: 600% 51px;
+  animation: stripes 30s linear infinite forwards;
+}
+
+.progress-bar::after {
+  content: 'updating...';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  font-size: 12px;
+  line-height: 24px;
+  font-weight: normal;
+  text-align: center;
+}
+
+@keyframes stripes {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+}

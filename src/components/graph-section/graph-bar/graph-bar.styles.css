@@ -1,0 +1,16 @@
+.graph-bar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 1rem;
+  background-color: var(--color-border);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+}
+
+.graph-bar__icon svg {
+  width: 24px;
+  height: 24px;
+}
