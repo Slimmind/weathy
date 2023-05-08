@@ -2,7 +2,7 @@ import { DAY_FORMATTER } from '../../utils/date-formatter';
 import { HourGroup } from './hour-group/HourGroup';
 import './hour-section.styles.css';
 
-export const HourSection = ({ data }) => {
+export const HourSection = ({ data, handleScroll }) => {
   const { hourly, current_weather } = data;
 
   const hourlyWeather = hourly.time
@@ -40,7 +40,11 @@ export const HourSection = ({ data }) => {
     <section className="hour-section">
       {
         dividedData.map(day => (
-          <HourGroup key={day[0].timestamp} data={day} />
+          <HourGroup
+            key={day[0].timestamp}
+            data={day}
+            handleScroll={handleScroll}
+          />
         ))
       }
     </section>

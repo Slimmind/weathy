@@ -7,7 +7,6 @@ export async function getCity(lat, lng) {
     const cityName = data.address.city || data.address.town;
     return cityName;
   } catch (error) {
-    alert('GET_CITY_ERROR: ', error);
     console.error('ERR: ', error);
   }
 }

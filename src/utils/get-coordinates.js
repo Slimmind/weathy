@@ -8,7 +8,6 @@ export async function getCoordinates() {
       lng: position.coords.longitude,
     };
   } catch (error) {
-    alert('GET_COORDINATES_ERROR: ', error);
     console.error(error);
   }
 }

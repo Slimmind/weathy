@@ -12,7 +12,7 @@ import { getWeather } from './utils/get-weather';
 import { setLocalStorage } from './utils/set-local-storage';
 import { getLocalStorage } from './utils/get-local-storage';
 
-const fetchData = async () => {
+const getAppData = async () => {
   const { lat, lng } = await getCoordinates();
   const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   const data = await getWeather(lat, lng, timeZone);
@@ -34,10 +34,18 @@ function App() {
   const [coordinates, setCoordinates] = useState(null);
   const [location, setLocation] = useState(null);
   const [weather, setWeather] = useState(null);
+  // const [scrolledDay, setScrolledDay] = useState(Date.now());
   const cachedCoordinates = getLocalStorage('coordinates');
   const updating = useRef(false);
+  let scrolledDay = Date.now();
 
-  const successFetchData = ({
+  const scrollDays = (timestamp) => {
+    // setScrolledDay(timestamp);
+    scrolledDay = timestamp;
+    console.log('SCROLL: ', timestamp);
+  };
+
+  const fetchedData = ({
     coordinates,
     locationData,
     weatherData,
@@ -60,10 +68,10 @@ function App() {
 
       if (renderDate - cachedWeatherData.fetchDate > updateDelay) {
         updating.current = true;
-        fetchData().then(successFetchData);
+        getAppData().then(fetchedData);
       }
     } else {
-      fetchData().then(successFetchData);
+      getAppData().then(fetchedData);
     }
   }, []);
 
@@ -81,13 +89,16 @@ function App() {
             <Header
               location={location}
               isUpdating={updating.current}
+              dateToShow={scrolledDay}
             />
             {weather && (
               <>
                 <CurrentSection data={weather} />
-                <DaySection data={weather.daily} />
+                <DaySection
+                  data={weather.daily}
+                />
                 <GraphSection data={weather.daily} />
-                <HourSection data={weather} />
+                <HourSection data={weather} handleScroll={scrollDays} />
               </>
             )}
           </>

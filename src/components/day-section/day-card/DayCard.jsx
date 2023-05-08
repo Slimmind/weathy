@@ -2,7 +2,7 @@ import { CARD_DATE_FORMATTER, DAY_FORMATTER } from '../../../utils/date-formatte
 import { getIcon } from '../../../utils/get-icon';
 import './day-card-styles.css'
 
-export const DayCard = ({ time, icon, temp }) => {
+export const DayCard = ({ time, icon, minTemp, maxTemp }) => {
   const IconComponent = getIcon(icon);
   const linkUrl = `#${DAY_FORMATTER.format(time).toLowerCase()}`;
 
@@ -12,7 +12,7 @@ export const DayCard = ({ time, icon, temp }) => {
       <div className="weather-icon weather-icon--middle"><IconComponent /></div>
       <div className="day-card__date">{DAY_FORMATTER.format(time)}</div>
       <div className="day-card__temperature">
-        <span>{temp}&deg;</span>
+        <span>{minTemp}&deg; - {maxTemp}&deg;</span>
       </div>
     </a>
   );
