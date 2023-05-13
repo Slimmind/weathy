@@ -1,6 +1,7 @@
 .current-section {
   display: flex;
   align-items: center;
+  animation: appearFromLeft var(--timing) forwards;
 }
 
 .current-section__left {

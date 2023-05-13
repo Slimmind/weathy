@@ -1,9 +1,9 @@
-import { useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { getIcon } from '../../../utils/get-icon';
 import { DAY_FORMATTER, HOUR_FORMATTER } from '../../../utils/date-formatter';
 import './hour-row.styles.css';
 
-export const HourRow = ({ data }) => {
+export const HourRow = React.memo(({ data }) => {
   const {
     timestamp,
     iconCode,
@@ -61,4 +61,4 @@ export const HourRow = ({ data }) => {
         </li>
       )
   );
-}
+});

@@ -1,7 +1,8 @@
+import React from 'react';
 import DayCard from "./day-card";
 import './day-section-styles.css';
 
-export const DaySection = ({ data }) => {
+export const DaySection = React.memo(({ data }) => {
   const weather = data.time.map((time, index) => ({
     timestamp: time * 1000,
     iconCode: data.weathercode[index],
@@ -20,4 +21,4 @@ export const DaySection = ({ data }) => {
       }
     </ul>
   );
-};
+});

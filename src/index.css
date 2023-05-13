@@ -9,6 +9,8 @@
 
   --tab: 640px;
   --desk: 1200px;
+
+  --timing: 1s;
 }
 
 *, *::before, *::after {
@@ -61,4 +63,37 @@ ul {
 .weather-icon--large {
   width: 100px;
   height: auto;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes appearFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes appearFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }

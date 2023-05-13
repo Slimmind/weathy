@@ -1,9 +1,10 @@
+import React from 'react';
 import { GraphBar } from './graph-bar/GraphBar';
 import { ScaleXItem } from './scale-x-item/ScaleXItem';
 import { getBarHeight } from '../../utils/get-bar-height';
 import './graph-section.styles.css';
 
-export const TemperatureGraph = ({ data }) => {
+export const TemperatureGraph = React.memo(({ data }) => {
   const weather = data.time.map((time, index) => ({
     timestamp: time * 1000,
     iconCode: data.weathercode[index],
@@ -34,4 +35,4 @@ export const TemperatureGraph = ({ data }) => {
       </ul>
     </section>
   );
-}
+});

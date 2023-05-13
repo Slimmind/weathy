@@ -1,7 +1,8 @@
+import React from 'react';
 import { getIcon } from '../../utils/get-icon';
 import './current-section.styles.css';
 
-export const CurrentSection = ({ data }) => {
+export const CurrentSection = React.memo(({ data }) => {
   const { current_weather, daily } = data;
   const {
     temperature: currentTemp,
@@ -61,4 +62,4 @@ export const CurrentSection = ({ data }) => {
       </div>
     </div>
   );
-}
+});

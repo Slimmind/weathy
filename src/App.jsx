@@ -34,15 +34,12 @@ function App() {
   const [coordinates, setCoordinates] = useState(null);
   const [location, setLocation] = useState(null);
   const [weather, setWeather] = useState(null);
-  // const [scrolledDay, setScrolledDay] = useState(Date.now());
+  const [scrolledDay, setScrolledDay] = useState(Date.now());
   const cachedCoordinates = getLocalStorage('coordinates');
   const updating = useRef(false);
-  let scrolledDay = Date.now();
 
   const scrollDays = (timestamp) => {
-    // setScrolledDay(timestamp);
-    scrolledDay = timestamp;
-    console.log('SCROLL: ', timestamp);
+    setScrolledDay(timestamp);
   };
 
   const fetchedData = ({
@@ -71,6 +68,7 @@ function App() {
         getAppData().then(fetchedData);
       }
     } else {
+      localStorage.clear();
       getAppData().then(fetchedData);
     }
   }, []);

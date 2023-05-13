@@ -1,3 +1,7 @@
+.temperature-graph {
+  animation: appearFromLeft var(--timing) forwards;
+}
+
 .temperature-graph ul {
   display: flex;
   justify-content: center;
