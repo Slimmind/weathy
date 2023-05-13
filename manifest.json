@@ -36,13 +36,19 @@
       "src": "public/icons/app-icon-512x512.png",
       "type": "image/png",
       "sizes": "512x512"
+    },
+    {
+      "src": "public/icons/maskable_icon.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
     }
   ],
   "start_url": "/index.html",
   "scope": ".",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "background_color": "#fff",
+  "background_color": "#80d4ff",
   "theme_color": "#80d4ff",
   "description": "A simple weather forecast pwa-app",
   "dir": "ltr",
