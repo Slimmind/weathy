@@ -5,6 +5,7 @@ import DaySection from './components/day-section';
 import GraphSection from './components/graph-section';
 import HourSection from './components/hour-section';
 import Preloader from './components/preloader';
+import MapSection from './components/map-section';
 // import BackToTop from './components/back-to-top';
 import { getCoordinates } from './utils/get-coordinates';
 import { getCity } from './utils/get-city';
@@ -96,6 +97,7 @@ function App() {
                   data={weather.daily}
                 />
                 <GraphSection data={weather.daily} />
+                <MapSection coords={Object.values(coordinates)} />
                 <HourSection data={weather} handleScroll={scrollDays} />
               </>
             )}
