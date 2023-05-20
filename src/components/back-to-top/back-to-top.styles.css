@@ -8,9 +8,9 @@
   border-radius: 50%;
   background-color: var(--color-border);
   transform: translateY(30px);
-  /* opacity: 0;
+  opacity: 0;
   pointer-events: none;
-  transition: opacity .3s, transform .3s; */
+  transition: opacity .3s, transform .3s;
 }
 
 .back-to-top::before,
