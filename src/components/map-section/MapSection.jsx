@@ -4,7 +4,7 @@ import 'leaflet/dist/leaflet.css';
 import './map-section.styles.css';
 import customMarkerImage from '/public/icons/marker-icon.svg';
 
-export const MapSection = React.memo(({ lat, lng }) => {
+export const MapSection = ({ lat, lng }) => {
   const mapRef = useRef(null);
 
   useEffect(() => {
@@ -12,7 +12,6 @@ export const MapSection = React.memo(({ lat, lng }) => {
     const coords = [lat, lng];
 
     const loadMap = () => {
-      console.log('COORDS: ', coords);
       map = L.map(mapRef.current).setView(coords, 12);
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -43,4 +42,4 @@ export const MapSection = React.memo(({ lat, lng }) => {
       <div className="map" ref={mapRef} />
     </div>
   )
-});
+};

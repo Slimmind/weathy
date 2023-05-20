@@ -6,6 +6,7 @@
   --color-darker: hsl(200, 100%, 10%);
   --color-border: hsla(200, 100%, 25%, .5);
   --color-bar: hsla(200, 100%, 25%, .3);
+  --color-light-transparent: hsla(200, 100%, 75%, .5);
 
   --tab: 640px;
   --desk: 1200px;
@@ -40,7 +41,7 @@ ul {
 
 .App {
   height: 100vh;
-  padding-top: 70px;
+  padding-top: 51px;
   color: var(--color-dark);
   font-family: 'Roboto', sans-serif;
   overflow: scroll;

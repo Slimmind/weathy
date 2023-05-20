@@ -1,6 +1,12 @@
 .current-section {
   display: flex;
   align-items: center;
+  margin: 1.5rem 1rem .5rem;
+  padding: 1rem 0;
+  background-color: var(--color-light-transparent);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+  border-radius: 1rem;
   animation: appearFromLeft var(--timing) forwards;
 }
 
@@ -9,8 +15,7 @@
   justify-content: center;
   align-items: center;
   width: 50%;
-  margin: .5rem;
-  padding: .5rem;
+  padding: 0 0.5rem;
   border-right: 4px solid var(--color-border);
 }
 

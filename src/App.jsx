@@ -6,6 +6,7 @@ import GraphSection from './components/graph-section';
 import HourSection from './components/hour-section';
 import Preloader from './components/preloader';
 import MapSection from './components/map-section';
+import BackgroundSection from './components/background-section';
 // import BackToTop from './components/back-to-top';
 import { getCoordinates } from './utils/get-coordinates';
 import { getCity } from './utils/get-city';
@@ -89,13 +90,13 @@ function App() {
               location={location}
               isUpdating={updating.current}
               dateToShow={scrolledDay}
+              weatherData={weather}
             />
             {weather && (
               <>
+                <BackgroundSection iconCode={weather.current_weather.weathercode} />
                 <CurrentSection data={weather} />
-                <DaySection
-                  data={weather.daily}
-                />
+                <DaySection data={weather.daily} />
                 <GraphSection data={weather.daily} />
                 {/* <MapSection coords={Object.values(coordinates)} /> */}
                 <MapSection lat={coordinates.lat} lng={coordinates.lng} />

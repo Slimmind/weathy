@@ -6,7 +6,10 @@ export const Header = ({ location, isUpdating, dateToShow }) => {
   const getFullDate = (timestamp) => getLocalDate(timestamp, 'full');
 
   return (
-    <header className="main-header" id="main-header ">
+    <header
+      className="main-header"
+      id="main-header"
+    >
       {isUpdating && (
         <ProgressBar />
       )}
@@ -14,6 +17,6 @@ export const Header = ({ location, isUpdating, dateToShow }) => {
         <span className="main-header__city">{location}</span>
       )}
       <span className="main-header__date">{getFullDate(dateToShow)}</span>
-    </header>
+    </header >
   );
 }
