@@ -1,45 +1,25 @@
-import { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { getBackground } from '../../utils/get-background';
 
 import './background-section.styles.css';
 
-export const BackgroundSection = ({ iconCode }) => {
-  const imagePrompt = getBackground(iconCode, Date.now());
-  const [backgroundImage, setBackgroundImage] = useState('');
-  console.log('ICON: ', imagePrompt);
+export const BackgroundSection = React.memo(({ iconCode }) => {
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+  const imageUrl = getBackground(iconCode, Date.now());
+  console.log('IMAGE_URL', imageUrl);
 
-  useEffect(() => {
-    const generateRandomImage = async () => {
-      const response = await fetch('https://api.openai.com/v1/images/generations', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer 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'
-        },
-        body: JSON.stringify({
-          'prompt': imagePrompt,
-          "n": 1,
-          "size": "512x512"
-        })
-      });
-
-      const data = await response.json();
-      const image = data.data[0].url;
-      console.log('IMAGE: ', image);
-
-      setBackgroundImage(image);
-    };
-
-    generateRandomImage();
-  }, []);
+  const handleImageLoad = () => {
+    setIsImageLoaded(true);
+    console.log('IMAGE IS LOADED');
+  }
 
   return (
-    <section className="background-section">
+    <section className={`background-section ${isImageLoaded ? 'loaded' : ''}`}>
       {
-        backgroundImage && (
-          <img src={backgroundImage} alt={imagePrompt} />
+        imageUrl && (
+          <img onLoad={handleImageLoad} src={imageUrl} alt="weather background" />
         )
       }
     </section>
   );
-};
+});

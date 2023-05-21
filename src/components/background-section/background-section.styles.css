@@ -2,9 +2,18 @@
   position: fixed;
   top: 51px;
   width: 100%;
-  -webkit-mask-image: linear-gradient(black, transparent);
-  mask-image: linear-gradient(black, transparent);
+  -webkit-mask-image: linear-gradient(black 70%, transparent);
+  mask-image: linear-gradient(black 70%, transparent);
+  opacity: 0;
+  transform-origin: top;
+  transform: scale(1.5);
+  transition: opacity 2s, transform 2s;
   z-index: 0;
+}
+
+.background-section.loaded {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .background-section img {

@@ -98,7 +98,6 @@ function App() {
                 <CurrentSection data={weather} />
                 <DaySection data={weather.daily} />
                 <GraphSection data={weather.daily} />
-                {/* <MapSection coords={Object.values(coordinates)} /> */}
                 <MapSection lat={coordinates.lat} lng={coordinates.lng} />
                 <HourSection data={weather} handleScroll={scrollDays} />
               </>
