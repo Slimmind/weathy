@@ -19,6 +19,7 @@ export const TemperatureGraph = React.memo(({ data }) => {
           weather.map(({ maxTemp, iconCode, timestamp }, idx) => (
             <GraphBar
               key={timestamp}
+              time={timestamp}
               temp={maxTemp}
               icon={iconCode}
               size={barHeights[idx]}

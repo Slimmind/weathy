@@ -12,7 +12,14 @@ export const MapSection = ({ lat, lng }) => {
     const coords = [lat, lng];
 
     const loadMap = () => {
-      map = L.map(mapRef.current).setView(coords, 12);
+      map = L.map(mapRef.current, {
+        dragging: false,
+        scrollWheelZoom: false,
+        doubleClickZoom: false,
+        boxZoom: false,
+        touchZoom: false,
+        zoomControl: false
+      }).setView(coords, 12);
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: 'Map data &copy; OpenStreetMap contributors',

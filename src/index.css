@@ -42,6 +42,7 @@ ul {
 .App {
   height: 100vh;
   padding-top: 51px;
+  scroll-padding-top: 51px;
   color: var(--color-dark);
   font-family: 'Roboto', sans-serif;
   overflow: scroll;

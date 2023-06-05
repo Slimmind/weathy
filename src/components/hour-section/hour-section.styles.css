@@ -1,5 +1,6 @@
 .hour-section {
   width: 100%;
+  scroll-padding-top: 50px;
   text-align: center;
   border-spacing: 0;
   box-shadow: 0 0 10px 0 var(--color-dark);

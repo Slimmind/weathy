@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React from 'react';
 import { getIcon } from '../../../utils/get-icon';
 import { DAY_FORMATTER, HOUR_FORMATTER } from '../../../utils/date-formatter';
 import './hour-row.styles.css';
@@ -21,7 +21,6 @@ export const HourRow = React.memo(({ data }) => {
       ? (
         <li
           className="hour-section__row--separator"
-          id={day.toLocaleLowerCase()}
         >{day}</li>
       ) : (
         <li className="hour-section__row">
