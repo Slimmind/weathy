@@ -17,47 +17,40 @@ export const HourRow = React.memo(({ data }) => {
   const IconComponent = getIcon(iconCode, timestamp);
 
   return (
-    HOUR_FORMATTER.format(timestamp) === '00:00'
-      ? (
-        <li
-          className="hour-section__row--separator"
-        >{day}</li>
-      ) : (
-        <li className="hour-section__row">
-          <div>
-            <div className="info-group">
-              <div className="label">{day}</div>
-              <div>{hour}</div>
-            </div>
-          </div>
-          <div className="weather-icon">
-            <IconComponent />
-          </div>
-          <div>
-            <div className="info-group">
-              <div className="label">Temp</div>
-              <div>{temp}&deg;</div>
-            </div>
-          </div>
-          <div>
-            <div className="info-group">
-              <div className="label">FL Temp</div>
-              <div>{feelsLike}&deg;</div>
-            </div>
-          </div>
-          <div>
-            <div className="info-group">
-              <div className="label">Wind</div>
-              <div>{windSpeed}<span className="value-sub-info">ms</span></div>
-            </div>
-          </div>
-          <div>
-            <div className="info-group">
-              <div className="label">Precip</div>
-              <div>{precip}<span className="value-sub-info">mm</span></div>
-            </div>
-          </div>
-        </li>
-      )
+    <li className="hour-section__row">
+      <div>
+        <div className="info-group">
+          <div className="label">{day}</div>
+          <div>{hour}</div>
+        </div>
+      </div>
+      <div className="weather-icon">
+        <IconComponent />
+      </div>
+      <div>
+        <div className="info-group">
+          <div className="label">Temp</div>
+          <div>{temp}&deg;</div>
+        </div>
+      </div>
+      <div>
+        <div className="info-group">
+          <div className="label">FL Temp</div>
+          <div>{feelsLike}&deg;</div>
+        </div>
+      </div>
+      <div>
+        <div className="info-group">
+          <div className="label">Wind</div>
+          <div>{windSpeed}<span className="value-sub-info">ms</span></div>
+        </div>
+      </div>
+      <div>
+        <div className="info-group">
+          <div className="label">Precip</div>
+          <div>{precip}<span className="value-sub-info">mm</span></div>
+        </div>
+      </div>
+    </li>
   );
 });

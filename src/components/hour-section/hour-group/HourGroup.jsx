@@ -5,7 +5,7 @@ import { DAY_FORMATTER } from '../../../utils/date-formatter';
 
 export const HourGroup = ({ data, handleScroll }) => {
   const ref = useRef(null);
-  const day = DAY_FORMATTER.format(data.timestamp);
+  const day = DAY_FORMATTER.format(data[0].timestamp);
 
   useEffect(() => {
     const observer = new IntersectionObserver(entries => {
@@ -31,6 +31,9 @@ export const HourGroup = ({ data, handleScroll }) => {
       data-timestamp={data[0].timestamp}
       id={day.toLocaleLowerCase()}
     >
+      <li className="hour-section__row--separator">
+        {day}
+      </li>
       {
         data.map(hour => (
           <HourRow

@@ -1,9 +1,7 @@
 .hour-section {
+  position: relative;
   width: 100%;
-  scroll-padding-top: 50px;
+  padding: 0 1rem;
   text-align: center;
   border-spacing: 0;
-  box-shadow: 0 0 10px 0 var(--color-dark);
-  -webkit-backdrop-filter: blur(3px);
-  backdrop-filter: blur(3px);
 }
