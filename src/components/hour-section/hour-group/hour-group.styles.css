@@ -1,0 +1,5 @@
+.hour-section__group {
+  margin-bottom: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 10px 0 var(--color-dark);
+}

@@ -1,0 +1,20 @@
+.day-section {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 1rem;
+  text-align: center;
+  list-style: none;
+  animation: appearFromRight var(--timing) forwards;
+}
+
+.day-section__item {
+  width: 33.33%;
+}
+
+@media (min-width: 1200px) {
+  .day-section__item {
+    width: calc(100% / 6);
+    /* max-width: 200px; */
+  }
+}

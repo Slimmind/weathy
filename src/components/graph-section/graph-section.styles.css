@@ -1,0 +1,27 @@
+.temperature-graph {
+  animation: appearFromLeft var(--timing) forwards;
+}
+
+.temperature-graph ul {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 0 1rem;
+  list-style: none;
+}
+
+.temperature-graph li {
+  width: calc(100% / 7);
+  max-width: 100px;
+  margin: 0 0.25rem;
+  padding: .5rem 0;
+  text-align: center;
+}
+
+.temperature-graph__bars {
+  height: 150px;
+}
+
+.scale-x {
+  margin-bottom: 1rem;
+}
