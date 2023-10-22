@@ -1,32 +1,33 @@
-import { Coordinates } from './types';
-
-interface Position {
-  coords: {
-    latitude: number;
-    longitude: number;
-    altitude: number | null;
-    accuracy: number;
-    altitudeAccuracy: number | null;
-    heading: number | null;
-    speed: number | null;
-  };
-  timestamp: number;
-}
+import { getStoredData } from './get-stored-data';
+import { storeData } from './store-data';
+import { Coordinates, Position } from './types';
 
 export async function getCoordinates(): Promise<Coordinates | undefined> {
-  try {
-    const position = await new Promise<Position>((resolve, reject) => {
-      navigator.geolocation.getCurrentPosition(
-        (position: Position) => resolve(position),
-        reject
-      );
-    });
-    return {
-      lat: position.coords.latitude,
-      lng: position.coords.longitude,
-    };
-  } catch (error) {
-    console.error(error);
-    return undefined;
-  }
+	try {
+		const storedCoordinates = getStoredData('coordinates');
+		if (storedCoordinates) {
+			return storedCoordinates;
+		}
+		const position = await getCurrentPosition();
+		const coordinates = {
+			lat: position.coords.latitude,
+			lng: position.coords.longitude,
+		};
+
+		storeData('coordinates', coordinates);
+
+		return coordinates;
+	} catch (error) {
+		console.error(error);
+		return undefined;
+	}
+}
+
+function getCurrentPosition(): Promise<Position> {
+	return new Promise((resolve, reject) => {
+		navigator.geolocation.getCurrentPosition(
+			(position: Position) => resolve(position),
+			reject
+		);
+	});
 }
