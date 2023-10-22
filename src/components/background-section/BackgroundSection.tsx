@@ -4,13 +4,13 @@ import { getBackground } from '../../utils/get-background';
 import './background-section.styles.css';
 
 interface BackgroundSectionProps {
-  iconCode: number;
+  iconCode: number | undefined;
 }
 
 export const BackgroundSection: React.FC<BackgroundSectionProps> = React.memo(
   ({ iconCode }) => {
     const [isImageLoaded, setIsImageLoaded] = useState(false);
-    const imageUrl = getBackground(iconCode, Date.now());
+    const imageUrl = iconCode && getBackground(iconCode, Date.now());
 
     const handleImageLoad = (): void => {
       setIsImageLoaded(true);

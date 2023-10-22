@@ -24,6 +24,12 @@ body {
   background: url('./assets/bg-pattern.svg');
 }
 
+button {
+	vertical-align: top;
+	background-color: transparent;
+	border: none;
+}
+
 ul {
   list-style: none;
 }
@@ -41,7 +47,7 @@ ul {
 
 .App {
   height: 100vh;
-  padding-top: 51px;
+  padding-top: 56px;
   scroll-padding-top: 66px;
   color: var(--color-dark);
   font-family: 'Roboto', sans-serif;
