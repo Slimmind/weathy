@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from './components/header';
 import CurrentSection from './components/current-section';
 import DaySection from './components/day-section';
@@ -61,7 +61,6 @@ function App() {
 	const [location, setLocation] = useState<string>('');
 	const [weather, setWeather] = useState<WeatherData | undefined | null>(null);
 	const [scrolledDay, setScrolledDay] = useState<number>(Date.now());
-	const updating = useRef(false);
 
 	const scrollDays = (timestamp: number) => {
 		setScrolledDay(timestamp);
@@ -75,7 +74,6 @@ function App() {
 		setCoordinates(coordinates);
 		setLocation(locationData);
 		setWeather(weatherData);
-		updating.current = false;
 	};
 
 	useEffect(() => {
