@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from './components/header';
 import CurrentSection from './components/current-section';
 import DaySection from './components/day-section';
@@ -91,18 +91,16 @@ function App() {
 			{coordinates && weather && (
 				<>
 					<Header location={location} dateToShow={scrolledDay} />
-					{weather && (
-						<>
-							<BackgroundSection
-								iconCode={weather?.current_weather?.weathercode}
-							/>
-							<CurrentSection data={weather} />
-							<DaySection data={weather.daily} />
-							<GraphSection data={weather.daily} />
-							<MapSection lat={coordinates.lat} lng={coordinates.lng} />
-							<HourSection data={weather} handleScroll={scrollDays} />
-						</>
-					)}
+					<>
+						<BackgroundSection
+							iconCode={weather?.current_weather?.weathercode}
+						/>
+						<CurrentSection data={weather} />
+						<DaySection data={weather.daily} />
+						<GraphSection data={weather.daily} />
+						<MapSection lat={coordinates.lat} lng={coordinates.lng} />
+						<HourSection data={weather} handleScroll={scrollDays} />
+					</>
 				</>
 			)}
 		</div>
