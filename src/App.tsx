@@ -91,18 +91,16 @@ function App() {
 			{coordinates && weather && (
 				<>
 					<Header location={location} dateToShow={scrolledDay} />
-					{weather && (
-						<>
-							<BackgroundSection
-								iconCode={weather?.current_weather?.weathercode}
-							/>
-							<CurrentSection data={weather} />
-							<DaySection data={weather.daily} />
-							<GraphSection data={weather.daily} />
-							<MapSection lat={coordinates.lat} lng={coordinates.lng} />
-							<HourSection data={weather} handleScroll={scrollDays} />
-						</>
-					)}
+					<>
+						<BackgroundSection
+							iconCode={weather?.current_weather?.weathercode}
+						/>
+						<CurrentSection data={weather} />
+						<DaySection data={weather.daily} />
+						<GraphSection data={weather.daily} />
+						<MapSection lat={coordinates.lat} lng={coordinates.lng} />
+						<HourSection data={weather} handleScroll={scrollDays} />
+					</>
 				</>
 			)}
 		</div>
