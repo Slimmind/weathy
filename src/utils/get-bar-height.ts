@@ -1,11 +1,16 @@
 interface BarData {
 	iconCode: number;
+	minTemp: number;
 	maxTemp: number;
 	timestamp: number;
 }
 
 export function getBarHeight(data: BarData[]): string[] {
-	const tempValues = data.map((day) => day.maxTemp);
+	const tempValues = data.map((day) =>
+		day.minTemp < 0 && day.maxTemp >= 0
+			? day.minTemp + day.maxTemp
+			: (day.minTemp + day.maxTemp) / 2
+	);
 	const maxTemp = Math.max(...tempValues);
 	const minTemp = Math.min(...tempValues);
 	const total = Math.abs(maxTemp) + Math.abs(minTemp);
