@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { getIcon } from '../../utils/get-icon';
 import './current-section.styles.css';
 import { WeatherData } from '../../utils/types';
@@ -22,7 +22,7 @@ export const CurrentSection: React.FC<CurrentSectionProps> = React.memo(
 			apparent_temperature_min: [minFeelsLikeTemp],
 			precipitation_sum: [precip],
 		} = daily;
-		const IconComponent = getIcon(iconCode, Date.now());
+		const IconComponent = getIcon(iconCode, Date.now()) as FC;
 
 		return (
 			<div className='current-section' id='current-section'>

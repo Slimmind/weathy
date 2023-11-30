@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import {
 	CARD_DATE_FORMATTER,
 	DAY_FORMATTER,
@@ -19,7 +19,7 @@ export const DayCard: React.FC<DayCardComponentProps> = ({
 	minTemp,
 	maxTemp,
 }) => {
-	const IconComponent = getIcon(icon, time);
+	const IconComponent = getIcon(icon, time) as FC;
 	const linkUrl = `#${DAY_FORMATTER.format(time).toLowerCase()}`;
 
 	return (
