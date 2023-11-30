@@ -4,6 +4,19 @@
   background-color: var(--color-border);
   -webkit-backdrop-filter: blur(3px);
   backdrop-filter: blur(3px);
+	background-image: linear-gradient(to top, var(--color-border) 0%, transparent 100%);
+}
+
+.graph-bar__value--min {
+	position: absolute;
+	display: block;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	height: 52px;
+	padding-top: 0.25rem;
+	border-radius: 0 0 1rem 1rem;
+	font-size: 0.75rem;
 }
 
 .graph-bar__link {
