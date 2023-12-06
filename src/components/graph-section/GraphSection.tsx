@@ -9,12 +9,14 @@ interface TemperatureGraphProps {
 	data: Daily | undefined;
 }
 
-export const TemperatureGraph: React.FC<TemperatureGraphProps> = ({ data }) => {
-	if (!data) {
-		return null;
+export const TemperatureGraph = ({ data }: TemperatureGraphProps) => {
+	if (!data?.time.length) {
+		return (
+			<div className='temperature-graph temperature-graph--skeleton'></div>
+		);
 	}
 
-	const weather = data.time.map((time, index) => ({
+	const weather = data?.time.map((time, index) => ({
 		timestamp: time * 1000,
 		iconCode: data.weathercode[index],
 		maxTemp: Math.round(data.temperature_2m_max[index]),
@@ -25,7 +27,7 @@ export const TemperatureGraph: React.FC<TemperatureGraphProps> = ({ data }) => {
 	return (
 		<section className='temperature-graph'>
 			<ul className='temperature-graph__bars'>
-				{weather.map(({ maxTemp, minTemp, iconCode, timestamp }, idx) => (
+				{weather?.map(({ maxTemp, minTemp, iconCode, timestamp }, idx) => (
 					<GraphBar
 						key={timestamp}
 						time={timestamp}
@@ -37,7 +39,7 @@ export const TemperatureGraph: React.FC<TemperatureGraphProps> = ({ data }) => {
 				))}
 			</ul>
 			<ul className='scale-x'>
-				{weather.map(({ timestamp }) => (
+				{weather?.map(({ timestamp }) => (
 					<ScaleXItem key={timestamp} timestamp={timestamp} />
 				))}
 			</ul>

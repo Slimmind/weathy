@@ -1,0 +1,63 @@
+.locations {
+	position: relative;
+}
+
+.locations--active .locations__window {
+	opacity: 1;
+	pointer-events: all;
+	transform: scaleY(1);
+}
+
+.locations__header {
+	position: relative;
+	display: flex;
+	align-items: center;
+	padding: 4px 8px 4px;
+	border-radius: 1rem;
+	font-style: italic;
+	cursor: pointer;
+}
+
+.locations__header svg {
+	height: 24px;
+	margin-left: 10px;
+}
+
+.locations__header--empty {
+	background-color: var(--color-bar);
+}
+
+.locations__window {
+	position: fixed;
+	top: 56px;
+	left: 0;
+	width: 100vw;
+	max-width: 480px;
+	height: calc(100vh - 56px);
+	padding: 2rem 1rem;
+	background-image: linear-gradient(to bottom, var(--color-window), var(--color-window) 50%, transparent 100%);
+	-webkit-backdrop-filter: blur(10px);
+	backdrop-filter: blur(10px);
+	opacity: 0;
+	pointer-events: none;
+	transform-origin: top;
+	transform: scaleY(.75);
+	transition: opacity .3s, transform .3s;
+}
+
+.location__window-phrase {
+	margin-bottom: 1rem;
+	color: var(--color-light);
+	font-size: 0.9rem;
+	font-weight: normal;
+	text-align: center;
+}
+
+.location__get-location-button {
+	height: 50px;
+	border-radius: 25px;
+	color: var(--color-dark);
+	font-size: 0.9rem;
+	line-height: 32px;
+	font-weight: bold;
+}

@@ -1,38 +1,18 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import HourRow from '../hour-row';
 import { DAY_FORMATTER } from '../../../utils/date-formatter';
-import { Day } from '../../../utils/types';
+import { Hour } from '../../../utils/types';
 import './hour-group.styles.css';
 
 interface HourGroupProps {
-	data: Day[];
-	handleScroll: (timestamp: number) => void;
+	data: Hour[];
 }
 
-export const HourGroup: React.FC<HourGroupProps> = ({ data, handleScroll }) => {
-	const ref = useRef(null);
+export const HourGroup = ({ data }: HourGroupProps) => {
 	const day = DAY_FORMATTER.format(data[0].timestamp);
 
-	useEffect(() => {
-		const observer = new IntersectionObserver((entries) => {
-			const [entry] = entries;
-
-			if (entry.isIntersecting) {
-				handleScroll(data[0].timestamp);
-			}
-		});
-
-		if (ref.current) {
-			observer.observe(ref.current);
-		}
-
-		return () => {
-			observer.disconnect();
-		};
-	}, [ref]);
 	return (
 		<ul
-			ref={ref}
 			className='hour-section__group'
 			data-timestamp={data[0].timestamp}
 			id={day.toLocaleLowerCase()}
@@ -41,7 +21,7 @@ export const HourGroup: React.FC<HourGroupProps> = ({ data, handleScroll }) => {
 				<a href='#current-section'>{day}</a>
 			</li>
 			{data.map((hour) => (
-				<HourRow key={hour.timestamp} data={hour} handleScroll={handleScroll} />
+				<HourRow key={hour.timestamp} data={hour} />
 			))}
 		</ul>
 	);

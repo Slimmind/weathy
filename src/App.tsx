@@ -4,109 +4,61 @@ import CurrentSection from './components/current-section';
 import DaySection from './components/day-section';
 import GraphSection from './components/graph-section';
 import HourSection from './components/hour-section';
-import Preloader from './components/preloader';
 import MapSection from './components/map-section';
 import BackgroundSection from './components/background-section';
-import { getCoordinates } from './utils/get-coordinates';
-import { getCity } from './utils/get-city';
 import { getWeather } from './utils/get-weather';
-import { Coordinates, WeatherData } from './utils/types';
+import { WeatherData, Location } from './utils/types';
+import { LocationModel, WeatherDataModel } from './utils/models';
+import { getStoredData } from './utils/get-stored-data';
 
 interface AppData {
-	coordinates: Coordinates;
-	locationData: string;
-	weatherData: WeatherData | undefined;
+	weatherData: WeatherData;
 }
 
-if ('serviceWorker' in navigator) {
-	window.addEventListener('load', () => {
-		navigator.serviceWorker
-			.register('../public/sw.js')
-			.then((registration) => {
-				console.log('ServiceWorker registered with scope:', registration.scope);
-			})
-			.catch((error) => {
-				console.error('ServiceWorker registration failed:', error);
-			});
-	});
-}
-
-const getAppData = async (): Promise<AppData | undefined> => {
-	const coordinates = await getCoordinates();
-	const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
-	if (coordinates) {
-		const locationData =
-			(await getCity(coordinates.lat, coordinates.lng)) || '';
-		const weatherData = await getWeather(
-			coordinates.lat,
-			coordinates.lng,
-			timeZone
-		);
-
-		return {
-			coordinates,
-			locationData,
-			weatherData,
-		};
-	}
-};
-
-function App() {
+const App: React.FC = () => {
 	const [isLoaded, setIsLoaded] = useState<boolean>(false);
-	const [coordinates, setCoordinates] = useState<Coordinates>({
-		lat: 0,
-		lng: 0,
-	});
-	const [location, setLocation] = useState<string>('');
-	const [weather, setWeather] = useState<WeatherData | undefined | null>(null);
-	const [scrolledDay, setScrolledDay] = useState<number>(Date.now());
+	const [location, setLocation] = useState(
+		getStoredData('location') || LocationModel
+	);
+	const [weather, setWeather] = useState<WeatherData>(WeatherDataModel);
 
-	const scrollDays = (timestamp: number) => {
-		setScrolledDay(timestamp);
-	};
+	const fetchData = async () => {
+		const { lat, lng } = location;
+		const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-	const fetchedData = ({
-		coordinates,
-		locationData,
-		weatherData,
-	}: AppData): void => {
-		setCoordinates(coordinates);
-		setLocation(locationData);
-		setWeather(weatherData);
+		if (lat && lng) {
+			try {
+				const weatherData = await getWeather(lat, lng, timeZone);
+				setWeather(weatherData);
+			} catch (error) {
+				console.error('Error fetching weather data:', error);
+			}
+		}
 	};
 
 	useEffect(() => {
-		getAppData().then(fetchedData);
+		fetchData();
 	}, []);
 
 	useEffect(() => {
-		if (weather) {
-			setIsLoaded(true);
-		}
-	}, [weather]);
+		fetchData();
+	}, [location]);
 
-	return isLoaded ? (
+	const updateLocation = (newLocation: Location): void => {
+		setLocation(newLocation);
+	};
+
+	return (
 		<div className='App'>
-			{coordinates && weather && (
-				<>
-					<Header location={location} dateToShow={scrolledDay} />
-					<>
-						<BackgroundSection
-							iconCode={weather?.current_weather?.weathercode}
-						/>
-						<CurrentSection data={weather} />
-						<DaySection data={weather.daily} />
-						<GraphSection data={weather.daily} />
-						<MapSection lat={coordinates.lat} lng={coordinates.lng} />
-						<HourSection data={weather} handleScroll={scrollDays} />
-					</>
-				</>
-			)}
+			<Header />
+			<BackgroundSection iconCode={weather?.current_weather?.weathercode} />
+			<CurrentSection data={weather} />
+			<DaySection data={weather.daily} />
+			<GraphSection data={weather.daily} />
+			<MapSection lat={location.lat} lng={location.lng} />
+			<HourSection data={weather} />
 		</div>
-	) : (
-		<Preloader />
 	);
-}
+};
 
 export default App;

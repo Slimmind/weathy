@@ -5,3 +5,24 @@
   text-align: center;
   border-spacing: 0;
 }
+
+.hour-section__tab-header {
+	border-radius: 1rem 1rem 0 0;
+	overflow: hidden;
+}
+
+.hour-section__tab-header-item {
+	display: inline-block;
+	vertical-align: top;
+	width: calc(100% / 7);
+	padding: 1rem 0;
+	background-color: var(--color-window);
+	--webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+	color: var(--color-light);
+}
+
+.hour-section__tab-header-item--active {
+	background-color: var(--color-light-transparent);
+	color: var(--color-window);
+}

@@ -5,8 +5,9 @@
 	--color-dark: hsl(200, 100%, 20%);
 	--color-darker: hsl(200, 100%, 10%);
 	--color-border: hsla(200, 100%, 25%, 0.5);
+	--color-window: hsla(200, 100%, 25%, 0.8);
 	--color-bar: hsla(200, 100%, 25%, 0.3);
-	--color-light-transparent: hsla(200, 100%, 75%, 0.5);
+	--color-light-transparent: hsla(200, 100%, 75%, 0.7);
 
 	--tab: 640px;
 	--desk: 1200px;
@@ -26,10 +27,24 @@ body {
 	background: url('./assets/bg-pattern.svg');
 }
 
-button {
+button,
+input {
+	padding: 0 10px;
 	vertical-align: top;
-	background-color: transparent;
+	background-color: var(--color-light);
 	border: none;
+	border-radius: 1rem;
+	outline: none;
+}
+
+input::placeholder {
+	color: inherit;
+}
+
+button svg {
+	display: inline-block;
+	vertical-align: middle;
+	width: 24px;
 }
 
 ul {
@@ -65,7 +80,7 @@ ul {
 
 .weather-icon--large {
 	width: 100px;
-	height: auto;
+	height: 100px;
 }
 
 @keyframes fadeIn {
@@ -99,4 +114,10 @@ ul {
 		opacity: 1;
 		transform: translateX(0);
 	}
+}
+
+@keyframes skeleton {
+  /* 0% { opacity: 1; }
+  50% { opacity: .7; }
+  100% { opacity: 1; } */
 }

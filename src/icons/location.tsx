@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const LocationIcon = () => (
+export const LocationIcon: React.FC = () => (
 	<svg
 		fill='none'
 		height='32'

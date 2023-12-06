@@ -1,0 +1,85 @@
+.locations__list {
+	margin-bottom: 1rem;
+	padding: 5px;
+	background-color: var(--color-light);
+	border-radius: 2rem;
+	text-align: left;
+}
+
+.locations__list-item {
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+	margin: 5px;
+	padding: 0.5rem 40px 0.5rem 10px;
+	background-color: var(--color-dark);
+	border-radius: 1rem;
+	color: var(--color-light);
+	font-weight: normal;
+	cursor: pointer;
+}
+
+.locations__list-item--chosen {
+	position: relative;
+	padding-right: 10px;
+	padding-left: 30px;
+}
+
+.locations__list-item--chosen::before {
+	content: '';
+	position: absolute;
+	top: calc(50% - 10px);
+	left: 5px;
+	width: 20px;
+	height: 20px;
+	background-color: var(--color-light);
+	border-radius: 10px;
+}
+
+.locations__list-item--chosen::after {
+	content: '';
+	position: absolute;
+	top: calc(50% - 6px);
+	left: 12px;
+	width: 6px;
+	height: 9px;
+	border-right: 2px solid var(--color-dark);
+	border-bottom: 2px solid var(--color-dark);
+	transform: rotate(40deg);
+}
+
+.locations__list-item button {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 30px;
+	height: 100%;
+	padding: 0;
+	background-color: var(--color-dark);
+	border-left: 2px solid var(--color-light-transparent);
+	border-radius: 0 1rem 1rem 0;
+}
+
+.locations__list-item button::before,
+.locations__list-item button::after {
+	content: '';
+	position: absolute;
+	top: calc(50% - 1px);
+	right: 6px;
+	width: 20px;
+	height: 2px;
+	background-color: var(--color-light);
+	border-radius: 2px;
+}
+
+.locations__list-item button::before {
+	transform: rotate(-45deg);
+}
+
+.locations__list-item button::after {
+	transform: rotate(45deg);
+}
+
+.locations__list-item--chosen button {
+	display: none;
+}
