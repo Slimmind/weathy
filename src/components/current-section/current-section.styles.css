@@ -1,4 +1,5 @@
 .current-section {
+	position: relative;
   display: flex;
   align-items: center;
   margin: 1.5rem 1rem .5rem;
@@ -8,6 +9,37 @@
   backdrop-filter: blur(3px);
   border-radius: 1rem;
   animation: appearFromLeft var(--timing) forwards;
+}
+
+.current-section--skeleton {
+	height: 130px;
+	width: calc(100% - 2rem);
+	margin: 1rem auto;
+	animation: skeleton 1.5s ease infinite;
+}
+
+.current-section--skeleton::before {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 1rem;
+	width: 100px;
+	height: 100px;
+	background-color: var(--color-border);
+	border-radius: 50%;
+	transform: translateY(-50%);
+}
+
+.current-section--skeleton::after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	right: 1rem;
+	width: 150px;
+	height: 100px;
+	background-color: var(--color-border);
+	border-radius: 1rem;
+	transform: translateY(-50%);
 }
 
 .current-section__left {

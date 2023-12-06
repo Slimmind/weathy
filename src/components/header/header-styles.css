@@ -17,18 +17,3 @@
 	backdrop-filter: blur(5px);
 	z-index: 2;
 }
-
-.main-header__location {
-	display: flex;
-	align-items: center;
-}
-
-.main-header__location button {
-	height: 32px;
-	margin-right: 10px;
-}
-
-.main-header__city {
-	margin-right: 10px;
-	font-style: italic;
-}

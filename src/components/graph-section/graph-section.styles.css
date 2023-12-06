@@ -1,5 +1,25 @@
 .temperature-graph {
+	position: relative;
   animation: appearFromLeft var(--timing) forwards;
+}
+
+.temperature-graph--skeleton {
+	height: 240px;
+	width: calc(100% - 2rem);
+	margin: 0 auto 1rem;
+	animation: skeleton 1.5s .4s ease infinite;
+}
+
+.temperature-graph--skeleton::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	width: calc(100% / 8);
+	background-color: var(--color-border);
+	border-radius: 1rem;
+	box-shadow: 55px 0 0px 0px var(--color-border), 110px 0 0px 0px var(--color-border), 165px 0 0px 0px var(--color-border), 220px 0 0px 0px var(--color-border), 275px 0 0px 0px var(--color-border), 330px 0 0px 0px var(--color-border) ;
 }
 
 .temperature-graph ul {

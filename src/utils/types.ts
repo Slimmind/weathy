@@ -75,6 +75,13 @@ export interface Coordinates {
 	lng: number;
 }
 
+export interface Location {
+	id: string;
+	name: string;
+	lat: number;
+	lng: number;
+}
+
 export interface Position {
 	coords: {
 		latitude: number;
@@ -86,4 +93,14 @@ export interface Position {
 		speed: number | null;
 	};
 	timestamp: number;
+}
+
+export interface SearchResult {
+	id: string;
+	country: string;
+	lat: number;
+	lng: number;
+	name: string;
+	state: string;
+	localName: string;
 }

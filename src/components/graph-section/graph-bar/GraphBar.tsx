@@ -18,7 +18,7 @@ export const GraphBar: React.FC<GraphBarProps> = ({
 	icon,
 	size,
 }) => {
-	const IconComponent = getIcon(icon, time) as FC;
+	const IconComponent = getIcon(icon) as FC;
 	const linkUrl = `#${DAY_FORMATTER.format(time).toLowerCase()}`;
 	return (
 		<li className='graph-bar' style={{ height: size }} data-min-temp={minTemp}>

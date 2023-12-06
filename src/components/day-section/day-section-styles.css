@@ -8,6 +8,26 @@
   animation: appearFromRight var(--timing) forwards;
 }
 
+.day-section--skeleton {
+	position: relative;
+	width: calc(100% - 2rem);
+	height: 260px;
+	margin: 0 auto 1rem;
+	animation: skeleton 1.5s .2s ease infinite;
+}
+
+.day-section--skeleton::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: calc(100% / 3.2);
+	height: 120px;
+	background-color: var(--color-border);
+	border-radius: 1rem;
+	box-shadow: 130px 0 0 0 var(--color-border), 260px 0 0 0 var(--color-border), 0 130px 0 0 var(--color-border), 130px 130px 0 0 var(--color-border), 260px 130px 0 0 var(--color-border);
+}
+
 .day-section__item {
   width: 33.33%;
 }
