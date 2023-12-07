@@ -65,7 +65,7 @@ ul {
 
 .weather-icon--large {
 	width: 100px;
-	height: auto;
+	height: 100px;
 }
 
 @keyframes fadeIn {
