@@ -47,7 +47,7 @@ export const CurrentSection: React.FC<CurrentSectionProps> = React.memo(
 						<div className='label'>Wind</div>
 						<div>
 							<span>{windSpeed}</span>
-							<span className='value-sub-info'>ms</span>
+							<span className='value-sub-info'>m/s</span>
 						</div>
 					</div>
 					<div className='info-group'>

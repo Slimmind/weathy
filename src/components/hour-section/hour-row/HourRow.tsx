@@ -49,7 +49,7 @@ export const HourRow: React.FC<HourRowProps> = React.memo(({ data }) => {
           <div className="label">Wind</div>
           <div>
             {windSpeed}
-            <span className="value-sub-info">ms</span>
+            <span className="value-sub-info">m/s</span>
           </div>
         </div>
       </div>
