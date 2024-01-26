@@ -19,7 +19,7 @@ export const DayCard: React.FC<DayCardComponentProps> = ({
 	minTemp,
 	maxTemp,
 }) => {
-	const IconComponent = getIcon(icon, time);
+	const IconComponent = getIcon(icon);
 	const linkUrl = `#${DAY_FORMATTER.format(time).toLowerCase()}`;
 
 	return (

@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import {
   SunIcon,
   CloudSunIcon,
@@ -35,9 +35,14 @@ addMapping([95, 96, 99], CloudBoltIcon);
 addMapping([100, 101], MoonIcon);
 addMapping([200], CloudMoonIcon);
 
-function handleIconCode(iconCode: number, time: number): number {
-  const hour = new Date(time).getHours();
-  const isNightTime = hour < 5 || hour > 18;
+function handleIconCode(iconCode: number, time?: number): number {
+  let isNightTime = false;
+
+  if(time) {
+    const hour = new Date(time).getHours();
+    console.log('HOUR: ', hour);
+    isNightTime = hour < 5 || hour > 18;
+  }
 
   if (isNightTime) {
     switch (iconCode) {
@@ -46,6 +51,7 @@ function handleIconCode(iconCode: number, time: number): number {
       case 1:
         return 101;
       case 2:
+      case 3:
         return 200;
       default:
         return iconCode;
@@ -57,7 +63,7 @@ function handleIconCode(iconCode: number, time: number): number {
 
 export function getIcon(
   iconCode: number,
-  hour: number
+  hour?: number
 ): React.FunctionComponent<React.SVGProps<SVGSVGElement>> | undefined {
   return ICON_MAP.get(handleIconCode(iconCode, hour));
 }
