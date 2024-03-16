@@ -14,7 +14,7 @@ interface DaySectionProps {
 	data: Daily | undefined;
 }
 
-export const DaySection: React.FC<DaySectionProps> = React.memo(({ data }) => {
+export const DaySection = ({ data }: DaySectionProps) => {
 	if (!data) {
 		return null;
 	}
@@ -45,4 +45,4 @@ export const DaySection: React.FC<DaySectionProps> = React.memo(({ data }) => {
 			))}
 		</ul>
 	);
-});
+};

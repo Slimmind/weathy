@@ -10,14 +10,10 @@ import { getWeather } from '../../utils/get-weather';
 
 interface HeaderComponentProps {
 	location: string;
-	dateToShow: number;
 }
 
-export const Header: React.FC<HeaderComponentProps> = ({
-	location,
-	dateToShow,
-}) => {
-	const getFullDate = (timestamp: number) => getLocalDate(timestamp, 'full');
+export const Header = ({ location }: HeaderComponentProps) => {
+	const fullDate = getLocalDate(Date.now(), 'full');
 	const getCurrentPosition = async (): Promise<void> => {
 		storeData('coordinates', '');
 		await getCoordinates();
@@ -35,7 +31,7 @@ export const Header: React.FC<HeaderComponentProps> = ({
 				</button>
 				{location && <span className='main-header__city'>{location}</span>}
 			</div>
-			<span className='main-header__date'>{getFullDate(dateToShow)}</span>
+			<span className='main-header__date'>{fullDate}</span>
 		</header>
 	);
 };

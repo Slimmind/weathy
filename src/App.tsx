@@ -31,27 +31,6 @@ if ('serviceWorker' in navigator) {
 	});
 }
 
-const getAppData = async (): Promise<AppData | undefined> => {
-	const coordinates = await getCoordinates();
-	const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
-	if (coordinates) {
-		const locationData =
-			(await getCity(coordinates.lat, coordinates.lng)) || '';
-		const weatherData = await getWeather(
-			coordinates.lat,
-			coordinates.lng,
-			timeZone
-		);
-
-		return {
-			coordinates,
-			locationData,
-			weatherData,
-		};
-	}
-};
-
 function App() {
 	const [isLoaded, setIsLoaded] = useState<boolean>(false);
 	const [coordinates, setCoordinates] = useState<Coordinates>({
@@ -60,46 +39,46 @@ function App() {
 	});
 	const [location, setLocation] = useState<string>('');
 	const [weather, setWeather] = useState<WeatherData | undefined | null>(null);
-	const [scrolledDay, setScrolledDay] = useState<number>(Date.now());
-
-	const scrollDays = (timestamp: number) => {
-		setScrolledDay(timestamp);
-	};
-
-	const fetchedData = ({
-		coordinates,
-		locationData,
-		weatherData,
-	}: AppData): void => {
-		setCoordinates(coordinates);
-		setLocation(locationData);
-		setWeather(weatherData);
-	};
+	const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
 	useEffect(() => {
-		getAppData().then(fetchedData);
+		const getAppData = async (): Promise<void> => {
+			const coords = await getCoordinates();
+
+			if (coords) {
+				const locationData = (await getCity(coords.lat, coords.lng)) || '';
+				const forecast = await getWeather(coords.lat, coords.lng, timeZone);
+
+				setCoordinates(coords);
+				setLocation(locationData);
+				setWeather(forecast);
+				setIsLoaded(true);
+			}
+		};
+
+		getAppData();
+
+		return () => {
+			setIsLoaded(false);
+		};
 	}, []);
-
-	useEffect(() => {
-		if (weather) {
-			setIsLoaded(true);
-		}
-	}, [weather]);
 
 	return isLoaded ? (
 		<div className='App'>
 			{coordinates && weather && (
 				<>
-					<Header location={location} dateToShow={scrolledDay} />
+					<Header location={location} />
 					<>
 						<BackgroundSection
 							iconCode={weather?.current_weather?.weathercode}
 						/>
 						<CurrentSection data={weather} />
-						<DaySection data={weather.daily} />
-						<GraphSection data={weather.daily} />
+						<div className='divided-section'>
+							<DaySection data={weather.daily} />
+							<GraphSection data={weather.daily} />
+						</div>
 						<MapSection lat={coordinates.lat} lng={coordinates.lng} />
-						<HourSection data={weather} handleScroll={scrollDays} />
+						<HourSection data={weather} />
 					</>
 				</>
 			)}

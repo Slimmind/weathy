@@ -9,7 +9,7 @@ interface TemperatureGraphProps {
 	data: Daily | undefined;
 }
 
-export const TemperatureGraph: React.FC<TemperatureGraphProps> = ({ data }) => {
+export const TemperatureGraph = ({ data }: TemperatureGraphProps) => {
 	if (!data) {
 		return null;
 	}
