@@ -1,7 +1,7 @@
 import React from 'react';
 import DayCard from './day-card';
 import './day-section-styles.css';
-import { Daily } from '../../utils/types';
+import { Daily } from '../../utils/constants';
 
 interface Weather {
 	timestamp: number;
@@ -12,9 +12,10 @@ interface Weather {
 
 interface DaySectionProps {
 	data: Daily | undefined;
+	changeRelatedTab: (tabIndex: number) => void;
 }
 
-export const DaySection: React.FC<DaySectionProps> = React.memo(({ data }) => {
+export const DaySection = ({ data, changeRelatedTab }: DaySectionProps) => {
 	if (!data) {
 		return null;
 	}
@@ -33,8 +34,12 @@ export const DaySection: React.FC<DaySectionProps> = React.memo(({ data }) => {
 
 	return (
 		<ul className='day-section'>
-			{weather.map(({ timestamp, iconCode, minTemp, maxTemp }) => (
-				<li key={timestamp} className='day-section__item'>
+			{weather.map(({ timestamp, iconCode, minTemp, maxTemp }, idx) => (
+				<li
+					key={timestamp}
+					className='day-section__item'
+					onClick={() => changeRelatedTab(idx + 1)}
+				>
 					<DayCard
 						time={timestamp}
 						icon={iconCode}
@@ -45,4 +50,4 @@ export const DaySection: React.FC<DaySectionProps> = React.memo(({ data }) => {
 			))}
 		</ul>
 	);
-});
+};

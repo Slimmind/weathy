@@ -5,11 +5,9 @@
 	--color-dark: hsl(200, 100%, 20%);
 	--color-darker: hsl(200, 100%, 10%);
 	--color-border: hsla(200, 100%, 25%, 0.5);
+	--color-window: hsla(200, 100%, 25%, 0.8);
 	--color-bar: hsla(200, 100%, 25%, 0.3);
-	--color-light-transparent: hsla(200, 100%, 75%, 0.5);
-
-	--tab: 640px;
-	--desk: 1200px;
+	--color-light-transparent: hsla(200, 100%, 75%, 0.7);
 
 	--timing: 1s;
 }
@@ -20,10 +18,13 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	-webkit-tap-highlight-color: transparent;
 }
 
 body {
 	background: url('./assets/bg-pattern.svg');
+	overflow: hidden;
+	color: var(--color-dark);
 }
 
 button {
@@ -32,19 +33,21 @@ button {
 	border: none;
 }
 
+button,
+[role="button"] {
+  cursor: pointer
+}
+
 ul {
 	list-style: none;
 }
 
 .App {
-	height: 100vh;
+	height: 100dvh;
 	padding-top: 56px;
-	scroll-padding-top: 66px;
-	color: var(--color-dark);
 	font-family: 'Roboto', sans-serif;
-	overflow: scroll;
-	scroll-behavior: smooth;
 	transition: opacity 1s;
+	overflow: auto;
 }
 
 .weather-icon {
@@ -98,5 +101,27 @@ ul {
 	to {
 		opacity: 1;
 		transform: translateX(0);
+	}
+}
+
+@media (min-width: 1200px) {
+	.weather-icon--middle {
+		width: 60px;
+		height: 60px;
+	}
+
+	.weather-icon--large {
+		width: 240px;
+		height: 240px;
+	}
+
+	.divided-section {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.divided-section > * {
+		flex-basis: 48%;
 	}
 }

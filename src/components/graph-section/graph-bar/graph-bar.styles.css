@@ -1,10 +1,16 @@
 .graph-bar {
   position: relative;
-  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+	padding: .25rem 0;
   background-color: var(--color-border);
-  -webkit-backdrop-filter: blur(3px);
-  backdrop-filter: blur(3px);
 	background-image: linear-gradient(to top, var(--color-border) 0%, transparent 100%);
+  border-radius: 1rem;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
 }
 
 .graph-bar__value--min {
@@ -17,16 +23,6 @@
 	padding-top: 0.25rem;
 	border-radius: 0 0 1rem 1rem;
 	font-size: 0.75rem;
-}
-
-.graph-bar__link {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  height: 100%;
-  color: unset;
-  text-decoration: none;
 }
 
 .graph-bar__icon svg {

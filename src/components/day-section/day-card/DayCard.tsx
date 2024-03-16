@@ -20,10 +20,9 @@ export const DayCard: React.FC<DayCardComponentProps> = ({
 	maxTemp,
 }) => {
 	const IconComponent = getIcon(icon);
-	const linkUrl = `#${DAY_FORMATTER.format(time).toLowerCase()}`;
 
 	return (
-		<a href={linkUrl} className='day-card'>
+		<div className='day-card'>
 			<p className='day-card__calendar'>{CARD_DATE_FORMATTER.format(time)}</p>
 			<div className='weather-icon weather-icon--middle'>
 				<IconComponent />
@@ -34,6 +33,6 @@ export const DayCard: React.FC<DayCardComponentProps> = ({
 					{minTemp}&deg; | {maxTemp}&deg;
 				</span>
 			</div>
-		</a>
+		</div>
 	);
 };

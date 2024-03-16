@@ -87,3 +87,8 @@ export interface Position {
 	};
 	timestamp: number;
 }
+
+export const FORECAST = 'weathy_forecast';
+export const LOCATION = 'weathy_location';
+export const COORDS = 'weathy_coords';
+export const UPDATE_TIME = 'weathy_update_time';

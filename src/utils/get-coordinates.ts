@@ -1,6 +1,6 @@
 import { getStoredData } from './get-stored-data';
 import { storeData } from './store-data';
-import { Coordinates, Position } from './types';
+import { COORDS, Coordinates, Position } from './constants';
 
 export async function getCoordinates(): Promise<Coordinates | undefined> {
 	try {
@@ -14,12 +14,12 @@ export async function getCoordinates(): Promise<Coordinates | undefined> {
 			lng: position.coords.longitude,
 		};
 
-		storeData('coordinates', coordinates);
+		storeData(COORDS, coordinates);
 
 		return coordinates;
 	} catch (error) {
 		console.error(error);
-		return undefined;
+		return getStoredData(COORDS);
 	}
 }
 

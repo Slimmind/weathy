@@ -3,11 +3,11 @@ import { SHORT_DAY_FORMATTER } from '../../../utils/date-formatter';
 import './scale-x-item.styles.css';
 
 interface ScaleXItemProps {
-  timestamp: number;
+	timestamp: number;
 }
 
-export const ScaleXItem: React.FC<ScaleXItemProps> = ({ timestamp }) => {
-  const day = SHORT_DAY_FORMATTER.format(timestamp);
+export const ScaleXItem = ({ timestamp }: ScaleXItemProps) => {
+	const day = SHORT_DAY_FORMATTER.format(timestamp);
 
-  return <li className="scale-x-item">{day}</li>;
+	return <li className='scale-x-item'>{day}</li>;
 };

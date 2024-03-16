@@ -9,8 +9,8 @@ export function getBarHeight(data: BarData[]): string[] {
 	const tempValues = data.map((day) => (day.minTemp + day.maxTemp) / 2);
 	const maxTemp = Math.max(...tempValues);
 	const minTemp = Math.min(...tempValues);
-	const total = Math.abs(maxTemp) + Math.abs(minTemp);
-	const degHeight = 70 / total;
+	// const total = Math.abs(maxTemp) + Math.abs(minTemp);
+	const degHeight = 70 / maxTemp;
 	const minHeight = 30;
 
 	const barHeight = (temp: number): number => {
@@ -18,10 +18,6 @@ export function getBarHeight(data: BarData[]): string[] {
 	};
 
 	return tempValues.map((day) => {
-		if (day === minTemp) {
-			return `${minHeight}%`;
-		}
-
 		return `${degHeight * barHeight(day) + minHeight}%`;
 	});
 }

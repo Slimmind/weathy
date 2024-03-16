@@ -2,14 +2,18 @@ import React from 'react';
 import { GraphBar } from './graph-bar/GraphBar';
 import { ScaleXItem } from './scale-x-item/ScaleXItem';
 import { getBarHeight } from '../../utils/get-bar-height';
-import { Daily } from '../../utils/types';
+import { Daily } from '../../utils/constants';
 import './graph-section.styles.css';
 
 interface TemperatureGraphProps {
 	data: Daily | undefined;
+	changeRelatedTab: (tabIndex: number) => void;
 }
 
-export const TemperatureGraph: React.FC<TemperatureGraphProps> = ({ data }) => {
+export const TemperatureGraph = ({
+	data,
+	changeRelatedTab,
+}: TemperatureGraphProps) => {
 	if (!data) {
 		return null;
 	}
@@ -26,14 +30,20 @@ export const TemperatureGraph: React.FC<TemperatureGraphProps> = ({ data }) => {
 		<section className='temperature-graph'>
 			<ul className='temperature-graph__bars'>
 				{weather.map(({ maxTemp, minTemp, iconCode, timestamp }, idx) => (
-					<GraphBar
-						key={timestamp}
-						time={timestamp}
-						maxTemp={maxTemp}
-						minTemp={minTemp}
-						icon={iconCode}
-						size={barHeights[idx]}
-					/>
+					<li
+						onClick={() => changeRelatedTab(idx)}
+						key={idx}
+						className='temperature-graph__bars-item'
+					>
+						<GraphBar
+							key={timestamp}
+							time={timestamp}
+							maxTemp={maxTemp}
+							minTemp={minTemp}
+							icon={iconCode}
+							size={barHeights[idx]}
+						/>
+					</li>
 				))}
 			</ul>
 			<ul className='scale-x'>
