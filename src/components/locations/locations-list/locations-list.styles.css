@@ -1,0 +1,87 @@
+.locations__list {
+	margin-bottom: 1rem;
+	padding: 5px;
+	background-color: var(--color-light);
+	border-radius: 2rem;
+	text-align: left;
+}
+
+.locations__list-item {
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+	min-height: 40px;
+	margin: 5px;
+	padding: 0.65rem 50px 0.65rem 10px;
+	background-color: var(--color-dark);
+	border-radius: 1.5rem;
+	color: var(--color-light);
+	font-size: 1rem;
+	font-weight: normal;
+	cursor: pointer;
+}
+
+.locations__list-item--chosen {
+	position: relative;
+	padding-right: 10px;
+	padding-left: 40px;
+}
+
+.locations__list-item--chosen::before {
+	content: '';
+	position: absolute;
+	top: calc(50% - 15px);
+	left: 5px;
+	width: 30px;
+	height: 30px;
+	background-color: var(--color-light);
+	border-radius: 50%;
+}
+
+.locations__list-item--chosen::after {
+	content: '';
+	position: absolute;
+	top: calc(50% - 8px);
+	left: 15px;
+	width: 9px;
+	height: 14px;
+	border-right: 3px solid var(--color-dark);
+	border-bottom: 3px solid var(--color-dark);
+	transform: rotate(40deg);
+}
+
+.locations__list-item button {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 40px;
+	height: 100%;
+	padding: 0;
+	background-color: var(--color-dark);
+	border-left: 3px solid var(--color-light-transparent);
+	border-radius: 0 1.5rem 1.5rem 0;
+}
+
+.locations__list-item button::before,
+.locations__list-item button::after {
+	content: '';
+	position: absolute;
+	top: calc(50% - 1px);
+	right: 6px;
+	width: 30px;
+	height: 3px;
+	background-color: var(--color-light);
+	border-radius: 2px;
+}
+
+.locations__list-item button::before {
+	transform: rotate(-45deg);
+}
+
+.locations__list-item button::after {
+	transform: rotate(45deg);
+}
+
+.locations__list-item--chosen button {
+	display: none;
+}

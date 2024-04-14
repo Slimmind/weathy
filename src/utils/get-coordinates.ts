@@ -1,13 +1,8 @@
-import { getStoredData } from './get-stored-data';
 import { storeData } from './store-data';
 import { COORDS, Coordinates, Position } from './constants';
 
 export async function getCoordinates(): Promise<Coordinates | undefined> {
 	try {
-		const storedCoordinates = getStoredData('coordinates');
-		if (storedCoordinates) {
-			return storedCoordinates;
-		}
 		const position = await getCurrentPosition();
 		const coordinates = {
 			lat: position.coords.latitude,
@@ -19,7 +14,6 @@ export async function getCoordinates(): Promise<Coordinates | undefined> {
 		return coordinates;
 	} catch (error) {
 		console.error(error);
-		return getStoredData(COORDS);
 	}
 }
 

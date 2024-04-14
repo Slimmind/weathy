@@ -6,54 +6,55 @@ import GraphSection from './components/graph-section';
 import HourSection from './components/hour-section';
 import MapSection from './components/map-section';
 import BackgroundSection from './components/background-section';
-import { getCoordinates } from './utils/get-coordinates';
-import { getCity } from './utils/get-city';
-import { getWeather } from './utils/get-weather';
-import {
-	Coordinates,
-	UPDATE_TIME,
-	WeatherData,
-} from './utils/constants';
-import { storeData } from './utils/store-data';
 import Preloader from './components/preloader';
+import { getWeather } from './utils/get-weather';
+import { LOCATION, WeatherData } from './utils/constants';
+import { getStoredData } from './utils/get-stored-data';
+import { LocationModel } from './utils/models';
+import { storeData } from './utils/store-data';
 
 function App() {
-	const [coordinates, setCoordinates] = useState<Coordinates>({
-		lat: 0,
-		lng: 0,
-	});
-	const [location, setLocation] = useState<string>('');
-	const [weather, setWeather] = useState<WeatherData | undefined | null>(null);
 	const [relatedTab, setRelatedTab] = useState<number>(0);
-	const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+	const [location, setLocation] = useState(
+		getStoredData(LOCATION) || LocationModel
+	);
+	const [weather, setWeather] = useState<WeatherData>();
+
+	const fetchData = async () => {
+		const { lat, lng } = location;
+		const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+		if (lat && lng) {
+			try {
+				const weatherData = await getWeather(lat, lng, timeZone);
+				setWeather(weatherData);
+			} catch (error) {
+				console.error('Error fetching weather data:', error);
+			}
+		}
+	};
 
 	useEffect(() => {
-		const getAppData = async (): Promise<void> => {
-			const coords = await getCoordinates();
-
-			if (coords) {
-				const locationData = (await getCity(coords.lat, coords.lng)) || '';
-				const forecast = await getWeather(coords.lat, coords.lng, timeZone);
-
-				setCoordinates(coords);
-				setLocation(locationData);
-				setWeather(forecast);
-
-				storeData(UPDATE_TIME, Date.now());
-			}
-		};
-
-		getAppData();
+		fetchData();
 	}, []);
+
+	useEffect(() => {
+		fetchData();
+	}, [location]);
 
 	const changeRelatedTab = (tabIndex: number): void => {
 		setRelatedTab(tabIndex);
 	};
 
+	const changeLocation = (newLocation: Location): void => {
+		storeData(LOCATION, newLocation);
+		setLocation(newLocation);
+	};
+
 	return (
 		<div className='App'>
 			<>
-				<Header location={location} />
+				<Header changeLocation={changeLocation} />
 				{weather ? (
 					<>
 						<BackgroundSection
@@ -70,10 +71,12 @@ function App() {
 								changeRelatedTab={changeRelatedTab}
 							/>
 						</div>
-						<MapSection lat={coordinates.lat} lng={coordinates.lng} />
-            <HourSection data={weather} relatedTab={relatedTab} />
+						<MapSection lat={location.lat} lng={location.lng} />
+						<HourSection data={weather} relatedTab={relatedTab} />
 					</>
-				) : <Preloader />}
+				) : (
+					<Preloader />
+				)}
 			</>
 		</div>
 	);

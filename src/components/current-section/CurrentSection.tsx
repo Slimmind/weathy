@@ -27,7 +27,7 @@ export const CurrentSection = ({ data }: CurrentSectionProps) => {
 	const IconComponent = getIcon(iconCode, Date.now());
 
 	return (
-		<div className='current-section' id='current-section'>
+		<div className='current-section'>
 			<div className='current-section__left'>
 				{IconComponent && (
 					<div className='weather-icon weather-icon--large'>

@@ -17,7 +17,7 @@ export const BackgroundSection = ({ iconCode }: BackgroundSectionProps) => {
 
 	return (
 		<section className={`background-section ${isImageLoaded ? 'loaded' : ''}`}>
-			{imageUrl && (
+			{isImageLoaded && (
 				<img onLoad={handleImageLoad} src={imageUrl} alt='weather background' />
 			)}
 		</section>

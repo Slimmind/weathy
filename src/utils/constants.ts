@@ -88,7 +88,26 @@ export interface Position {
 	timestamp: number;
 }
 
+export interface Location {
+	id: string;
+	name: string;
+	lat: number;
+	lng: number;
+}
+
+export interface SearchResult {
+	id: string;
+	country: string;
+	lat: number;
+	lng: number;
+	name: string;
+	state: string;
+	localName: string;
+}
+
 export const FORECAST = 'weathy_forecast';
 export const LOCATION = 'weathy_location';
+export const CITY = 'weathy_city';
 export const COORDS = 'weathy_coords';
 export const UPDATE_TIME = 'weathy_update_time';
+export const AVAILABLE_LOCATIONS = 'weathy_available_locations';

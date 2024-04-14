@@ -8,6 +8,8 @@ import { CloudBoltIcon } from './cloud-bolt';
 import { MoonIcon } from './moon';
 import { CloudMoonIcon } from './cloud-moon';
 import { LocationIcon } from './location';
+import { SearchIcon } from './search';
+import { SearchLocationIcon } from './search-location';
 
 export {
 	SunIcon,
@@ -20,4 +22,6 @@ export {
 	MoonIcon,
 	CloudMoonIcon,
 	LocationIcon,
+	SearchIcon,
+	SearchLocationIcon,
 };

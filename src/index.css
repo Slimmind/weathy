@@ -5,7 +5,7 @@
 	--color-dark: hsl(200, 100%, 20%);
 	--color-darker: hsl(200, 100%, 10%);
 	--color-border: hsla(200, 100%, 25%, 0.5);
-	--color-window: hsla(200, 100%, 25%, 0.8);
+	--color-window: hsla(200, 100%, 25%, 0.9);
 	--color-bar: hsla(200, 100%, 25%, 0.3);
 	--color-light-transparent: hsla(200, 100%, 75%, 0.7);
 
@@ -27,10 +27,24 @@ body {
 	color: var(--color-dark);
 }
 
-button {
+button,
+input {
+	padding: 0 10px;
 	vertical-align: top;
-	background-color: transparent;
+	background-color: var(--color-light);
 	border: none;
+	border-radius: 1rem;
+	outline: none;
+}
+
+input::placeholder {
+	color: inherit;
+}
+
+button svg {
+	display: inline-block;
+	vertical-align: middle;
+	width: 24px;
 }
 
 button,
