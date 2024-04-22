@@ -58,10 +58,15 @@ ul {
 
 .App {
 	height: 100dvh;
-	padding-top: 56px;
+	padding-top: 76px;
 	font-family: 'Roboto', sans-serif;
 	transition: opacity 1s;
 	overflow: auto;
+}
+
+.weather__empty {
+  padding: 40px;
+  text-align: center;
 }
 
 .weather-icon {

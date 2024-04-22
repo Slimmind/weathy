@@ -6,7 +6,7 @@
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  padding: 0 1rem;
+  padding: 0 calc(10px - 0.25rem);
   list-style: none;
 }
 
@@ -30,5 +30,5 @@
 }
 
 .scale-x {
-  margin-bottom: 1rem;
+  margin-bottom: 20px;
 }

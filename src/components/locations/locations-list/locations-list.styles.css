@@ -1,5 +1,5 @@
 .locations__list {
-	margin-bottom: 1rem;
+	margin-bottom: 40px;
 	padding: 5px;
 	background-color: var(--color-light);
 	border-radius: 2rem;
@@ -34,20 +34,8 @@
 	left: 5px;
 	width: 30px;
 	height: 30px;
-	background-color: var(--color-light);
+	background: var(--color-light) url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pjxzdmcgdmlld0JveD0iMCAwIDUxMiA1MTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZmlsbD0iaHNsKDIwMCwgMTAwJSwgMjAlKSIgZD0iTTQ4MCAxMjhjMCA4LjE4OC0zLjEyNSAxNi4zOC05LjM3NSAyMi42MmwtMjU2IDI1NkMyMDguNCA0MTIuOSAyMDAuMiA0MTYgMTkyIDQxNnMtMTYuMzgtMy4xMjUtMjIuNjItOS4zNzVsLTEyOC0xMjhDMzUuMTMgMjcyLjQgMzIgMjY0LjIgMzIgMjU2YzAtMTguMjggMTQuOTUtMzIgMzItMzJjOC4xODggMCAxNi4zOCAzLjEyNSAyMi42MiA5LjM3NUwxOTIgMzM4LjhsMjMzLjQtMjMzLjRDNDMxLjYgOTkuMTMgNDM5LjggOTYgNDQ4IDk2QzQ2NS4xIDk2IDQ4MCAxMDkuNyA0ODAgMTI4eiIvPjwvc3ZnPg==) no-repeat 50% 50% / 85%;
 	border-radius: 50%;
-}
-
-.locations__list-item--chosen::after {
-	content: '';
-	position: absolute;
-	top: calc(50% - 8px);
-	left: 15px;
-	width: 9px;
-	height: 14px;
-	border-right: 3px solid var(--color-dark);
-	border-bottom: 3px solid var(--color-dark);
-	transform: rotate(40deg);
 }
 
 .locations__list-item button {

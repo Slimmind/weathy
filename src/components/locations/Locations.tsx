@@ -98,7 +98,10 @@ export const Locations = ({ changeLocation }: LocationsProps) => {
 	return (
 		<div className={locationsClasses}>
 			<header className={headerClasses}>
-				<button onClick={switchLocationsMenu}>
+				<button
+					onClick={switchLocationsMenu}
+					aria-label='choose location button'
+				>
 					<SearchLocationIcon />
 				</button>
 				{currentLocation?.name ? currentLocation.name : 'Choose location'}

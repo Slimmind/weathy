@@ -41,7 +41,7 @@
 	flex-direction: column;
 	width: 100vw;
 	height: calc(100vh - 56px);
-	padding: 2rem 1rem;
+	padding: 40px 10px 20px;
 	background-image: linear-gradient(to bottom, var(--color-window), var(--color-window) 60%, transparent 100%);
 	-webkit-backdrop-filter: blur(10px);
 	backdrop-filter: blur(10px);
@@ -57,9 +57,9 @@
 }
 
 .location__window-phrase {
-	margin-bottom: 1rem;
+	margin-bottom: 40px;
 	color: var(--color-light);
-	font-size: 0.9rem;
+	font-size: 1rem;
 	font-weight: normal;
 	text-align: center;
 }
@@ -68,7 +68,7 @@
 	height: 50px;
 	border-radius: 25px;
 	color: var(--color-dark);
-	font-size: 0.9rem;
+	font-size: 1rem;
 	line-height: 32px;
 	font-weight: bold;
 }

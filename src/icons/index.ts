@@ -10,6 +10,8 @@ import { CloudMoonIcon } from './cloud-moon';
 import { LocationIcon } from './location';
 import { SearchIcon } from './search';
 import { SearchLocationIcon } from './search-location';
+import { UpdateIcon } from './update';
+import { CheckIcon } from './check';
 
 export {
 	SunIcon,
@@ -24,4 +26,6 @@ export {
 	LocationIcon,
 	SearchIcon,
 	SearchLocationIcon,
+	UpdateIcon,
+	CheckIcon,
 };

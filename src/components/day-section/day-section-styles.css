@@ -2,7 +2,8 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  padding: 1rem;
+	margin-bottom: calc(20px - 0.5rem);
+  padding: 0 calc(10px - 0.25rem);
   text-align: center;
   list-style: none;
   animation: appearFromRight var(--timing) forwards;
