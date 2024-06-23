@@ -1,4 +1,4 @@
-import { FORECAST, WeatherData } from './constants';
+import { LocalStorage, WeatherData } from './constants';
 import { getStoredData } from './get-stored-data';
 import { storeData } from './store-data';
 
@@ -12,10 +12,10 @@ export async function getWeather(
 	try {
 		const response = await fetch(url);
 		const data = await response.json();
-		storeData(FORECAST, data);
+		storeData(LocalStorage.FORECAST, data);
 		return data;
 	} catch (error) {
 		console.error(error);
-		return getStoredData(FORECAST);
+		return getStoredData(LocalStorage.FORECAST);
 	}
 }

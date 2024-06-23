@@ -101,6 +101,15 @@ ul {
 	}
 }
 
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
 @keyframes appearFromLeft {
 	from {
 		opacity: 0;

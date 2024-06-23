@@ -20,17 +20,51 @@
 
 .locations__header--empty {
 	padding: 4px;
-	background-color: var(--color-bar);
 }
 
 .locations__header svg {
+  position: relative;
 	height: 24px;
 }
 
-.locations__header button {
+.locations__header-button {
+  position: relative;
 	margin-right: 10px;
 	padding: 10px;
-	border-radius: 50%;
+  background-color: transparent;
+}
+
+.locations__header--empty .locations__header-button {
+  background-color: transparent;
+}
+
+.locations__header-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -2px;
+  width: 48px;
+  height: 48px;
+  background-color: var(--color-light);
+  border-radius: 24px;
+}
+
+
+.locations__header--empty .locations__header-button::before {
+  width: 100%;
+  height: 100%;
+  animation: blink 2s infinite;
+}
+
+.locations__header-text {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 16px;
+  padding: 5px;
+  color: var(--color-dark);
+  font-size: 0.8rem;
+  font-weight: bold;
 }
 
 .locations__window {
@@ -72,3 +106,5 @@
 	line-height: 32px;
 	font-weight: bold;
 }
+
+

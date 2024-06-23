@@ -93,7 +93,7 @@ export interface Location {
 	name: string;
 	lat: number;
 	lng: number;
-}
+} 
 
 export interface SearchResult {
 	id: string;
@@ -105,9 +105,10 @@ export interface SearchResult {
 	localName: string;
 }
 
-export const FORECAST = 'weathy_forecast';
-export const LOCATION = 'weathy_location';
-export const CITY = 'weathy_city';
-export const COORDS = 'weathy_coords';
-export const UPDATE_TIME = 'weathy_update_time';
-export const AVAILABLE_LOCATIONS = 'weathy_available_locations';
+export const LocalStorage = {
+  FORECAST: 'weathy_forecast',
+  LOCATION: 'weathy_location',
+  CITY: 'weathy_city', 
+  COORDS: 'weathy_coords',
+  AVAILABLE_LOCATIONS: 'weathy_available_locations',
+}

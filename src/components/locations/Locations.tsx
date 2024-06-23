@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy } from 'react';
 import clsx from 'clsx';
-import LocationsList from './locations-list';
-import LocationsSearch from './locations-search';
 import { LocationIcon, SearchLocationIcon } from '../../icons';
 import { storeData } from '../../utils/store-data';
 import { getCoordinates } from '../../utils/get-coordinates';
 import { getStoredData } from '../../utils/get-stored-data';
 import { getCity } from '../../utils/get-city';
-import { AVAILABLE_LOCATIONS, LOCATION, Location } from '../../utils/constants';
-
+import { LocalStorage, Location } from '../../utils/constants';
 import './locations.styles.css';
+
+const LocationsList = lazy(() => import('./locations-list'));
+const LocationsSearch = lazy(() => import('./locations-search'));
 
 interface LocationsProps {
 	changeLocation: (location: Location) => void;
@@ -17,11 +17,11 @@ interface LocationsProps {
 
 export const Locations = ({ changeLocation }: LocationsProps) => {
 	const [currentLocation, setCurrentLocation] = useState<Location>(
-		getStoredData(LOCATION)
+		getStoredData(LocalStorage.LOCATION)
 	);
 	const [switchedLocationMenu, setSwitchedLocationMenu] = useState(false);
 	const [availableLocations, setAvailableLocations] = useState<Location[]>(
-		getStoredData(AVAILABLE_LOCATIONS) || []
+		getStoredData(LocalStorage.AVAILABLE_LOCATIONS) || []
 	);
 
 	const switchLocationsMenu = () => {
@@ -61,7 +61,7 @@ export const Locations = ({ changeLocation }: LocationsProps) => {
 				return prev;
 			}
 
-			storeData(AVAILABLE_LOCATIONS, [...prev, newLocation]);
+			storeData(LocalStorage.AVAILABLE_LOCATIONS, [...prev, newLocation]);
 			changeLocationHandler(newLocation);
 			changeLocation(newLocation);
 			return [...prev, newLocation];
@@ -78,13 +78,13 @@ export const Locations = ({ changeLocation }: LocationsProps) => {
 		const updatedLocationsList = availableLocations.filter(
 			(availableLocation) => availableLocation.id !== locationId
 		);
-		storeData(AVAILABLE_LOCATIONS, updatedLocationsList);
+		storeData(LocalStorage.AVAILABLE_LOCATIONS, updatedLocationsList);
 		setAvailableLocations(updatedLocationsList);
 	};
 
 	useEffect(() => {
-		setCurrentLocation(getStoredData(LOCATION));
-		setAvailableLocations(getStoredData(AVAILABLE_LOCATIONS) || []);
+		setCurrentLocation(getStoredData(LocalStorage.LOCATION));
+		setAvailableLocations(getStoredData(LocalStorage.AVAILABLE_LOCATIONS) || []);
 	}, []);
 
 	const locationsClasses = clsx('locations', {
@@ -99,12 +99,15 @@ export const Locations = ({ changeLocation }: LocationsProps) => {
 		<div className={locationsClasses}>
 			<header className={headerClasses}>
 				<button
+					className='locations__header-button'
 					onClick={switchLocationsMenu}
 					aria-label='choose location button'
 				>
 					<SearchLocationIcon />
+					<span className='locations__header-text'>
+						{currentLocation?.name ? currentLocation.name : 'Choose location'}
+					</span>
 				</button>
-				{currentLocation?.name ? currentLocation.name : 'Choose location'}
 			</header>
 			<section className='locations__window'>
 				<LocationsList

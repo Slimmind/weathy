@@ -1,8 +1,9 @@
-import React from 'react';
-import Locations from '../locations';
+import React, { lazy } from 'react';
 import { getLocalDate } from '../../utils/get-local-date';
-import './header-styles.css';
 import { UpdateButton } from './update-button/UpdateButton';
+import './header-styles.css';
+
+const Locations = lazy(() => import('../locations'));
 
 interface HeaderProps {
 	changeLocation: (location: Location) => void;

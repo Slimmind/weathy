@@ -1,7 +1,8 @@
-import React from 'react';
-import DayCard from './day-card';
-import './day-section-styles.css';
+import React, { lazy } from 'react';
 import { Daily } from '../../utils/constants';
+import './day-section-styles.css';
+
+const DayCard = lazy(() => import('./day-card'));
 
 interface Weather {
 	timestamp: number;

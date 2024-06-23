@@ -3,13 +3,13 @@ import { getBackground } from '../../utils/get-background';
 
 import './background-section.styles.css';
 
-interface BackgroundSectionProps {
-	iconCode: number | undefined;
-}
+type BackgroundSectionProps = {
+	iconCode: number;
+};
 
 export const BackgroundSection = ({ iconCode }: BackgroundSectionProps) => {
-	const [isImageLoaded, setIsImageLoaded] = useState(false);
-	const imageUrl = iconCode && getBackground(iconCode, Date.now());
+	const [isImageLoaded, setIsImageLoaded] = useState<boolean>(false);
+	const imageUrl = getBackground(iconCode, Date.now());
 
 	const handleImageLoad = (): void => {
 		setIsImageLoaded(true);
@@ -17,9 +17,12 @@ export const BackgroundSection = ({ iconCode }: BackgroundSectionProps) => {
 
 	return (
 		<section className={`background-section ${isImageLoaded ? 'loaded' : ''}`}>
-			{isImageLoaded && (
-				<img onLoad={handleImageLoad} src={imageUrl} alt='weather background' />
-			)}
+			<img
+				onLoad={handleImageLoad}
+				src={imageUrl}
+				alt='weather background'
+				loading='lazy'
+			/>
 		</section>
 	);
 };
