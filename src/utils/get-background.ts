@@ -3,61 +3,61 @@ const BACKGROUND_MAP: Map<number, string[]> = new Map<number, string[]>();
 addMapping(
 	[0, 1],
 	[
-		'https://dl.dropboxusercontent.com/s/ap9wivj0okp9qwv/sun.jpg?dl=0',
-		'https://dl.dropboxusercontent.com/s/sglx7o97wgxqd9f/sun-2.jpg?dl=0',
+		'/backgrounds/sun/sun.jpg',
+		'/backgrounds/sun/sun-2.jpg',
 	]
 );
 addMapping(
 	[2],
 	[
-		'https://dl.dropboxusercontent.com/s/s1hyk5ptxya6dco/cloud-sun.jpg?dl=0',
-		'https://dl.dropboxusercontent.com/s/rqrcbx0urqdv78i/cloud-sun-2.jpg?dl=0',
-		'https://dl.dropboxusercontent.com/s/vv0hrdy0gnuqohk/cloud-sun-3.jpg?dl=0',
+		'/backgrounds/cloud-sun/cloud-sun.jpg',
+		'/backgrounds/cloud-sun/cloud-sun-2.jpg',
+		'/backgrounds/cloud-sun/cloud-sun-3.jpg',
 	]
 );
 addMapping(
 	[3],
 	[
-		'https://dl.dropboxusercontent.com/s/7p8s0w606y1ljiy/cloud.jpg?dl=0',
-		'https://dl.dropboxusercontent.com/s/k4k13m7sz7r3y77/cloud-2.jpg?dl=0',
-		'https://dl.dropboxusercontent.com/s/7196yndg4zvijhl/cloud-3.jpg?dl=0',
+		'/backgrounds/cloud/cloud.jpg',
+		'/backgrounds/cloud/cloud-2.jpg',
+		'/backgrounds/cloud/cloud-3.jpg',
 	]
 );
 addMapping(
 	[45, 48],
 	[
-		'https://dl.dropboxusercontent.com/s/rnkjxsrgql5wwwt/fog.jpg?dl=0',
-		'https://dl.dropboxusercontent.com/s/z1t80s1ex484s51/fog-2.jpg?dl=0',
-		'https://dl.dropboxusercontent.com/s/e706x1oyuxydv4y/fog-3.jpg?dl=0',
+		'/backgrounds/fog/fog.jpg',
+		'/backgrounds/fog/fog-2.jpg',
+		'/backgrounds/fog/fog-3.jpg',
 	]
 );
 addMapping(
 	[51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82],
 	[
-		'https://dl.dropboxusercontent.com/s/7azjoyn8xi5hqdr/rain.jpg?dl=0',
-		'https://dl.dropboxusercontent.com/s/256g6qoidp1nowj/rain-2.jpg?dl=0',
-		'https://dl.dropboxusercontent.com/s/egb8r9z4ksndiuo/rain-3.jpg?dl=0',
+		'/backgrounds/rain/rain.jpg',
+		'/backgrounds/rain/rain-2.jpg',
+		'/backgrounds/rain/rain-3.jpg',
 	]
 );
 addMapping(
 	[71, 73, 75, 77, 85, 86],
-	['https://dl.dropboxusercontent.com/s/u3wh7fluterzj0t/snow.jpg?dl=0']
+	['/backgrounds/snow/snow.jpg']
 );
 addMapping(
 	[95, 96, 99],
 	[
-		'https://dl.dropboxusercontent.com/s/9mj739bjktvpwch/storm.jpg?dl=0',
-		'https://dl.dropboxusercontent.com/s/7poq55v506mcl5l/storm-2.jpg?dl=0',
-		'https://dl.dropboxusercontent.com/s/9q97gacotlu3lmf/storm-3.jpg?dl=0',
+		'/backgrounds/storm/storm.jpg',
+		'/backgrounds/storm/storm-2.jpg',
+		'/backgrounds/storm/storm-3.jpg',
 	]
 );
 addMapping(
 	[100, 101],
-	['https://dl.dropboxusercontent.com/s/utocs5xdykr0l4a/moon.jpg?dl=0']
+	['/backgrounds/moon/moon.jpg']
 );
 addMapping(
 	[200],
-	['https://dl.dropboxusercontent.com/s/8jwqh94c1ewpnw9/cloud-moon.jpg?dl=0']
+	['/backgrounds/cloud-moon/cloud-moon.jpg']
 );
 
 function addMapping(values: number[], prompt: string[]): void {

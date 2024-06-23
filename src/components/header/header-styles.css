@@ -19,7 +19,12 @@
 	z-index: 2;
 }
 
+.main-header__location {
+  max-width: 50%;
+}
+
 .main-header__right {
 	display: flex;
 	align-items: center;
+  max-width: 50%;
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { getIcon } from '../../../utils/get-icon';
 import { HOUR_FORMATTER } from '../../../utils/date-formatter';
+import { InfoGroup } from '../../info-group/InfoGroup';
 import './hour-row.styles.css';
 
 interface HourRowProps {
@@ -29,36 +30,13 @@ export const HourRow = React.memo(({ data }: HourRowProps) => {
 			<div className='weather-icon'>
 				<IconComponent />
 			</div>
-			<div>
-				<div className='info-group'>
-					<div className='label'>Temp</div>
-					<div>{temp}&deg;</div>
-				</div>
-			</div>
-			<div>
-				<div className='info-group'>
-					<div className='label'>FL Temp</div>
-					<div>{feelsLike}&deg;</div>
-				</div>
-			</div>
-			<div>
-				<div className='info-group'>
-					<div className='label'>Wind</div>
-					<div>
-						{windSpeed}
-						<span className='value-sub-info'>m/s</span>
-					</div>
-				</div>
-			</div>
-			<div>
-				<div className='info-group'>
-					<div className='label'>Precip</div>
-					<div>
-						{precip}
-						<span className='value-sub-info'>mm</span>
-					</div>
-				</div>
-			</div>
+			<InfoGroup label='Temp' value={`${temp}${String.fromCharCode(176)}`} />
+			<InfoGroup
+				label='FL Temp'
+				value={`${feelsLike}${String.fromCharCode(176)}`}
+			/>
+			<InfoGroup label='Wind' value={`${windSpeed} m/s`} />
+			<InfoGroup label='Precip' value={`${precip} mm`} />
 		</li>
 	);
 });

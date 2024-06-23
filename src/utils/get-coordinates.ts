@@ -1,5 +1,5 @@
 import { storeData } from './store-data';
-import { COORDS, Coordinates, Position } from './constants';
+import { LocalStorage, Coordinates, Position } from './constants';
 
 export async function getCoordinates(): Promise<Coordinates | undefined> {
 	try {
@@ -9,7 +9,7 @@ export async function getCoordinates(): Promise<Coordinates | undefined> {
 			lng: position.coords.longitude,
 		};
 
-		storeData(COORDS, coordinates);
+		storeData(LocalStorage.COORDS, coordinates);
 
 		return coordinates;
 	} catch (error) {

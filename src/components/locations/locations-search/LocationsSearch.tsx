@@ -13,6 +13,7 @@ export const LocationsSearch: React.FC<LocationsSearchProps> = ({
 }) => {
 	const [searchQuery, setSearchQuery] = useState<string>('');
 	const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
+  const [error, setError] = useState<string>('');
 
 	const searchQueryHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const query = e.target.value;
@@ -42,7 +43,16 @@ export const LocationsSearch: React.FC<LocationsSearchProps> = ({
 				localName: local_names[currentLanguage],
 			})
 		);
-		setSearchResults(results);
+
+    if (error) {
+      setError('');
+    }
+
+    setSearchResults(results);
+
+    if (results.length === 0) {
+      setError(`Sorry, we can't find "${searchQuery}" :(`);
+    }
 	};
 
 	const addLocation = (chosenLocation: Location): void => {
@@ -76,6 +86,12 @@ export const LocationsSearch: React.FC<LocationsSearchProps> = ({
 					</button>
 				</div>
 			</form>
+      {error && (
+        <div className='locations__search-error-message'>
+          <p>{error}</p>
+          <p>Try to press button "Get current position"</p>
+        </div>
+      )}
 			<ul className='locations__suggestions'>
 				{searchResults.map((searchResult) => (
 					<li

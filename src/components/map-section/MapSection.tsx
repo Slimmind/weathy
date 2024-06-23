@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import L, { LatLngExpression } from 'leaflet';
+import customMarkerImage from '/public/icons/marker-icon.svg';
 import 'leaflet/dist/leaflet.css';
 import './map-section.styles.css';
-import customMarkerImage from '/public/icons/marker-icon.svg';
 
 interface MapSectionProps {
 	lat: number;

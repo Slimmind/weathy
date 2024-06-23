@@ -1,4 +1,4 @@
-import { CITY } from './constants';
+import { LocalStorage } from './constants';
 import { storeData } from './store-data';
 
 export async function getCity(
@@ -11,7 +11,7 @@ export async function getCity(
 		);
 		const data = await response.json();
 		const cityName = data.address.city || data.address.town;
-		storeData(CITY, cityName);
+		storeData(LocalStorage.CITY, cityName);
 		console.log('NEW CITY', cityName);
 
 		return cityName;
