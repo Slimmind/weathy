@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   padding: 0.5rem 0.25rem;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
 }
 
 .label {
@@ -14,5 +14,5 @@
 }
 
 .value-sub-info {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
 }

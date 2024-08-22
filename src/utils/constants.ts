@@ -93,7 +93,7 @@ export interface Location {
 	name: string;
 	lat: number;
 	lng: number;
-} 
+}
 
 export interface SearchResult {
 	id: string;
@@ -105,10 +105,17 @@ export interface SearchResult {
 	localName: string;
 }
 
+export type ChunkGroup = {
+	min: number;
+	max: number;
+	values: number[];
+};
+
 export const LocalStorage = {
-  FORECAST: 'weathy_forecast',
-  LOCATION: 'weathy_location',
-  CITY: 'weathy_city', 
-  COORDS: 'weathy_coords',
-  AVAILABLE_LOCATIONS: 'weathy_available_locations',
-}
+	WEATHER_DATA: 'weathy_weather_data',
+	FORECAST: 'weathy_forecast',
+	LOCATION: 'weathy_location',
+	CITY: 'weathy_city',
+	COORDS: 'weathy_coords',
+	AVAILABLE_LOCATIONS: 'weathy_available_locations',
+};

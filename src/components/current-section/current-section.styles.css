@@ -7,49 +7,39 @@
   animation: appearFromLeft var(--timing) forwards;
 }
 
-.current-section__header {
-  padding: 1rem 0 0.5rem;
-  border-radius: 1rem 1rem 0 0;
-  text-align: center;
-}
-
-.current-section__header-content {
+.current-section__last-update-info {
   display: inline-flex;
   align-items: center;
+  margin-bottom: 1rem;
   padding: 10px;
-  background-image: linear-gradient(to right, var(--color-border), transparent);
+  background-image: linear-gradient(to right, var(--color-border), transparent 90%);
   border-radius: 1.5rem;
+  font-size: 12px;
 }
 
-.current-section__header-content svg {
+.current-section__last-update-info svg {
   margin-right: 10px;
 }
 
 .current-section__wrapper {
   display: flex;
   align-items: center;
-  padding: 0 0 1rem 0;
+  padding: 1rem 0;
 }
 
 .current-section__block--left {
 	position: relative;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 50%;
+  width: 40%;
   padding: 0 0.5rem;
 }
 
-.current-section__block--left::after {
-	content: '';
-	position: absolute;
-	top: 50%;
-	right: 0;
-	width: 4px;
-	height: 85px;
-	background-color: var(--color-border);
-	border-radius: 2px;
-	transform: translateY(-50%);
+.weather-icon {
+	max-width: 100%;
+	margin-bottom: 10px;
 }
 
 .header-current-temp {
@@ -58,16 +48,22 @@
 }
 
 .current-section__block--right {
-  position: relative;
-  display: grid;
-  justify-content: space-around;
-  width: 50%;
-  gap: .5rem;
-  grid-template-columns: repeat(3, auto);
-  grid-template-rows: repeat(2, auto);
+  width: 60%;
 }
 
-.current-section__block--right::before {
+.current-section__info-group-wrap::before {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 0;
+	width: 4px;
+	height: 85px;
+	background-color: var(--color-border);
+	border-radius: 2px;
+	transform: translateY(-50%);
+}
+
+.current-section__info-group-wrap::after {
   content: '';
   position: absolute;
   top: calc(50% - 1px);
@@ -76,6 +72,14 @@
   height: 4px;
   background-color: var(--color-border);
 	border-radius: 0 2px 2px 0;
+}
+
+.current-section__info-group-wrap {
+  position: relative;
+  display: grid;
+  justify-content: space-around;
+  grid-template-columns: repeat(3, auto);
+  grid-template-rows: repeat(2, auto);
 }
 
 .current-section .weather-icon svg {

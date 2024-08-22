@@ -12,10 +12,10 @@ export async function getWeather(
 	try {
 		const response = await fetch(url);
 		const data = await response.json();
-		storeData(LocalStorage.FORECAST, data);
+		storeData(LocalStorage.WEATHER_DATA, data);
 		return data;
 	} catch (error) {
 		console.error(error);
-		return getStoredData(LocalStorage.FORECAST);
+		return getStoredData(LocalStorage.WEATHER_DATA);
 	}
 }
