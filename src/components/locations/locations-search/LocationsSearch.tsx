@@ -13,7 +13,7 @@ export const LocationsSearch: React.FC<LocationsSearchProps> = ({
 }) => {
 	const [searchQuery, setSearchQuery] = useState<string>('');
 	const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
-  const [error, setError] = useState<string>('');
+	const [error, setError] = useState<string>('');
 
 	const searchQueryHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const query = e.target.value;
@@ -28,31 +28,41 @@ export const LocationsSearch: React.FC<LocationsSearchProps> = ({
 
 	const searchCity = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		const response = await fetch(
-			`https://api.openweathermap.org/geo/1.0/direct?q=${searchQuery}&limit=5&appid=${apiKey}`
-		);
-		const data = await response.json();
-		const results = data.map(
-			({ country, lat, lon, name, state, local_names }) => ({
-				id: `${lat}${lon}`,
-				country,
-				lat,
-				lng: lon,
-				name,
-				state,
-				localName: local_names[currentLanguage],
-			})
-		);
+		try {
+			const response = await fetch(
+				`https://api.openweathermap.org/geo/1.0/direct?q=${searchQuery}&limit=5&appid=${apiKey}`
+			);
+			const data = await response.json();
 
-    if (error) {
-      setError('');
-    }
+			if (Array.isArray(data)) {
+				const results = data.map(
+					({ country, lat, lon, name, state, local_names }) => ({
+						id: `${lat}${lon}`,
+						country,
+						lat,
+						lng: lon,
+						name,
+						state,
+						localName: local_names && local_names[currentLanguage],
+					})
+				);
 
-    setSearchResults(results);
+				setSearchResults(results);
 
-    if (results.length === 0) {
-      setError(`Sorry, we can't find "${searchQuery}" :(`);
-    }
+				if (results.length === 0) {
+					setError(`Sorry, we can't find "${searchQuery}" :(`);
+				} else {
+					setError('');
+				}
+			} else {
+				setError('Unexpected response from the API. Please try again.');
+				setSearchResults([]);
+			}
+		} catch (error) {
+			console.error('Error fetching city data:', error);
+			setError('Error fetching data. Please try again.');
+			setSearchResults([]);
+		}
 	};
 
 	const addLocation = (chosenLocation: Location): void => {
@@ -70,6 +80,20 @@ export const LocationsSearch: React.FC<LocationsSearchProps> = ({
 			searchQuery.length > 1 && searchResults.length === 0,
 	});
 
+	const provideLocationInfo = ({ country, state, localName }): string => {
+		let resultString = country;
+
+		if (state) {
+			resultString += ` , ${state}`;
+		}
+
+		if (localName) {
+			resultString += ` , ${localName}`;
+		}
+
+		return resultString;
+	};
+
 	return (
 		<div className={searchClasses}>
 			<form onSubmit={searchCity}>
@@ -81,17 +105,21 @@ export const LocationsSearch: React.FC<LocationsSearchProps> = ({
 						placeholder='Search...'
 						value={searchQuery}
 					/>
-					<button type='submit' className={searchButtonClasses}>
+					<button
+						type='submit'
+						className={searchButtonClasses}
+						aria-label='search location'
+					>
 						<SearchIcon />
 					</button>
 				</div>
 			</form>
-      {error && (
-        <div className='locations__search-error-message'>
-          <p>{error}</p>
-          <p>Try to press button "Get current position"</p>
-        </div>
-      )}
+			{error && (
+				<div className='locations__search-error-message'>
+					<p>{error}</p>
+					<p>Try to press button "Get current position"</p>
+				</div>
+			)}
 			<ul className='locations__suggestions'>
 				{searchResults.map((searchResult) => (
 					<li
@@ -99,12 +127,7 @@ export const LocationsSearch: React.FC<LocationsSearchProps> = ({
 						key={searchResult.id}
 						onClick={() => addLocation(searchResult)}
 					>
-						{searchResult.name} (
-						<em>
-							{searchResult.country}, {searchResult.state},{' '}
-							{searchResult.localName}
-						</em>
-						)
+						{searchResult.name} (<em>{provideLocationInfo(searchResult)}</em>)
 					</li>
 				))}
 			</ul>

@@ -11,11 +11,17 @@ type ForecastProps = {
 export const Forecast = ({ data }: ForecastProps) => {
 	const tempData = groupForecastValues(data.hourly.temperature_2m);
 	const timeData = data.hourly.time;
-	const minTemp = Math.min(...data.hourly.temperature_2m);
-	const maxTemp = Math.max(...data.hourly.temperature_2m);
+	const minTempValue = Math.min(...data.hourly.temperature_2m);
+	const maxTempValue = Math.max(...data.hourly.temperature_2m);
+	const tempRange = maxTempValue - minTempValue;
+	const minGraphHeight = 15;
+
 	const setGraphHeight = (temp: number): string => {
-		return (100 / (minTemp + maxTemp)) * temp + '%';
+		const shiftedTemp = temp - minTempValue;
+		const height = (85 / tempRange) * shiftedTemp + minGraphHeight;
+		return `${Math.min(height, 100)}%`;
 	};
+
 	const getHour = (value: number): string | number => {
 		const hour = value + 1;
 		return hour < 10 ? `0${hour}` : hour;
@@ -25,7 +31,6 @@ export const Forecast = ({ data }: ForecastProps) => {
 
 	return (
 		<div className='forecast'>
-			{/* <h3 className='forecast__title'>Temperature for the next 16 days</h3> */}
 			<div className='forecast__wrapper'>
 				{tempData.map((day, idx) => (
 					<div key={timeString(idx)} className='forecast__graph-wrapper'>

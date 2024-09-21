@@ -2,15 +2,18 @@ import React from 'react';
 import { getIcon } from '../../utils/get-icon';
 import { CurrentWeather, Daily, WeatherData } from '../../utils/constants';
 import { InfoGroup } from '../info-group/InfoGroup';
-import { getCurrentTime } from '../../utils/get-current-time';
-import { ClockIcon } from '../../icons';
 import './current-section.styles.css';
+import LastUpdate from '../last-update';
 
 interface CurrentSectionProps {
 	data: WeatherData | undefined;
+	updateForecast: () => void;
 }
 
-export const CurrentSection = ({ data }: CurrentSectionProps) => {
+export const CurrentSection = ({
+	data,
+	updateForecast,
+}: CurrentSectionProps) => {
 	if (!data) {
 		return null;
 	}
@@ -51,30 +54,27 @@ export const CurrentSection = ({ data }: CurrentSectionProps) => {
 					</div>
 				</div>
 				<div className='current-section__block--right'>
-          <div className='current-section__last-update-info'>
-            <ClockIcon />
-            Last updated at {getCurrentTime()}
-          </div>
-          <div className="current-section__info-group-wrap">
-            <InfoGroup
-              label='High'
-              value={`${maxTemp}${String.fromCharCode(176)}`}
-            />
-            <InfoGroup
-              label='FL High'
-              value={`${maxFeelsLikeTemp}${String.fromCharCode(176)}`}
-            />
-            <InfoGroup label='Wind' value={`${windSpeed} m/s`} />
-            <InfoGroup
-              label='Low'
-              value={`${minTemp}${String.fromCharCode(176)}`}
-            />
-            <InfoGroup
-              label='FL Low'
-              value={`${minFeelsLikeTemp}${String.fromCharCode(176)}`}
-            />
-            <InfoGroup label='Precip' value={`${precip} mm`} />
-          </div>
+					<LastUpdate updateForecast={updateForecast} time={new Date()} />
+					<div className='current-section__info-group-wrap'>
+						<InfoGroup
+							label='High'
+							value={`${maxTemp}${String.fromCharCode(176)}`}
+						/>
+						<InfoGroup
+							label='FL High'
+							value={`${maxFeelsLikeTemp}${String.fromCharCode(176)}`}
+						/>
+						<InfoGroup label='Wind' value={`${windSpeed} m/s`} />
+						<InfoGroup
+							label='Low'
+							value={`${minTemp}${String.fromCharCode(176)}`}
+						/>
+						<InfoGroup
+							label='FL Low'
+							value={`${minFeelsLikeTemp}${String.fromCharCode(176)}`}
+						/>
+						<InfoGroup label='Precip' value={`${precip} mm`} />
+					</div>
 				</div>
 			</div>
 		</div>

@@ -1,0 +1,26 @@
+.last-update-info {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding: 10px;
+  background-image: linear-gradient(to right, var(--color-border), transparent 90%);
+  border-radius: 2rem;
+  font-size: 12px;
+}
+
+.last-update-info--outdated {
+	background-image: linear-gradient(to right, var(--color-warn), transparent 90%);
+}
+
+.last-update-info--obsolete {
+	background-image: linear-gradient(to right, var(--color-error), transparent 90%);
+}
+
+.last-update-info__icon {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 40px;
+	height: 40px;
+	margin-right: 10px;
+}
