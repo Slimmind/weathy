@@ -1,0 +1,16 @@
+.update-button {
+  flex-shrink: 0;
+	width: 40px;
+	height: 40px;
+	margin-right: 10px;
+	padding: 0px;
+  border-radius: 50%;
+}
+
+.update-button--loading {
+	animation: rotation .3s linear;
+}
+
+.update-button svg {
+	margin: 0;
+}

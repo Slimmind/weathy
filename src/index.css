@@ -1,4 +1,6 @@
 :root {
+	--color-warn: rgba(255, 170, 0, .5);
+	--color-error: rgba(255, 0, 0, .5);
 	--color-light: hsl(200, 100%, 75%);
 	--color-lighter: hsl(200, 100%, 80%);
 	--color-lightest: hsl(200, 100%, 85%);
@@ -129,6 +131,15 @@ ul {
 	to {
 		opacity: 1;
 		transform: translateX(0);
+	}
+}
+
+@keyframes rotation {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
 	}
 }
 
