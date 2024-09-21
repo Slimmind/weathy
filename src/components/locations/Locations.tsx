@@ -12,7 +12,7 @@ const LocationsList = lazy(() => import('./locations-list'));
 const LocationsSearch = lazy(() => import('./locations-search'));
 
 interface LocationsProps {
-	changeLocation: (location: Location) => void;
+	changeLocation: (newLocation: Location) => void;
 }
 
 export const Locations = ({ changeLocation }: LocationsProps) => {
@@ -84,7 +84,9 @@ export const Locations = ({ changeLocation }: LocationsProps) => {
 
 	useEffect(() => {
 		setCurrentLocation(getStoredData(LocalStorage.LOCATION));
-		setAvailableLocations(getStoredData(LocalStorage.AVAILABLE_LOCATIONS) || []);
+		setAvailableLocations(
+			getStoredData(LocalStorage.AVAILABLE_LOCATIONS) || []
+		);
 	}, []);
 
 	const locationsClasses = clsx('locations', {

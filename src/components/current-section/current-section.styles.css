@@ -7,20 +7,6 @@
   animation: appearFromLeft var(--timing) forwards;
 }
 
-.current-section__last-update-info {
-  display: inline-flex;
-  align-items: center;
-  margin-bottom: 1rem;
-  padding: 10px;
-  background-image: linear-gradient(to right, var(--color-border), transparent 90%);
-  border-radius: 1.5rem;
-  font-size: 12px;
-}
-
-.current-section__last-update-info svg {
-  margin-right: 10px;
-}
-
 .current-section__wrapper {
   display: flex;
   align-items: center;

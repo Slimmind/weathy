@@ -2,7 +2,7 @@ import React, { lazy, useEffect, useState } from 'react';
 import Header from './components/header';
 import Preloader from './components/preloader';
 import { getWeather } from './utils/get-weather';
-import { LocalStorage, WeatherData } from './utils/constants';
+import { LocalStorage, Location, WeatherData } from './utils/constants';
 import { getStoredData } from './utils/get-stored-data';
 import { LocationModel } from './utils/models';
 import { storeData } from './utils/store-data';
@@ -60,7 +60,7 @@ function App() {
 	return (
 		<div className='App'>
 			<>
-				<Header changeLocation={changeLocation} updateForecast={fetchData} />
+				<Header changeLocation={changeLocation} />
 				{location.id ? (
 					weather ? (
 						<>
@@ -69,7 +69,7 @@ function App() {
 									iconCode={weather.current_weather.weathercode}
 								/>
 							)}
-							<CurrentSection data={weather} />
+							<CurrentSection updateForecast={fetchData} data={weather} />
 							<div className='divided-section'>
 								<DaySection
 									data={weather.daily}

@@ -119,3 +119,8 @@ export const LocalStorage = {
 	COORDS: 'weathy_coords',
 	AVAILABLE_LOCATIONS: 'weathy_available_locations',
 };
+
+export const LastUpdateValues = {
+	OUTDATED: 'outdated',
+	OBSOLETE: 'obsolete',
+};

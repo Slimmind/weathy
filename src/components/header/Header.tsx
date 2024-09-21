@@ -1,16 +1,15 @@
 import React, { lazy } from 'react';
 import { getLocalDate } from '../../utils/get-local-date';
-import { UpdateButton } from './update-button/UpdateButton';
+import { Location } from '../../utils/constants';
 import './header-styles.css';
 
 const Locations = lazy(() => import('../locations'));
 
 interface HeaderProps {
-	changeLocation: (location: Location) => void;
-	updateForecast: (location: Location) => void;
+	changeLocation: (newLocation: Location) => void;
 }
 
-export const Header = ({ changeLocation, updateForecast }) => {
+export const Header = ({ changeLocation }: HeaderProps) => {
 	const fullDate = getLocalDate(Date.now(), 'full');
 
 	return (
@@ -20,7 +19,6 @@ export const Header = ({ changeLocation, updateForecast }) => {
 			</div>
 			<div className='main-header__right'>
 				<span className='main-header__date'>{fullDate}</span>
-				<UpdateButton updateHandler={updateForecast} />
 			</div>
 		</header>
 	);
