@@ -21,7 +21,7 @@ export const UpdateButton = ({ updateHandler }: UpdateButtonProps) => {
 		<button
 			className={classes}
 			onClick={updateForecast}
-			aria-abel='update forecast button'
+			aria-label='update forecast button'
 		>
 			<UpdateIcon />
 		</button>

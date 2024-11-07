@@ -16,13 +16,13 @@ export const BackgroundSection = ({ iconCode }: BackgroundSectionProps) => {
 	};
 
 	return (
-		<section className={`background-section ${isImageLoaded ? 'loaded' : ''}`}>
+		<div className={`background-section ${isImageLoaded ? 'loaded' : ''}`}>
 			<img
 				onLoad={handleImageLoad}
 				src={imageUrl}
 				alt='weather background'
 				loading='lazy'
 			/>
-		</section>
+		</div>
 	);
 };

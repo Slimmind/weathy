@@ -34,3 +34,7 @@
   width: 65px;
   flex-shrink: 0;
 }
+
+.hour-section__row .weather-icon {
+	margin: 0;
+}

@@ -18,7 +18,9 @@ interface HourRowProps {
 export const HourRow = React.memo(({ data }: HourRowProps) => {
 	const { timestamp, iconCode, temp, feelsLike, windSpeed, precip } = data;
 	const hour = HOUR_FORMATTER.format(timestamp);
-	const IconComponent = getIcon(iconCode, timestamp);
+	const IconComponent = getIcon(iconCode, timestamp) as React.FunctionComponent<
+		React.SVGProps<SVGSVGElement>
+	>;
 
 	return (
 		<li className='hour-section__row'>

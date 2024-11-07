@@ -23,10 +23,30 @@
 	-webkit-tap-highlight-color: transparent;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-	background: url('./assets/bg-pattern.svg');
-	overflow: hidden;
+	position: relative;
 	color: var(--color-dark);
+	font-family: 'Roboto', sans-serif;
+	/* overflow: hidden; */
+}
+
+body::before {
+	content: '';
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100dvh;
+	background: url('./assets/bg-pattern.svg');
+}
+
+main {
+	min-height: calc(100dvh - 50px);
+	padding-top: 76px;
 }
 
 button,
@@ -56,14 +76,6 @@ button,
 
 ul {
 	list-style: none;
-}
-
-.App {
-	height: 100dvh;
-	padding-top: 76px;
-	font-family: 'Roboto', sans-serif;
-	transition: opacity 1s;
-	overflow: auto;
 }
 
 .weather__empty {

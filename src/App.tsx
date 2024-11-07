@@ -15,6 +15,7 @@ const GraphSection = lazy(() => import('./components/graph-section'));
 const MapSection = lazy(() => import('./components/map-section'));
 const HourSection = lazy(() => import('./components/hour-section'));
 const Forecast = lazy(() => import('./components/forecast'));
+const Footer = lazy(() => import('./components/footer'));
 
 function App() {
 	const [relatedTab, setRelatedTab] = useState<number>(0);
@@ -61,35 +62,38 @@ function App() {
 		<div className='App'>
 			<>
 				<Header changeLocation={changeLocation} />
-				{location?.id ? (
-					weather ? (
-						<>
-							{weather.current_weather && (
-								<BackgroundSection
-									iconCode={weather.current_weather.weathercode}
-								/>
-							)}
-							<CurrentSection updateForecast={fetchData} data={weather} />
-							<div className='divided-section'>
-								<DaySection
-									data={weather.daily}
-									changeRelatedTab={changeRelatedTab}
-								/>
-								<GraphSection
-									data={weather.daily}
-									changeRelatedTab={changeRelatedTab}
-								/>
-							</div>
-							<MapSection lat={location.lat} lng={location.lng} />
-							<HourSection data={weather} relatedTab={relatedTab} />
-							<Forecast data={forecast} />
-						</>
+				<main>
+					{location?.id ? (
+						weather ? (
+							<>
+								{weather.current_weather && (
+									<BackgroundSection
+										iconCode={weather.current_weather.weathercode}
+									/>
+								)}
+								<CurrentSection updateForecast={fetchData} data={weather} />
+								<div className='divided-section'>
+									<DaySection
+										data={weather.daily}
+										changeRelatedTab={changeRelatedTab}
+									/>
+									<GraphSection
+										data={weather.daily}
+										changeRelatedTab={changeRelatedTab}
+									/>
+								</div>
+								<MapSection lat={location.lat} lng={location.lng} />
+								<HourSection data={weather} relatedTab={relatedTab} />
+								<Forecast data={forecast} />
+							</>
+						) : (
+							<Preloader />
+						)
 					) : (
-						<Preloader />
-					)
-				) : (
-					<h2 className='weather__empty'>Please choose your location ;)</h2>
-				)}
+						<h2 className='weather__empty'>Please choose your location ;)</h2>
+					)}
+				</main>
+				<Footer />
 			</>
 		</div>
 	);

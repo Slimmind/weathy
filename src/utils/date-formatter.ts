@@ -1,14 +1,15 @@
 export const DAY_FORMATTER = new Intl.DateTimeFormat('en-GB', {
-  weekday: 'long',
+	weekday: 'long',
 });
 export const SHORT_DAY_FORMATTER = new Intl.DateTimeFormat('en-GB', {
-  weekday: 'short',
+	weekday: 'short',
 });
 export const CARD_DATE_FORMATTER = new Intl.DateTimeFormat('en-US', {
-  month: 'long',
-  day: 'numeric',
+	month: 'long',
+	day: 'numeric',
 });
 export const HOUR_FORMATTER = new Intl.DateTimeFormat(undefined, {
-  hour: 'numeric',
-  minute: 'numeric',
+	hour: 'numeric',
+	minute: 'numeric',
+	hour12: false,
 });
