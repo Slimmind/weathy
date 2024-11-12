@@ -1,12 +1,13 @@
 import React, { lazy, useEffect, useState } from 'react';
-import Header from './components/header';
-import Preloader from './components/preloader';
 import { getWeather } from './utils/get-weather';
 import { LocalStorage, Location, WeatherData } from './utils/constants';
 import { getStoredData } from './utils/get-stored-data';
 import { LocationModel } from './utils/models';
 import { storeData } from './utils/store-data';
 import { getForecast } from './utils/get-forecast';
+import Header from './components/header';
+import Footer from './components/footer';
+import Preloader from './components/preloader';
 
 const BackgroundSection = lazy(() => import('./components/background-section'));
 const CurrentSection = lazy(() => import('./components/current-section'));
@@ -15,7 +16,7 @@ const GraphSection = lazy(() => import('./components/graph-section'));
 const MapSection = lazy(() => import('./components/map-section'));
 const HourSection = lazy(() => import('./components/hour-section'));
 const Forecast = lazy(() => import('./components/forecast'));
-const Footer = lazy(() => import('./components/footer'));
+const ScrollToTop = lazy(() => import('./components/scroll-to-top'));
 
 function App() {
 	const [relatedTab, setRelatedTab] = useState<number>(0);
@@ -85,6 +86,7 @@ function App() {
 								<MapSection lat={location.lat} lng={location.lng} />
 								<HourSection data={weather} relatedTab={relatedTab} />
 								<Forecast data={forecast} />
+								<ScrollToTop />
 							</>
 						) : (
 							<Preloader />
