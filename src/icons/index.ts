@@ -13,6 +13,7 @@ import { SearchLocationIcon } from './search-location';
 import { UpdateIcon } from './update';
 import { CheckIcon } from './check';
 import { ClockIcon } from './clock';
+import { ArrowTopIcon } from './arrow-top';
 
 export {
 	SunIcon,
@@ -29,5 +30,6 @@ export {
 	SearchLocationIcon,
 	UpdateIcon,
 	CheckIcon,
-  ClockIcon,
+	ClockIcon,
+	ArrowTopIcon,
 };
