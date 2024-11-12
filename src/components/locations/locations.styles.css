@@ -12,7 +12,7 @@
 	position: relative;
 	display: flex;
 	align-items: center;
-	border-radius: 1rem;
+	border-radius: var(--radius-main);
 	font-style: italic;
 	cursor: pointer;
 }
@@ -80,8 +80,8 @@
 	height: calc(100vh - 56px);
 	padding: 40px 10px 20px;
 	background-image: linear-gradient(to bottom, var(--color-window), var(--color-window) 60%, transparent 100%);
-	-webkit-backdrop-filter: blur(10px);
-	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(var(--blur));
+	backdrop-filter: blur(var(--blur));
 	opacity: 0;
 	pointer-events: none;
 	transform-origin: top;
@@ -109,5 +109,3 @@
 	line-height: 32px;
 	font-weight: bold;
 }
-
-

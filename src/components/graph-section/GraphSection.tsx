@@ -24,6 +24,7 @@ export const TemperatureGraph = ({
 		maxTemp: Math.round(data.temperature_2m_max[index]),
 		minTemp: Math.round(data.temperature_2m_min[index]),
 	}));
+
 	const barHeights = getBarHeight(weather);
 
 	return (
@@ -37,7 +38,6 @@ export const TemperatureGraph = ({
 					>
 						<GraphBar
 							key={timestamp}
-							time={timestamp}
 							maxTemp={maxTemp}
 							minTemp={minTemp}
 							icon={iconCode}

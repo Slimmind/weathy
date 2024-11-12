@@ -1,9 +1,11 @@
 .hour-section {
   position: relative;
-  width: 100%;
+  width: calc(100% - 20px);
 	scroll-margin-block-start: 70px;
-  padding: 0 10px;
+  margin: 0 10px;
   border-spacing: 0;
+  border-radius: var(--radius-main);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
