@@ -16,6 +16,7 @@ const MapSection = lazy(() => import('./components/map-section'));
 const HourSection = lazy(() => import('./components/hour-section'));
 const Forecast = lazy(() => import('./components/forecast'));
 const Footer = lazy(() => import('./components/footer'));
+const ScrollToTop = lazy(() => import('./components/scroll-to-top'));
 
 function App() {
 	const [relatedTab, setRelatedTab] = useState<number>(0);
@@ -85,6 +86,7 @@ function App() {
 								<MapSection lat={location.lat} lng={location.lng} />
 								<HourSection data={weather} relatedTab={relatedTab} />
 								<Forecast data={forecast} />
+								<ScrollToTop />
 							</>
 						) : (
 							<Preloader />

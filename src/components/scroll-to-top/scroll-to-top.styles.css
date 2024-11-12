@@ -1,0 +1,27 @@
+.scroll-to-top {
+	position: fixed;
+	bottom: 30px;
+	right: 30px;
+	opacity: 0;
+	pointer-events: none;
+	transform: translateY(40px);
+	transition: opacity .3s, transform .3s;
+	z-index: 1;
+}
+
+.scroll-to-top--visible {
+	opacity: 1;
+	pointer-events: all;
+	transform: translateY(0);
+}
+
+.scroll-to-top__button {
+	width: 50px;
+	height: 50px;
+	padding: 0;
+  background-color: var(--color-light-transparent);
+  --webkit-backdrop-filter: blur(var(--blur));
+  backdrop-filter: blur(var(--blur));
+	border-radius: 50%;
+	box-shadow: 0 0 10px 0 var(--color-border);
+}
