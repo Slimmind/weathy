@@ -1,4 +1,5 @@
 import React from 'react';
+import './day-info.styles.css';
 
 type DayInfoProps = {
 	dateData: {

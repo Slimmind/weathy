@@ -1,9 +1,11 @@
 .current-section {
   margin: 0 10px 20px;
-  background-color: var(--color-light-transparent);
-  -webkit-backdrop-filter: blur(3px);
-  backdrop-filter: blur(3px);
-  border-radius: 1rem;
+  background-color: var(--color-element-bg);
+  -webkit-backdrop-filter: blur(var(--blur));
+  backdrop-filter: blur(var(--blur));
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-main);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   animation: appearFromLeft var(--timing) forwards;
 }
 

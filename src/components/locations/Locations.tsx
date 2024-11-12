@@ -13,9 +13,10 @@ const LocationsSearch = lazy(() => import('./locations-search'));
 
 interface LocationsProps {
 	changeLocation: (newLocation: Location) => void;
+	toggleMenu: (isMenuActive: boolean) => void;
 }
 
-export const Locations = ({ changeLocation }: LocationsProps) => {
+export const Locations = ({ changeLocation, toggleMenu }: LocationsProps) => {
 	const [currentLocation, setCurrentLocation] = useState<Location>(
 		getStoredData(LocalStorage.LOCATION)
 	);
@@ -25,28 +26,20 @@ export const Locations = ({ changeLocation }: LocationsProps) => {
 	);
 
 	const switchLocationsMenu = () => {
-		setSwitchedLocationMenu(!switchedLocationMenu);
+		setSwitchedLocationMenu((prev) => !prev);
+		toggleMenu(!switchedLocationMenu);
 	};
 
 	const getCurrentPosition = async (): Promise<void> => {
 		try {
 			const coordinates = await getCoordinates();
-			if (!coordinates) {
-				console.error('Coordinates are undefined');
-				return;
-			}
+			if (!coordinates) return console.error('Coordinates are undefined');
 
 			const { lat, lng } = coordinates;
 			const newCity = await getCity(lat, lng);
 
 			if (newCity) {
-				const newLocation = {
-					id: `${lat}${lng}`,
-					name: newCity,
-					lat,
-					lng,
-				};
-
+				const newLocation = { id: `${lat}${lng}`, name: newCity, lat, lng };
 				addLocation(newLocation);
 				setCurrentLocation(newLocation);
 			}
@@ -56,14 +49,13 @@ export const Locations = ({ changeLocation }: LocationsProps) => {
 	};
 
 	const addLocation = (newLocation: Location): void => {
-		setAvailableLocations((prev: Location[]) => {
-			if (prev.some((item) => item.id === newLocation.id)) {
-				return prev;
-			}
+		setAvailableLocations((prev) => {
+			if (prev.some((item) => item.id === newLocation.id)) return prev;
 
-			storeData(LocalStorage.AVAILABLE_LOCATIONS, [...prev, newLocation]);
+			const updatedLocations = [...prev, newLocation];
+			storeData(LocalStorage.AVAILABLE_LOCATIONS, updatedLocations);
 			changeLocationHandler(newLocation);
-			return [...prev, newLocation];
+			return updatedLocations;
 		});
 	};
 

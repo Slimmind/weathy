@@ -1,8 +1,9 @@
 .map-section {
   margin: 0 10px 20px;
   background: var(--color-border);
-  border: 4px solid transparent;
-  border-radius: 1rem;
+  border: var(--border-width) solid transparent;
+  border-radius: var(--radius-main);
+  box-shadow: var(--shadow);
   overflow: hidden;
   animation: fadeIn var(--timing) forwards;
 }

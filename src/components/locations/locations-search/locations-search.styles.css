@@ -13,6 +13,7 @@
 	height: 50px;
 	padding: 0 60px 0 1rem;
 	border-radius: 2rem;
+  box-shadow: var(--shadow);
 	font-size: 1rem;
 }
 

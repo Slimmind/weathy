@@ -24,11 +24,7 @@ export const HourRow = React.memo(({ data }: HourRowProps) => {
 
 	return (
 		<li className='hour-section__row'>
-			<div>
-				<div className='info-group'>
-					<div>{hour}</div>
-				</div>
-			</div>
+			{hour}
 			<div className='weather-icon'>
 				<IconComponent />
 			</div>

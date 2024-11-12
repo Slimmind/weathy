@@ -7,15 +7,16 @@ const Locations = lazy(() => import('../locations'));
 
 interface HeaderProps {
 	changeLocation: (newLocation: Location) => void;
+	toggleMenu: (isMenuActive: boolean) => void;
 }
 
-export const Header = ({ changeLocation }: HeaderProps) => {
+export const Header = ({ changeLocation, toggleMenu }: HeaderProps) => {
 	const fullDate = getLocalDate(Date.now(), 'full');
 
 	return (
 		<header className='main-header'>
 			<div className='main-header__location'>
-				<Locations changeLocation={changeLocation} />
+				<Locations changeLocation={changeLocation} toggleMenu={toggleMenu} />
 			</div>
 			<div className='main-header__right'>
 				<span className='main-header__date'>{fullDate}</span>

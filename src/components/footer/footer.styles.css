@@ -2,7 +2,7 @@
 	position: relative;
 	padding: 16px;
 	background-color: var(--color-border);
-	-webkit-backdrop-filter: blur(3px);
-  backdrop-filter: blur(3px);
+	-webkit-backdrop-filter: blur(var(--blur));
+  backdrop-filter: blur(var(--blur));
 	text-align: center;
 }
