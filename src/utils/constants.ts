@@ -106,6 +106,10 @@ export interface SearchResult {
 }
 
 export type ChunkGroup = {
+	date: {
+		dayNum: number;
+		dayName: string;
+	};
 	min: number;
 	max: number;
 	values: number[];

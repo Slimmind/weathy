@@ -1,28 +1,34 @@
-import React, { useState } from 'react';
-import { getBackground } from '../../utils/get-background';
+import React, { useState, useMemo, useCallback } from "react";
+import { getBackground } from "../../utils/get-background";
 
-import './background-section.styles.css';
+import "./background-section.styles.css";
 
 type BackgroundSectionProps = {
-	iconCode: number;
+  iconCode: number;
 };
 
-export const BackgroundSection = ({ iconCode }: BackgroundSectionProps) => {
-	const [isImageLoaded, setIsImageLoaded] = useState<boolean>(false);
-	const imageUrl = getBackground(iconCode, Date.now());
+export const BackgroundSection = React.memo(
+  ({ iconCode }: BackgroundSectionProps) => {
+    const [isImageLoaded, setIsImageLoaded] = useState<boolean>(false);
 
-	const handleImageLoad = (): void => {
-		setIsImageLoaded(true);
-	};
+    const imageUrl = useMemo(
+      () => getBackground(iconCode, Date.now()),
+      [iconCode],
+    );
 
-	return (
-		<div className={`background-section ${isImageLoaded ? 'loaded' : ''}`}>
-			<img
-				onLoad={handleImageLoad}
-				src={imageUrl}
-				alt='weather background'
-				loading='lazy'
-			/>
-		</div>
-	);
-};
+    const handleImageLoad = useCallback(() => {
+      setIsImageLoaded(true);
+    }, []);
+
+    return (
+      <div className={`background-section ${isImageLoaded ? "loaded" : ""}`}>
+        <img
+          onLoad={handleImageLoad}
+          src={imageUrl}
+          alt="weather background"
+          loading="lazy"
+        />
+      </div>
+    );
+  },
+);
