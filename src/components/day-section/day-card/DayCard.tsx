@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
 	CARD_DATE_FORMATTER,
 	DAY_FORMATTER,
@@ -13,13 +13,13 @@ interface DayCardComponentProps {
 	maxTemp: number;
 }
 
-export const DayCard: React.FC<DayCardComponentProps> = ({
+export const DayCard = ({
 	time,
 	icon,
 	minTemp,
 	maxTemp,
-}) => {
-	const IconComponent = getIcon(icon);
+}: DayCardComponentProps) => {
+	const IconComponent = useMemo(() => getIcon(icon), [icon]);
 
 	return (
 		<div className='day-card'>
