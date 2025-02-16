@@ -1,4 +1,4 @@
-import React, { lazy } from 'react';
+import React, { lazy, memo, Suspense, useMemo } from 'react';
 import { Daily } from '../../utils/constants';
 import './day-section-styles.css';
 
@@ -16,39 +16,45 @@ interface DaySectionProps {
 	changeRelatedTab: (tabIndex: number) => void;
 }
 
-export const DaySection = ({ data, changeRelatedTab }: DaySectionProps) => {
-	if (!data) {
-		return null;
+export const DaySection = memo(
+	({ data, changeRelatedTab }: DaySectionProps) => {
+		if (!data) return null;
+
+		const { time, weathercode, temperature_2m_min, temperature_2m_max } = data;
+
+		const weather = useMemo<Weather[]>(
+			() =>
+				time.slice(1).map((timestamp, idx) => ({
+					timestamp: timestamp * 1000,
+					iconCode: weathercode[idx + 1],
+					minTemp: Math.round(temperature_2m_min[idx + 1]),
+					maxTemp: Math.round(temperature_2m_max[idx + 1]),
+				})),
+			[data]
+		);
+
+		const handleTabChange = (tabIndex: number) => () =>
+			changeRelatedTab(tabIndex);
+
+		return (
+			<ul className='day-section'>
+				<Suspense fallback={<div>Loading...</div>}>
+					{weather.map(({ timestamp, iconCode, minTemp, maxTemp }, idx) => (
+						<li
+							key={timestamp}
+							className='day-section__item'
+							onClick={handleTabChange(idx + 1)}
+						>
+							<DayCard
+								time={timestamp}
+								icon={iconCode}
+								minTemp={minTemp}
+								maxTemp={maxTemp}
+							/>
+						</li>
+					))}
+				</Suspense>
+			</ul>
+		);
 	}
-
-	const weather: Weather[] = data.time
-		.slice(1)
-		.map((time: number, idx: number) => {
-			const index = idx + 1;
-			return {
-				timestamp: time * 1000,
-				iconCode: data.weathercode[index],
-				minTemp: Math.round(data.temperature_2m_min[index]),
-				maxTemp: Math.round(data.temperature_2m_max[index]),
-			};
-		});
-
-	return (
-		<ul className='day-section'>
-			{weather.map(({ timestamp, iconCode, minTemp, maxTemp }, idx) => (
-				<li
-					key={timestamp}
-					className='day-section__item'
-					onClick={() => changeRelatedTab(idx + 1)}
-				>
-					<DayCard
-						time={timestamp}
-						icon={iconCode}
-						minTemp={minTemp}
-						maxTemp={maxTemp}
-					/>
-				</li>
-			))}
-		</ul>
-	);
-};
+);
