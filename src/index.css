@@ -50,6 +50,11 @@ body::before {
 	background: url('./assets/bg-pattern.svg');
 }
 
+.App {
+  width: 100dvw;
+  height: 100dvh;
+}
+
 main {
 	min-height: calc(100dvh - 50px);
 	padding-top: 76px;
@@ -114,6 +119,10 @@ ul {
 	height: 120px;
 }
 
+text {
+  display: none;
+}
+
 @keyframes fadeIn {
 	from {
 		opacity: 0;
@@ -136,10 +145,12 @@ ul {
 
 @keyframes appearFromLeft {
 	from {
+    filter: blur(10px);
 		opacity: 0;
 		transform: translateX(-40px);
 	}
 	to {
+    filter: blur(0);
 		opacity: 1;
 		transform: translateX(0);
 	}
@@ -147,10 +158,12 @@ ul {
 
 @keyframes appearFromRight {
 	from {
+    filter: blur(10px);
 		opacity: 0;
 		transform: translateX(40px);
 	}
 	to {
+    filter: blur(0);
 		opacity: 1;
 		transform: translateX(0);
 	}

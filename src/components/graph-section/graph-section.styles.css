@@ -1,4 +1,6 @@
 .temperature-graph {
+  opacity: 0;
+  transform: translateX(-40px);
   animation: appearFromLeft var(--timing) forwards;
 }
 

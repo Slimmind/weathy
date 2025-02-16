@@ -20,7 +20,6 @@
 	display: flex;
 	align-items: flex-end;
 	height: 255px;
-	margin-right: 10px;
 	padding: 55px 10px 10px;
 	background-color: var(--color-element-bg);
   backdrop-filter: blur(var(--blur-small));
@@ -77,13 +76,27 @@
 }
 
 .forecast__temperature {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.forecast__temperature--max {
   font-weight: bold;
 }
+
+.forecast__temperature--min {
+  padding-bottom: 4px;
+  font-size: 10px;
+}
+
 .forecast__day-info {
 	position: sticky;
 	top: 47.5px;
 	left: 10px;
 	display: inline-flex;
+  align-items: center;
 	margin: 0 20px 0 10px;
 	padding: 0 5px;
 	background-color: var(--color-border);
@@ -96,7 +109,8 @@
 	z-index: 1;
 }
 
-.forecast__day-info span {
+.forecast__day-info span,
+.forecast__day-info strong {
 	position: relative;
-	padding: 10px;
+	padding: 10px 5px;
 }

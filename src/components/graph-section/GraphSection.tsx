@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { GraphBar } from './graph-bar/GraphBar';
 import { ScaleXItem } from './scale-x-item/ScaleXItem';
 import { getBarHeight } from '../../utils/get-bar-height';
@@ -10,7 +10,8 @@ interface TemperatureGraphProps {
 	changeRelatedTab: (tabIndex: number) => void;
 }
 
-export const TemperatureGraph = ({
+export const TemperatureGraph = memo(
+  ({
 	data,
 	changeRelatedTab,
 }: TemperatureGraphProps) => {
@@ -53,4 +54,4 @@ export const TemperatureGraph = ({
 			</ul>
 		</section>
 	);
-};
+});

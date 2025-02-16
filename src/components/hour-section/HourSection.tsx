@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { DAY_FORMATTER } from '../../utils/date-formatter';
 import { HourGroup } from './hour-group/HourGroup';

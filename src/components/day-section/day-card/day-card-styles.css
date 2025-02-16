@@ -14,6 +14,9 @@
   color: inherit;
   font-weight: bold;
   text-decoration: none;
+  opacity: 0;
+  transform: translateX(40px);
+  animation: appearFromRight var(--timing) forwards;
 }
 
 .day-card__date, .day-card__calendar {

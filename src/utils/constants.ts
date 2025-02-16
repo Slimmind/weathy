@@ -75,6 +75,15 @@ export interface Coordinates {
 	lng: number;
 }
 
+export interface Location {
+	id: string;
+	country: string;
+	lat: number;
+	lng: number;
+	name: string;
+	localName: string;
+}
+
 export interface Position {
 	coords: {
 		latitude: number;

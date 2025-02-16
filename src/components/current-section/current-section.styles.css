@@ -6,6 +6,8 @@
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius-main);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: translateX(-40px);
   animation: appearFromLeft var(--timing) forwards;
 }
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo, useMemo } from 'react';
 import {
 	CARD_DATE_FORMATTER,
 	DAY_FORMATTER,
@@ -13,26 +13,28 @@ interface DayCardComponentProps {
 	maxTemp: number;
 }
 
-export const DayCard: React.FC<DayCardComponentProps> = ({
-	time,
-	icon,
-	minTemp,
-	maxTemp,
-}) => {
-	const IconComponent = getIcon(icon);
+export const DayCard = memo(
+  ({
+    time,
+    icon,
+    minTemp,
+    maxTemp,
+  }: DayCardComponentProps) => {
+    const IconComponent = useMemo(() => getIcon(icon), [icon]);
 
-	return (
-		<div className='day-card'>
-			<p className='day-card__calendar'>{CARD_DATE_FORMATTER.format(time)}</p>
-			<div className='weather-icon weather-icon--middle'>
-				<IconComponent />
-			</div>
-			<div className='day-card__date'>{DAY_FORMATTER.format(time)}</div>
-			<div className='day-card__temperature'>
-				<span>
-					{minTemp}&deg; | {maxTemp}&deg;
-				</span>
-			</div>
-		</div>
-	);
-};
+    return (
+      <div className='day-card'>
+        <p className='day-card__calendar'>{CARD_DATE_FORMATTER.format(time)}</p>
+        <div className='weather-icon weather-icon--middle'>
+          <IconComponent />
+        </div>
+        <div className='day-card__date'>{DAY_FORMATTER.format(time)}</div>
+        <div className='day-card__temperature'>
+          <span>
+            {minTemp}&deg; | {maxTemp}&deg;
+          </span>
+        </div>
+      </div>
+    );
+  }
+);

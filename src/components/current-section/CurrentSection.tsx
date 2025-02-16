@@ -1,82 +1,84 @@
-import React from 'react';
+import React, { memo, useMemo } from 'react';
 import { getIcon } from '../../utils/get-icon';
-import { CurrentWeather, Daily, WeatherData } from '../../utils/constants';
+import { WeatherData } from '../../utils/constants';
 import { InfoGroup } from '../info-group/InfoGroup';
-import './current-section.styles.css';
 import LastUpdate from '../last-update';
+import './current-section.styles.css';
 
 interface CurrentSectionProps {
-	data: WeatherData | undefined;
+	data?: WeatherData;
 	updateForecast: () => void;
 }
 
-export const CurrentSection = ({
-	data,
-	updateForecast,
-}: CurrentSectionProps) => {
-	if (!data) {
-		return null;
-	}
+export const CurrentSection = memo(
+	({ data, updateForecast }: CurrentSectionProps) => {
+		if (!data?.current_weather || !data?.daily) return null;
 
-	const { current_weather, daily } = data;
+		const { current_weather, daily } = data;
+		const DEGREE_SYMBOL = '°';
 
-	if (!current_weather || !daily) {
-		return null;
-	}
+		const weatherInfo = useMemo(
+			() => ({
+				currentTemp: current_weather.temperature,
+				windSpeed: current_weather.windspeed,
+				iconCode: current_weather.weathercode,
+				maxTemp: daily.temperature_2m_max[0],
+				minTemp: daily.temperature_2m_min[0],
+				maxFeelsLikeTemp: daily.apparent_temperature_max[0],
+				minFeelsLikeTemp: daily.apparent_temperature_min[0],
+				precip: daily.precipitation_sum[0],
+			}),
+			[current_weather, daily]
+		);
 
-	const {
-		temperature: currentTemp,
-		windspeed: windSpeed,
-		weathercode: iconCode,
-	} = current_weather as CurrentWeather;
+		const IconComponent = useMemo(
+			() => getIcon(weatherInfo.iconCode, Date.now()),
+			[weatherInfo.iconCode]
+		);
 
-	const {
-		temperature_2m_max: [maxTemp],
-		temperature_2m_min: [minTemp],
-		apparent_temperature_max: [maxFeelsLikeTemp],
-		apparent_temperature_min: [minFeelsLikeTemp],
-		precipitation_sum: [precip],
-	} = daily as Daily;
+		console.log('CURRENT_SECTION');
 
-	const IconComponent = getIcon(iconCode, Date.now());
-
-	return (
-		<div className='current-section'>
-			<div className='current-section__wrapper'>
-				<div className='current-section__block--left'>
-					{IconComponent && (
-						<div className='weather-icon weather-icon--large'>
-							<IconComponent />
+		return (
+			<div className='current-section'>
+				<div className='current-section__wrapper'>
+					<div className='current-section__block--left'>
+						{IconComponent && (
+							<div className='weather-icon weather-icon--large'>
+								<IconComponent />
+							</div>
+						)}
+						<div className='header-current-temp'>
+							<span>
+								{weatherInfo.currentTemp}
+								{DEGREE_SYMBOL}
+							</span>
 						</div>
-					)}
-					<div className='header-current-temp'>
-						<span>{currentTemp}&deg;</span>
 					</div>
-				</div>
-				<div className='current-section__block--right'>
-					<LastUpdate updateForecast={updateForecast} time={new Date()} />
-					<div className='current-section__info-group-wrap'>
-						<InfoGroup
-							label='High'
-							value={`${maxTemp}${String.fromCharCode(176)}`}
-						/>
-						<InfoGroup
-							label='FL High'
-							value={`${maxFeelsLikeTemp}${String.fromCharCode(176)}`}
-						/>
-						<InfoGroup label='Wind' value={`${windSpeed} m/s`} />
-						<InfoGroup
-							label='Low'
-							value={`${minTemp}${String.fromCharCode(176)}`}
-						/>
-						<InfoGroup
-							label='FL Low'
-							value={`${minFeelsLikeTemp}${String.fromCharCode(176)}`}
-						/>
-						<InfoGroup label='Precip' value={`${precip} mm`} />
+					<div className='current-section__block--right'>
+						<LastUpdate updateForecast={updateForecast} time={new Date()} />
+						<div className='current-section__info-group-wrap'>
+							<InfoGroup
+								label='High'
+								value={`${weatherInfo.maxTemp}${DEGREE_SYMBOL}`}
+							/>
+							<InfoGroup
+								label='FL High'
+								value={`${weatherInfo.maxFeelsLikeTemp}${DEGREE_SYMBOL}`}
+							/>
+							<InfoGroup label='Wind' value={`${weatherInfo.windSpeed} m/s`} />
+							<InfoGroup
+								label='Low'
+								value={`${weatherInfo.minTemp}${DEGREE_SYMBOL}`}
+							/>
+							<InfoGroup
+								label='FL Low'
+								value={`${weatherInfo.minFeelsLikeTemp}${DEGREE_SYMBOL}`}
+							/>
+							<InfoGroup label='Precip' value={`${weatherInfo.precip} mm`} />
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	);
-};
+		);
+	}
+);
