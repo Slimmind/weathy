@@ -2,11 +2,11 @@ import React, { lazy, useEffect, useState, useCallback, useMemo } from 'react';
 import Header from './components/header';
 import Preloader from './components/preloader';
 import { getWeather } from './utils/get-weather';
+import { getForecast } from './utils/get-forecast';
 import { LocalStorage, Location, WeatherData } from './utils/constants';
 import { getStoredData } from './utils/get-stored-data';
 import { LocationModel } from './utils/models';
 import { storeData } from './utils/store-data';
-import { getForecast } from './utils/get-forecast';
 
 const BackgroundSection = lazy(() => import('./components/background-section'));
 const CurrentSection = lazy(() => import('./components/current-section'));
@@ -33,18 +33,19 @@ function App() {
 		const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 		const { lat, lng } = location;
 		try {
+			// Объединяем два запроса в один для оптимизации производительности
 			const [weatherData, forecastData] = await Promise.all([
 				getWeather(lat, lng, timeZone),
 				getForecast(lat, lng),
 			]);
 
-			setWeather((prev) => {
+			setWeather((prev: WeatherData | null | undefined) => {
 				return JSON.stringify(prev) === JSON.stringify(weatherData)
 					? prev ?? null
 					: weatherData;
 			});
 
-			setForecast((prev) => {
+			setForecast((prev: any) => {
 				return JSON.stringify(prev) === JSON.stringify(forecastData)
 					? prev ?? null
 					: forecastData;

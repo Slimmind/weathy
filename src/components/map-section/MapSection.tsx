@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import L, { LatLngExpression } from 'leaflet';
-import customMarkerImage from '/public/icons/marker-icon.svg';
 import 'leaflet/dist/leaflet.css';
 import './map-section.styles.css';
 
@@ -30,11 +29,13 @@ export const MapSection = ({ lat, lng }: MapSectionProps) => {
 				attribution: 'Map data &copy; OpenStreetMap contributors',
 			}).addTo(map);
 
+			// Use a fallback to a default marker icon for now
+			// This avoids the SVG import issue while maintaining functionality
 			const customIcon = L.icon({
-				iconUrl: customMarkerImage,
-				iconSize: [64, 64],
-				iconAnchor: [32, 64],
-				popupAnchor: [0, -64],
+				iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png',
+				iconSize: [25, 41],
+				iconAnchor: [12, 41],
+				popupAnchor: [1, -34],
 			});
 
 			L.marker(coords, { icon: customIcon }).addTo(map);

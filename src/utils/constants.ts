@@ -97,12 +97,6 @@ export interface Position {
 	timestamp: number;
 }
 
-export interface Location {
-	id: string;
-	name: string;
-	lat: number;
-	lng: number;
-}
 
 export interface SearchResult {
 	id: string;
