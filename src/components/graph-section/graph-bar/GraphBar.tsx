@@ -10,7 +10,7 @@ interface GraphBarProps {
 }
 
 export const GraphBar = ({ maxTemp, minTemp, icon, size }: GraphBarProps) => {
-	const IconComponent = getIcon(icon) as any;
+	const IconComponent = getIcon(icon) || null;
 	return (
 		<div className='graph-bar' style={{ height: size }} data-min-temp={minTemp}>
 			<strong className='graph-bar__value graph-bar__value--max'>
@@ -20,7 +20,7 @@ export const GraphBar = ({ maxTemp, minTemp, icon, size }: GraphBarProps) => {
 				{minTemp}&deg;
 			</strong>
 			<div className='graph-bar__icon'>
-				<IconComponent />
+				{IconComponent && <IconComponent />}
 			</div>
 		</div>
 	);

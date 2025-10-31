@@ -31,10 +31,10 @@ export const CurrentSection = memo(
 			[current_weather, daily]
 		);
 
-		const IconComponent = useMemo(
-			() => getIcon(weatherInfo.iconCode, Date.now()),
-			[weatherInfo.iconCode]
-		);
+		const IconComponent = useMemo(() => {
+			const icon = getIcon(weatherInfo.iconCode, Date.now());
+			return icon || null;
+		}, [weatherInfo.iconCode]);
 
 		console.log('CURRENT_SECTION');
 
