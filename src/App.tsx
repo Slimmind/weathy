@@ -1,4 +1,4 @@
-import React, { lazy, useEffect, useState, useCallback, useMemo } from 'react';
+import React, { lazy, useEffect, useState, useCallback, useMemo, Suspense } from 'react';
 import Header from './components/header';
 import Preloader from './components/preloader';
 import { getWeather } from './utils/get-weather';
@@ -78,7 +78,7 @@ function App() {
 			return <Preloader />;
 		}
 		return (
-			<>
+			<Suspense fallback={<Preloader />}>
 				{weather.current_weather && (
 					<BackgroundSection iconCode={weather.current_weather.weathercode} />
 				)}
@@ -91,7 +91,7 @@ function App() {
 				<HourSection data={weather} relatedTab={relatedTab} />
 				<Forecast data={forecast} />
 				<ScrollToTop />
-			</>
+			</Suspense>
 		);
 	}, [location, weather, forecast, fetchData, relatedTab]);
 

@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from 'react';
+import React, { memo, useDeferredValue, useMemo } from 'react';
 import { getIcon } from '../../utils/get-icon';
 import { WeatherData } from '../../utils/constants';
 import { InfoGroup } from '../info-group/InfoGroup';
@@ -17,24 +17,21 @@ export const CurrentSection = memo(
 		const { current_weather, daily } = data;
 		const DEGREE_SYMBOL = '°';
 
-		const weatherInfo = useMemo(
-			() => ({
-				currentTemp: current_weather.temperature,
-				windSpeed: current_weather.windspeed,
-				iconCode: current_weather.weathercode,
-				maxTemp: daily.temperature_2m_max[0],
-				minTemp: daily.temperature_2m_min[0],
-				maxFeelsLikeTemp: daily.apparent_temperature_max[0],
-				minFeelsLikeTemp: daily.apparent_temperature_min[0],
-				precip: daily.precipitation_sum[0],
-			}),
-			[current_weather, daily]
-		);
+		const weatherInfo = {
+			currentTemp: current_weather.temperature,
+			windSpeed: current_weather.windspeed,
+			iconCode: current_weather.weathercode,
+			maxTemp: daily.temperature_2m_max[0],
+			minTemp: daily.temperature_2m_min[0],
+			maxFeelsLikeTemp: daily.apparent_temperature_max[0],
+			minFeelsLikeTemp: daily.apparent_temperature_min[0],
+			precip: daily.precipitation_sum[0],
+		};
 
-		const IconComponent = useMemo(
-			() => getIcon(weatherInfo.iconCode, Date.now()),
-			[weatherInfo.iconCode]
-		);
+		const iconComponent = useMemo(() => {
+			const icon = getIcon(weatherInfo.iconCode, Date.now());
+			return icon || null;
+		}, [weatherInfo.iconCode]);
 
 		console.log('CURRENT_SECTION');
 
@@ -42,16 +39,13 @@ export const CurrentSection = memo(
 			<div className='current-section'>
 				<div className='current-section__wrapper'>
 					<div className='current-section__block--left'>
-						{IconComponent && (
+						{iconComponent && (
 							<div className='weather-icon weather-icon--large'>
-								<IconComponent />
+								{React.createElement(iconComponent)}
 							</div>
 						)}
 						<div className='header-current-temp'>
-							<span>
-								{weatherInfo.currentTemp}
-								{DEGREE_SYMBOL}
-							</span>
+							<span>{weatherInfo.currentTemp}&deg;</span>
 						</div>
 					</div>
 					<div className='current-section__block--right'>

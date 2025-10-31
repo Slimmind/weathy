@@ -20,13 +20,16 @@ export const DayCard = memo(
     minTemp,
     maxTemp,
   }: DayCardComponentProps) => {
-    const IconComponent = useMemo(() => getIcon(icon), [icon]);
+    const IconComponent = useMemo(() => {
+      const iconComponent = getIcon(icon);
+      return iconComponent || null;
+    }, [icon]);
 
     return (
       <div className='day-card'>
         <p className='day-card__calendar'>{CARD_DATE_FORMATTER.format(time)}</p>
         <div className='weather-icon weather-icon--middle'>
-          <IconComponent />
+          {IconComponent && <IconComponent />}
         </div>
         <div className='day-card__date'>{DAY_FORMATTER.format(time)}</div>
         <div className='day-card__temperature'>
