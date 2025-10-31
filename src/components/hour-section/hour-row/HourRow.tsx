@@ -18,16 +18,12 @@ interface HourRowProps {
 export const HourRow = React.memo(({ data }: HourRowProps) => {
 	const { timestamp, iconCode, temp, feelsLike, windSpeed, precip } = data;
 	const hour = HOUR_FORMATTER.format(timestamp);
-	const IconComponent = getIcon(iconCode, timestamp) as React.FunctionComponent<
-		React.SVGProps<SVGSVGElement>
-	>;
+	const IconComponent = getIcon(iconCode, timestamp) || null;
 
 	return (
 		<li className='hour-section__row'>
 			{hour}
-			<div className='weather-icon'>
-				<IconComponent />
-			</div>
+			<div className='weather-icon'>{IconComponent && <IconComponent />}</div>
 			<InfoGroup label='Temp' value={`${temp}${String.fromCharCode(176)}`} />
 			<InfoGroup
 				label='FL Temp'
