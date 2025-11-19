@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 import { GraphBar } from './graph-bar/GraphBar';
 import { ScaleXItem } from './scale-x-item/ScaleXItem';
 import { getBarHeight } from '../../utils/get-bar-height';
@@ -11,47 +11,49 @@ interface TemperatureGraphProps {
 }
 
 export const TemperatureGraph = memo(
-  ({
-	data,
-	changeRelatedTab,
-}: TemperatureGraphProps) => {
-	if (!data) {
-		return null;
-	}
+	({
+		data,
+		changeRelatedTab,
+	}: TemperatureGraphProps) => {
+		if (!data) {
+			return null;
+		}
 
-	const weather = data.time.map((time, index) => ({
-		timestamp: time * 1000,
-		iconCode: data.weathercode[index],
-		maxTemp: Math.round(data.temperature_2m_max[index]),
-		minTemp: Math.round(data.temperature_2m_min[index]),
-	}));
+		const weather = useMemo(() => {
+			return data.time.map((time, index) => ({
+				timestamp: time * 1000,
+				iconCode: data.weathercode[index],
+				maxTemp: Math.round(data.temperature_2m_max[index]),
+				minTemp: Math.round(data.temperature_2m_min[index]),
+			}));
+		}, [data]);
 
-	const barHeights = getBarHeight(weather);
+		const barHeights = useMemo(() => getBarHeight(weather), [weather]);
 
-	return (
-		<section className='temperature-graph'>
-			<ul className='temperature-graph__bars'>
-				{weather.map(({ maxTemp, minTemp, iconCode, timestamp }, idx) => (
-					<li
-						onClick={() => changeRelatedTab(idx)}
-						key={idx}
-						className='temperature-graph__bars-item'
-					>
-						<GraphBar
-							key={timestamp}
-							maxTemp={maxTemp}
-							minTemp={minTemp}
-							icon={iconCode}
-							size={barHeights[idx]}
-						/>
-					</li>
-				))}
-			</ul>
-			<ul className='scale-x'>
-				{weather.map(({ timestamp }) => (
-					<ScaleXItem key={timestamp} timestamp={timestamp} />
-				))}
-			</ul>
-		</section>
-	);
-});
+		return (
+			<section className='temperature-graph'>
+				<ul className='temperature-graph__bars'>
+					{weather.map(({ maxTemp, minTemp, iconCode, timestamp }, idx) => (
+						<li
+							onClick={() => changeRelatedTab(idx)}
+							key={idx}
+							className='temperature-graph__bars-item'
+						>
+							<GraphBar
+								key={timestamp}
+								maxTemp={maxTemp}
+								minTemp={minTemp}
+								icon={iconCode}
+								size={barHeights[idx]}
+							/>
+						</li>
+					))}
+				</ul>
+				<ul className='scale-x'>
+					{weather.map(({ timestamp }) => (
+						<ScaleXItem key={timestamp} timestamp={timestamp} />
+					))}
+				</ul>
+			</section>
+		);
+	});

@@ -1,9 +1,9 @@
-import { LocalStorage, WeatherData } from './constants';
+import { API_URL, LocalStorage, WeatherData } from './constants';
 import { getStoredData } from './get-stored-data';
 import { storeData } from './store-data';
 
 export async function getForecast(lat: number, lng: number): Promise<any> {
-	const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&hourly=temperature_2m&forecast_days=16`;
+	const url = `${API_URL}?latitude=${lat}&longitude=${lng}&hourly=temperature_2m&forecast_days=16`;
 
 	try {
 		const response = await fetch(url);

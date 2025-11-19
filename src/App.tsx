@@ -39,17 +39,8 @@ function App() {
 				getForecast(lat, lng),
 			]);
 
-			setWeather((prev: WeatherData | null | undefined) => {
-				return JSON.stringify(prev) === JSON.stringify(weatherData)
-					? prev ?? null
-					: weatherData;
-			});
-
-			setForecast((prev: any) => {
-				return JSON.stringify(prev) === JSON.stringify(forecastData)
-					? prev ?? null
-					: forecastData;
-			});
+			setWeather(weatherData);
+			setForecast(forecastData);
 		} catch (error) {
 			console.error('Error fetching data:', error);
 		}
@@ -68,7 +59,7 @@ function App() {
 		setIsMenuOpened(isMenuActive);
 	}, []);
 
-	console.log('APP');
+
 
 	const mainContent = useMemo(() => {
 		if (!location?.id) {
