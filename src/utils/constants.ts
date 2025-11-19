@@ -131,3 +131,4 @@ export const LastUpdateValues = {
 	OUTDATED: 'outdated',
 	OBSOLETE: 'obsolete',
 };
+export const API_URL = 'https://api.open-meteo.com/v1/forecast';

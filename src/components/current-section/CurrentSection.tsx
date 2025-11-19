@@ -1,4 +1,4 @@
-import React, { memo, useDeferredValue, useMemo } from 'react';
+import React, { memo, useMemo } from 'react';
 import { getIcon } from '../../utils/get-icon';
 import { WeatherData } from '../../utils/constants';
 import { InfoGroup } from '../info-group/InfoGroup';
@@ -28,12 +28,7 @@ export const CurrentSection = memo(
 			precip: daily.precipitation_sum[0],
 		};
 
-		const iconComponent = useMemo(() => {
-			const icon = getIcon(weatherInfo.iconCode, Date.now());
-			return icon || null;
-		}, [weatherInfo.iconCode]);
-
-		console.log('CURRENT_SECTION');
+		const iconComponent = getIcon(weatherInfo.iconCode, Date.now());
 
 		return (
 			<div className='current-section'>
