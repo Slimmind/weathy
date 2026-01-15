@@ -7,6 +7,30 @@ const mockFetch = vi.fn();
 // Заменяем глобальный fetch на наш мок
 globalThis.fetch = mockFetch;
 
+const localStorageMock = (function () {
+	let store: Record<string, string> = {};
+	return {
+		getItem(key: string) {
+			return store[key] || null;
+		},
+		setItem(key: string, value: string) {
+			store[key] = value.toString();
+		},
+		clear() {
+			store = {};
+		},
+		removeItem(key: string) {
+			delete store[key];
+		},
+		length: 0,
+		key: (index: number) => null,
+	};
+})();
+
+Object.defineProperty(globalThis, 'localStorage', {
+	value: localStorageMock,
+});
+
 describe('getCity', () => {
 	beforeEach(() => {
 		vi.clearAllMocks();
