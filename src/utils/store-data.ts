@@ -1,3 +1,3 @@
-export function storeData(key: string, data: any): void {
+export function storeData<T>(key: string, data: T): void {
 	localStorage.setItem(key, JSON.stringify(data));
 }

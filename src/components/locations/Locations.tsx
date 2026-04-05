@@ -1,4 +1,4 @@
-import React, { useState, useEffect, lazy } from 'react';
+import { useState, useCallback, lazy } from 'react';
 import clsx from 'clsx';
 import { LocationIcon, SearchLocationIcon } from '../../icons';
 import { storeData } from '../../utils/store-data';
@@ -17,20 +17,19 @@ interface LocationsProps {
 }
 
 export const Locations = ({ changeLocation, toggleMenu }: LocationsProps) => {
-	const [currentLocation, setCurrentLocation] = useState<Location>(
-		getStoredData(LocalStorage.LOCATION)
-	);
 	const [switchedLocationMenu, setSwitchedLocationMenu] = useState(false);
 	const [availableLocations, setAvailableLocations] = useState<Location[]>(
-		getStoredData(LocalStorage.AVAILABLE_LOCATIONS) || []
+		() => getStoredData(LocalStorage.AVAILABLE_LOCATIONS) || [],
 	);
 
-	const switchLocationsMenu = () => {
+	const currentLocation = getStoredData<Location>(LocalStorage.LOCATION);
+
+	const switchLocationsMenu = useCallback(() => {
 		setSwitchedLocationMenu((prev) => !prev);
 		toggleMenu(!switchedLocationMenu);
-	};
+	}, [switchedLocationMenu, toggleMenu]);
 
-	const getCurrentPosition = async (): Promise<void> => {
+	const getCurrentPosition = useCallback(async (): Promise<void> => {
 		try {
 			const coordinates = await getCoordinates();
 			if (!coordinates) return console.error('Coordinates are undefined');
@@ -41,47 +40,44 @@ export const Locations = ({ changeLocation, toggleMenu }: LocationsProps) => {
 			if (newCity) {
 				const newLocation = { id: `${lat}${lng}`, name: newCity, lat, lng };
 				addLocation(newLocation);
-				setCurrentLocation(newLocation);
 			}
 		} catch (error) {
 			console.error('Error getting current position:', error);
 		}
-	};
-
-	const addLocation = (newLocation: Location): void => {
-		setAvailableLocations((prev) => {
-			if (prev.some((item) => item.id === newLocation.id)) return prev;
-
-			const updatedLocations = [...prev, newLocation];
-			storeData(LocalStorage.AVAILABLE_LOCATIONS, updatedLocations);
-			changeLocationHandler(newLocation);
-			return updatedLocations;
-		});
-	};
-
-	const changeLocationHandler = (chosenLocation: Location): void => {
-		setCurrentLocation(chosenLocation);
-		switchLocationsMenu();
-	};
-
-	const removeLocation = (locationId: string): void => {
-		const updatedLocationsList = availableLocations.filter(
-			(availableLocation) => availableLocation.id !== locationId
-		);
-		storeData(LocalStorage.AVAILABLE_LOCATIONS, updatedLocationsList);
-		setAvailableLocations(updatedLocationsList);
-	};
-
-	useEffect(() => {
-		changeLocation(currentLocation);
-	}, [currentLocation]);
-
-	useEffect(() => {
-		setCurrentLocation(getStoredData(LocalStorage.LOCATION));
-		setAvailableLocations(
-			getStoredData(LocalStorage.AVAILABLE_LOCATIONS) || []
-		);
 	}, []);
+
+	const addLocation = useCallback(
+		(newLocation: Location): void => {
+			setAvailableLocations((prev) => {
+				if (prev.some((item) => item.id === newLocation.id)) return prev;
+
+				const updatedLocations = [...prev, newLocation];
+				storeData(LocalStorage.AVAILABLE_LOCATIONS, updatedLocations);
+				changeLocation(newLocation);
+				return updatedLocations;
+			});
+		},
+		[changeLocation],
+	);
+
+	const changeLocationHandler = useCallback(
+		(chosenLocation: Location): void => {
+			changeLocation(chosenLocation);
+			switchLocationsMenu();
+		},
+		[changeLocation, switchLocationsMenu],
+	);
+
+	const removeLocation = useCallback(
+		(locationId: string): void => {
+			const updatedLocationsList = availableLocations.filter(
+				(availableLocation) => availableLocation.id !== locationId,
+			);
+			storeData(LocalStorage.AVAILABLE_LOCATIONS, updatedLocationsList);
+			setAvailableLocations(updatedLocationsList);
+		},
+		[availableLocations],
+	);
 
 	const locationsClasses = clsx('locations', {
 		'locations--active': switchedLocationMenu,

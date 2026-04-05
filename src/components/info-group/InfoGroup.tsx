@@ -1,4 +1,3 @@
-import React from 'react';
 import './info-group.styles.css';
 
 type InfoGroupProps = {

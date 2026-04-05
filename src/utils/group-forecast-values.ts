@@ -1,6 +1,11 @@
 import { ChunkGroup } from './constants';
 
-export const groupForecastValues = (data: any): ChunkGroup[] => {
+interface ForecastHourlyRaw {
+	temperature_2m: number[];
+	time: string[];
+}
+
+export const groupForecastValues = (data: ForecastHourlyRaw): ChunkGroup[] => {
 	const chunks: ChunkGroup[] = [];
 	const chunkSize = 24;
 

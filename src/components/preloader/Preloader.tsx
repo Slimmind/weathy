@@ -1,4 +1,3 @@
-import React from 'react';
 import { SunIcon } from '../../icons';
 import './preloader.styles.css';
 

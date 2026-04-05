@@ -1,4 +1,3 @@
-import React from 'react';
 import { getIcon } from '../../../utils/get-icon';
 import './graph-bar.styles.css';
 

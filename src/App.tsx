@@ -1,12 +1,8 @@
-import React, { lazy, useEffect, useState, useCallback, useMemo, Suspense } from 'react';
+import { lazy, useMemo, Suspense } from 'react';
+import { WeatherProvider, useWeatherContext } from './context/WeatherContext';
+import { ErrorBoundary } from './components/error-boundary';
 import Header from './components/header';
 import Preloader from './components/preloader';
-import { getWeather } from './utils/get-weather';
-import { getForecast } from './utils/get-forecast';
-import { LocalStorage, Location, WeatherData } from './utils/constants';
-import { getStoredData } from './utils/get-stored-data';
-import { LocationModel } from './utils/models';
-import { storeData } from './utils/store-data';
 
 const BackgroundSection = lazy(() => import('./components/background-section'));
 const CurrentSection = lazy(() => import('./components/current-section'));
@@ -18,50 +14,19 @@ const Forecast = lazy(() => import('./components/forecast'));
 const Footer = lazy(() => import('./components/footer'));
 const ScrollToTop = lazy(() => import('./components/scroll-to-top'));
 
-function App() {
-	const [relatedTab, setRelatedTab] = useState<number>(0);
-	const [location, setLocation] = useState<Location>(
-		() => getStoredData(LocalStorage.LOCATION) || LocationModel
-	);
-	const [weather, setWeather] = useState<WeatherData | null | undefined>(null);
-	const [forecast, setForecast] = useState<any>(null);
-	const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
+function MainContent() {
+	const {
+		location,
+		weather,
+		forecast,
+		relatedTab,
+		currentTime,
+		isMenuOpened,
+		setRelatedTab,
+		fetchData,
+	} = useWeatherContext();
 
-	const fetchData = useCallback(async () => {
-		if (!location) return;
-
-		const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-		const { lat, lng } = location;
-		try {
-			// Объединяем два запроса в один для оптимизации производительности
-			const [weatherData, forecastData] = await Promise.all([
-				getWeather(lat, lng, timeZone),
-				getForecast(lat, lng),
-			]);
-
-			setWeather(weatherData);
-			setForecast(forecastData);
-		} catch (error) {
-			console.error('Error fetching data:', error);
-		}
-	}, [location]);
-
-	useEffect(() => {
-		fetchData();
-	}, [fetchData]);
-
-	const changeLocation = useCallback((newLocation: Location) => {
-		storeData(LocalStorage.LOCATION, newLocation);
-		setLocation(newLocation);
-	}, []);
-
-	const toggleMenu = useCallback((isMenuActive: boolean) => {
-		setIsMenuOpened(isMenuActive);
-	}, []);
-
-
-
-	const mainContent = useMemo(() => {
+	const content = useMemo(() => {
 		if (!location?.id) {
 			return <h2 className='weather__empty'>Please choose your location ;)</h2>;
 		}
@@ -69,29 +34,55 @@ function App() {
 			return <Preloader />;
 		}
 		return (
-			<Suspense fallback={<Preloader />}>
-				{weather.current_weather && (
-					<BackgroundSection iconCode={weather.current_weather.weathercode} />
-				)}
-				<CurrentSection updateForecast={fetchData} data={weather} />
-				<div className='divided-section'>
-					<DaySection data={weather.daily} changeRelatedTab={setRelatedTab} />
-					<GraphSection data={weather.daily} changeRelatedTab={setRelatedTab} />
-				</div>
-				<MapSection lat={location.lat} lng={location.lng} />
-				<HourSection data={weather} relatedTab={relatedTab} />
-				<Forecast data={forecast} />
-				<ScrollToTop />
-			</Suspense>
+			<ErrorBoundary>
+				<Suspense fallback={<Preloader />}>
+					{weather.current_weather && (
+						<BackgroundSection
+							iconCode={weather.current_weather.weathercode}
+							currentTime={currentTime}
+						/>
+					)}
+					<CurrentSection
+						updateForecast={fetchData}
+						data={weather}
+						currentTime={currentTime}
+					/>
+					<div className='divided-section'>
+						<DaySection data={weather.daily} changeRelatedTab={setRelatedTab} />
+						<GraphSection
+							data={weather.daily}
+							changeRelatedTab={setRelatedTab}
+						/>
+					</div>
+					<MapSection lat={location.lat} lng={location.lng} />
+					<HourSection data={weather} relatedTab={relatedTab} />
+					<Forecast data={forecast} />
+					<ScrollToTop />
+				</Suspense>
+			</ErrorBoundary>
 		);
-	}, [location, weather, forecast, fetchData, relatedTab]);
+	}, [location, weather, forecast, fetchData, relatedTab, currentTime]);
+
+	return <main className={isMenuOpened ? 'blur' : ''}>{content}</main>;
+}
+
+function AppContent() {
+	const { isMenuOpened } = useWeatherContext();
 
 	return (
 		<div className='App'>
-			<Header changeLocation={changeLocation} toggleMenu={toggleMenu} />
-			<main className={isMenuOpened ? 'blur' : ''}>{mainContent}</main>
+			<Header />
+			<MainContent />
 			<Footer />
 		</div>
+	);
+}
+
+function App() {
+	return (
+		<WeatherProvider>
+			<AppContent />
+		</WeatherProvider>
 	);
 }
 

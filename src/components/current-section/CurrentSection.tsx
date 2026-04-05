@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from 'react';
+import React, { memo } from 'react';
 import { getIcon } from '../../utils/get-icon';
 import { WeatherData } from '../../utils/constants';
 import { InfoGroup } from '../info-group/InfoGroup';
@@ -8,10 +8,11 @@ import './current-section.styles.css';
 interface CurrentSectionProps {
 	data?: WeatherData;
 	updateForecast: () => void;
+	currentTime: number;
 }
 
 export const CurrentSection = memo(
-	({ data, updateForecast }: CurrentSectionProps) => {
+	({ data, updateForecast, currentTime }: CurrentSectionProps) => {
 		if (!data?.current_weather || !data?.daily) return null;
 
 		const { current_weather, daily } = data;
@@ -28,7 +29,7 @@ export const CurrentSection = memo(
 			precip: daily.precipitation_sum[0],
 		};
 
-		const iconComponent = getIcon(weatherInfo.iconCode, Date.now());
+		const iconComponent = getIcon(weatherInfo.iconCode, currentTime);
 
 		return (
 			<div className='current-section'>
@@ -44,7 +45,10 @@ export const CurrentSection = memo(
 						</div>
 					</div>
 					<div className='current-section__block--right'>
-						<LastUpdate updateForecast={updateForecast} time={new Date()} />
+						<LastUpdate
+							updateForecast={updateForecast}
+							time={new Date(currentTime)}
+						/>
 						<div className='current-section__info-group-wrap'>
 							<InfoGroup
 								label='High'
@@ -69,5 +73,5 @@ export const CurrentSection = memo(
 				</div>
 			</div>
 		);
-	}
+	},
 );

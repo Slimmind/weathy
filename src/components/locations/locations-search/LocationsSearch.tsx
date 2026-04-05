@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import { useState, useCallback } from 'react';
 import clsx from 'clsx';
 import { Location, SearchResult } from '../../../utils/constants';
 import { SearchIcon } from '../../../icons';
+import { env } from '../../../utils/env';
 import './locations-search.styles.css';
 
 interface LocationsSearchProps {
@@ -24,13 +25,13 @@ export const LocationsSearch: React.FC<LocationsSearchProps> = ({
 	};
 
 	const currentLanguage = 'en';
-	const apiKey = import.meta.env.VITE_GEOCODING_API_KEY;
+	const apiKey = env.GEOCODING_API_KEY;
 
 	const searchCity = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		try {
 			const response = await fetch(
-				`https://api.openweathermap.org/geo/1.0/direct?q=${searchQuery}&limit=5&appid=${apiKey}`
+				`https://api.openweathermap.org/geo/1.0/direct?q=${searchQuery}&limit=5&appid=${apiKey}`,
 			);
 			const data = await response.json();
 
@@ -44,7 +45,7 @@ export const LocationsSearch: React.FC<LocationsSearchProps> = ({
 						name,
 						state,
 						localName: local_names && local_names[currentLanguage],
-					})
+					}),
 				);
 
 				setSearchResults(results);

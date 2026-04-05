@@ -1,4 +1,3 @@
-import React from 'react';
 import { SHORT_DAY_FORMATTER } from '../../../utils/date-formatter';
 import './scale-x-item.styles.css';
 
