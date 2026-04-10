@@ -5,7 +5,10 @@ interface ForecastHourlyRaw {
 	time: string[];
 }
 
-export const groupForecastValues = (data: ForecastHourlyRaw): ChunkGroup[] => {
+export const groupForecastValues = (
+	data: ForecastHourlyRaw,
+	locale: string = 'en-US',
+): ChunkGroup[] => {
 	const chunks: ChunkGroup[] = [];
 	const chunkSize = 24;
 
@@ -18,7 +21,7 @@ export const groupForecastValues = (data: ForecastHourlyRaw): ChunkGroup[] => {
 		const date = new Date(dateString);
 
 		const dayNum = date.getDate();
-		const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
+		const dayName = date.toLocaleDateString(locale, { weekday: 'short' });
 		const chunkGroup: ChunkGroup = {
 			date: {
 				dayNum,

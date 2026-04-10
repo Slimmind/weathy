@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { groupForecastValues } from '../../utils/group-forecast-values';
 import { ChunkGroup } from '../../utils/constants';
+import { useI18n } from '../../i18n';
 import './forecast.styles.css';
 
 interface ForecastHourlyData {
@@ -18,9 +19,11 @@ interface ForecastProps {
 }
 
 export const Forecast = ({ data }: ForecastProps) => {
+	const { t, language } = useI18n();
+	const locale = language === 'ru' ? 'ru-RU' : 'en-US';
 	const averageDayTemp = useMemo(() => {
 		if (!data?.hourly) return [];
-		const tempData = groupForecastValues(data.hourly);
+		const tempData = groupForecastValues(data.hourly, locale);
 		return {
 			tempData,
 			averages: tempData.map(({ min, max }) => ({
@@ -32,7 +35,7 @@ export const Forecast = ({ data }: ForecastProps) => {
 						: Math.ceil((min + max) / 2),
 			})),
 		};
-	}, [data]);
+	}, [data, locale]);
 
 	const graphConfig = useMemo(() => {
 		if (!data?.hourly?.temperature_2m.length) return null;
@@ -68,7 +71,7 @@ export const Forecast = ({ data }: ForecastProps) => {
 			<div className='forecast__wrapper'>
 				<div className='forecast__graph-wrapper'>
 					<div className='forecast__day-info'>
-						<span>Temperature:</span>
+						<span>{t('weather.temperature')}</span>
 						<strong>&darr;{minTempValue}&deg;</strong>
 						<strong>&uarr;{maxTempValue}&deg;</strong>
 					</div>

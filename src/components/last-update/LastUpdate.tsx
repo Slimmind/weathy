@@ -6,6 +6,7 @@ import './last-update.styles.css';
 import { checkLastUpdateTime } from '../../utils/check-last-update-time';
 import { LastUpdateValues } from '../../utils/constants';
 import UpdateButton from './update-button';
+import { useI18n } from '../../i18n';
 
 type LastUpdateProps = {
 	updateForecast: () => void;
@@ -14,6 +15,7 @@ type LastUpdateProps = {
 
 export const LastUpdate = ({ updateForecast, time }: LastUpdateProps) => {
 	const [infoStatus, setInfoStatus] = useState<string>('');
+	const { t } = useI18n();
 
 	useEffect(() => {
 		const intervalId = setInterval(() => {
@@ -27,15 +29,15 @@ export const LastUpdate = ({ updateForecast, time }: LastUpdateProps) => {
 
 	const classes = clsx(
 		'last-update-info',
-		infoStatus && `last-update-info--${infoStatus}`
+		infoStatus && `last-update-info--${infoStatus}`,
 	);
 
 	const updateInfoText = (): string =>
 		infoStatus === LastUpdateValues.OUTDATED
-			? 'Last update was an hour ago'
+			? t('message.last_update_hour')
 			: infoStatus === LastUpdateValues.OBSOLETE
-			? 'Forecast is outdated'
-			: `Last updated at ${getCurrentTime(time)}`;
+				? t('message.outdated')
+				: t('message.last_updated_at', { time: getCurrentTime(time) });
 
 	const IconComponent = () =>
 		infoStatus === LastUpdateValues.OUTDATED ||

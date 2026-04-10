@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { Location } from '../../../utils/constants';
+import { useI18n } from '../../../i18n';
 import './locations-list.styles.css';
 
 interface LocationsListProps {
@@ -19,6 +20,8 @@ export const LocationsList = ({
 		return null;
 	}
 
+	const { t } = useI18n();
+
 	const citiesListItemClasses = (id: string): string =>
 		clsx('locations__list-item', {
 			'locations__list-item--chosen': id === currentLocation?.id,
@@ -30,7 +33,7 @@ export const LocationsList = ({
 				<li className={citiesListItemClasses(location.id)} key={location.id}>
 					<strong onClick={() => change(location)}>{location.name}</strong>
 					<button
-						aria-label='remove location'
+						aria-label={t('a11y.remove_location')}
 						onClick={() => remove(location.id)}
 					></button>
 				</li>

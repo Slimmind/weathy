@@ -1,4 +1,4 @@
-import { SHORT_DAY_FORMATTER } from '../../../utils/date-formatter';
+import { useDateFormatters } from '../../../hooks/useDateFormatters';
 import './scale-x-item.styles.css';
 
 interface ScaleXItemProps {
@@ -6,7 +6,8 @@ interface ScaleXItemProps {
 }
 
 export const ScaleXItem = ({ timestamp }: ScaleXItemProps) => {
-	const day = SHORT_DAY_FORMATTER.format(timestamp);
+	const { shortDayFormatter } = useDateFormatters();
+	const day = shortDayFormatter.format(timestamp);
 
 	return <li className='scale-x-item'>{day}</li>;
 };

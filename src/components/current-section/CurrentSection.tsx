@@ -3,6 +3,7 @@ import { getIcon } from '../../utils/get-icon';
 import { WeatherData } from '../../utils/constants';
 import { InfoGroup } from '../info-group/InfoGroup';
 import LastUpdate from '../last-update';
+import { useI18n } from '../../i18n';
 import './current-section.styles.css';
 
 interface CurrentSectionProps {
@@ -17,6 +18,7 @@ export const CurrentSection = memo(
 
 		const { current_weather, daily } = data;
 		const DEGREE_SYMBOL = '°';
+		const { t } = useI18n();
 
 		const weatherInfo = {
 			currentTemp: current_weather.temperature,
@@ -51,23 +53,29 @@ export const CurrentSection = memo(
 						/>
 						<div className='current-section__info-group-wrap'>
 							<InfoGroup
-								label='High'
+								label={t('weather.high')}
 								value={`${weatherInfo.maxTemp}${DEGREE_SYMBOL}`}
 							/>
 							<InfoGroup
-								label='FL High'
+								label={t('weather.fl_high')}
 								value={`${weatherInfo.maxFeelsLikeTemp}${DEGREE_SYMBOL}`}
 							/>
-							<InfoGroup label='Wind' value={`${weatherInfo.windSpeed} m/s`} />
 							<InfoGroup
-								label='Low'
+								label={t('weather.wind')}
+								value={`${weatherInfo.windSpeed}${t('unit.wind')}`}
+							/>
+							<InfoGroup
+								label={t('weather.low')}
 								value={`${weatherInfo.minTemp}${DEGREE_SYMBOL}`}
 							/>
 							<InfoGroup
-								label='FL Low'
+								label={t('weather.fl_low')}
 								value={`${weatherInfo.minFeelsLikeTemp}${DEGREE_SYMBOL}`}
 							/>
-							<InfoGroup label='Precip' value={`${weatherInfo.precip} mm`} />
+							<InfoGroup
+								label={t('weather.precip')}
+								value={`${weatherInfo.precip}${t('unit.precip')}`}
+							/>
 						</div>
 					</div>
 				</div>

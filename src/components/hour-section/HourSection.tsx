@@ -1,6 +1,6 @@
-import React, { memo, useEffect, useRef, useState } from 'react';
+import React, { memo, useEffect, useRef, useState, useMemo } from 'react';
 import clsx from 'clsx';
-import { DAY_FORMATTER } from '../../utils/date-formatter';
+import { useDateFormatters } from '../../hooks/useDateFormatters';
 import { HourGroup } from './hour-group/HourGroup';
 import { Hour, WeatherData } from '../../utils/constants';
 import './hour-section.styles.css';
@@ -10,11 +10,14 @@ interface HourSectionProps {
 	relatedTab: number;
 }
 
-const partitionDataByDay = (data: Hour[]): Hour[][] => {
+const partitionDataByDay = (
+	data: Hour[],
+	shortDayFormatter: Intl.DateTimeFormat,
+): Hour[][] => {
 	return data.reduce<Hour[][]>((acc, hourlyData, index, array) => {
-		const currentDay = DAY_FORMATTER.format(hourlyData.timestamp);
+		const currentDay = shortDayFormatter.format(hourlyData.timestamp);
 		const previousDay =
-			index === 0 ? null : DAY_FORMATTER.format(array[index - 1].timestamp);
+			index === 0 ? null : shortDayFormatter.format(array[index - 1].timestamp);
 
 		if (previousDay !== currentDay) {
 			acc.push([]);
@@ -28,6 +31,7 @@ export const HourSection = ({ data, relatedTab }: HourSectionProps) => {
 	const { hourly, current_weather } = data;
 	const [activeTab, setActiveTab] = useState<number>(relatedTab);
 	const sectionRef = useRef<HTMLDivElement>(null);
+	const { shortDayFormatter } = useDateFormatters();
 
 	const scrollToRef = (): void => {
 		if (sectionRef.current) {
@@ -46,10 +50,13 @@ export const HourSection = ({ data, relatedTab }: HourSectionProps) => {
 				precip: Math.round(hourly.precipitation[index] * 100) / 100,
 			}))
 			.filter(
-				({ timestamp }) => timestamp >= (current_weather?.time ?? 0) * 1000
+				({ timestamp }) => timestamp >= (current_weather?.time ?? 0) * 1000,
 			) ?? [];
 
-	const dividedData = partitionDataByDay(hourlyWeather);
+	const dividedData = useMemo(
+		() => partitionDataByDay(hourlyWeather, shortDayFormatter),
+		[hourlyWeather, shortDayFormatter],
+	);
 
 	useEffect(() => {
 		if (activeTab !== relatedTab) {
@@ -70,7 +77,7 @@ export const HourSection = ({ data, relatedTab }: HourSectionProps) => {
 						})}
 						onClick={() => setActiveTab(idx)}
 					>
-						{DAY_FORMATTER.format(day[0].timestamp).slice(0, 3)}
+						{shortDayFormatter.format(day[0].timestamp).slice(0, 3)}
 					</li>
 				))}
 			</ul>

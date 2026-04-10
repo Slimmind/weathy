@@ -3,7 +3,7 @@
 // For now, we'll keep the CDN approach but with better error handling
 
 importScripts(
-	'https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js'
+	'https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js',
 );
 
 // Define core assets that should be cached for offline functionality
@@ -24,7 +24,7 @@ try {
 		// Configure Workbox with custom cache names
 		workbox.core.setCacheNameDetails({
 			prefix: 'weathy-app',
-			suffix: 'v1',
+			suffix: 'v2',
 		});
 
 		// Register routes with more specific patterns
@@ -33,28 +33,28 @@ try {
 			new RegExp('^https://nominatim\\.openstreetmap\\.org/reverse'),
 			new workbox.strategies.NetworkFirst({
 				cacheName: 'geocoding-cache',
-			})
+			}),
 		);
 
 		workbox.routing.registerRoute(
 			new RegExp('^https://api\\.open-meteo\\.com/v1/forecast'),
 			new workbox.strategies.NetworkFirst({
 				cacheName: 'weather-cache',
-			})
+			}),
 		);
 
 		workbox.routing.registerRoute(
 			new RegExp('^https://dl\\.dropboxusercontent\\.com/s/'),
 			new workbox.strategies.NetworkFirst({
 				cacheName: 'dropbox-cache',
-			})
+			}),
 		);
 
 		// Add logging for debugging
 		console.log('Workbox initialized and routes registered successfully');
 	} else {
 		console.warn(
-			'Workbox is not available, service worker will run without caching'
+			'Workbox is not available, service worker will run without caching',
 		);
 	}
 } catch (error) {
@@ -69,7 +69,7 @@ self.addEventListener('install', (event) => {
 	event.waitUntil(
 		caches.open('weathy-app-shell').then((cache) => {
 			return cache.addAll(CORE_ASSETS);
-		})
+		}),
 	);
 
 	// Skip waiting to activate immediately
@@ -91,23 +91,31 @@ self.addEventListener('activate', (event) => {
 					if (cacheName.startsWith('weathy-app')) {
 						return caches.delete(cacheName);
 					}
-				})
+				}),
 			);
-		})
+		}),
 	);
 });
 
 // Add fetch event listener with offline support
 self.addEventListener('fetch', (event) => {
-	// Handle core assets with cache-first strategy for offline support
+	// Handle core assets with network-first strategy for development
+	// Changed to network-first so updates appear immediately
 	if (
 		CORE_ASSETS.includes(event.request.url) ||
 		CORE_ASSETS.includes(new URL(event.request.url).pathname)
 	) {
 		event.respondWith(
-			caches.match(event.request).then((response) => {
-				return response || fetch(event.request);
-			})
+			fetch(event.request)
+				.then((response) => {
+					// Update cache with new version
+					const responseClone = response.clone();
+					caches.open('weathy-app-shell').then((cache) => {
+						cache.put(event.request, responseClone);
+					});
+					return response;
+				})
+				.catch(() => caches.match(event.request)),
 		);
 		return;
 	}

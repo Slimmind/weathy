@@ -1,4 +1,5 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
+import { useI18n } from '../../i18n';
 
 interface ErrorBoundaryProps {
 	children: ReactNode;
@@ -10,14 +11,20 @@ interface ErrorBoundaryState {
 	error: Error | null;
 }
 
-const defaultFallback = (
-	<div className='error-boundary'>
-		<h2>Something went wrong</h2>
-		<p>Please try refreshing the page.</p>
-	</div>
-);
+const ErrorFallback: React.FC = () => {
+	const { t } = useI18n();
+	return (
+		<div className='error-boundary'>
+			<h2>{t('error.something_wrong')}</h2>
+			<p>{t('error.refresh_page')}</p>
+		</div>
+	);
+};
 
-export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+export class ErrorBoundary extends Component<
+	ErrorBoundaryProps,
+	ErrorBoundaryState
+> {
 	constructor(props: ErrorBoundaryProps) {
 		super(props);
 		this.state = { hasError: false, error: null };
@@ -33,7 +40,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 
 	render(): ReactNode {
 		if (this.state.hasError) {
-			return this.props.fallback || defaultFallback;
+			return this.props.fallback || <ErrorFallback />;
 		}
 
 		return this.props.children;

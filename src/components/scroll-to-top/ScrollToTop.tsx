@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
+import { useI18n } from '../../i18n';
 import './scroll-to-top.styles.css';
 
 export const ScrollToTop = () => {
 	const [isVisible, setIsVisible] = useState(false);
+	const { t } = useI18n();
 
 	const toggleVisibility = () => {
 		if (window.scrollY > 300) {
@@ -31,7 +33,7 @@ export const ScrollToTop = () => {
 			<button
 				className='scroll-to-top__button'
 				onClick={scrollToTop}
-				aria-label='scroll to top'
+				aria-label={t('a11y.scroll_to_top')}
 			/>
 		</div>
 	);

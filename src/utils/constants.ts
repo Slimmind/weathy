@@ -97,7 +97,6 @@ export interface Position {
 	timestamp: number;
 }
 
-
 export interface SearchResult {
 	id: string;
 	country: string;
@@ -125,6 +124,7 @@ export const LocalStorage = {
 	CITY: 'weathy_city',
 	COORDS: 'weathy_coords',
 	AVAILABLE_LOCATIONS: 'weathy_available_locations',
+	LANGUAGE: 'weathy_language',
 };
 
 export const LastUpdateValues = {

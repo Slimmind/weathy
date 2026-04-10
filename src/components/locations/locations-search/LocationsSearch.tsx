@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import { Location, SearchResult } from '../../../utils/constants';
 import { SearchIcon } from '../../../icons';
 import { env } from '../../../utils/env';
+import { useI18n } from '../../../i18n';
 import './locations-search.styles.css';
 
 interface LocationsSearchProps {
@@ -15,6 +16,7 @@ export const LocationsSearch: React.FC<LocationsSearchProps> = ({
 	const [searchQuery, setSearchQuery] = useState<string>('');
 	const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
 	const [error, setError] = useState<string>('');
+	const { t } = useI18n();
 
 	const searchQueryHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const query = e.target.value;
@@ -51,17 +53,17 @@ export const LocationsSearch: React.FC<LocationsSearchProps> = ({
 				setSearchResults(results);
 
 				if (results.length === 0) {
-					setError(`Sorry, we can't find "${searchQuery}" :(`);
+					setError(t('error.not_found', { searchQuery }));
 				} else {
 					setError('');
 				}
 			} else {
-				setError('Unexpected response from the API. Please try again.');
+				setError(t('error.api_response'));
 				setSearchResults([]);
 			}
 		} catch (error) {
 			console.error('Error fetching city data:', error);
-			setError('Error fetching data. Please try again.');
+			setError(t('error.fetch_data'));
 			setSearchResults([]);
 		}
 	};
@@ -103,13 +105,13 @@ export const LocationsSearch: React.FC<LocationsSearchProps> = ({
 						type='search'
 						onChange={searchQueryHandler}
 						className='locations__search-input'
-						placeholder='Search...'
+						placeholder={t('location.search')}
 						value={searchQuery}
 					/>
 					<button
 						type='submit'
 						className={searchButtonClasses}
-						aria-label='search location'
+						aria-label={t('a11y.search_location')}
 					>
 						<SearchIcon />
 					</button>
@@ -118,7 +120,7 @@ export const LocationsSearch: React.FC<LocationsSearchProps> = ({
 			{error && (
 				<div className='locations__search-error-message'>
 					<p>{error}</p>
-					<p>Try to press button "Get current position"</p>
+					<p>{t('location.suggestion')}</p>
 				</div>
 			)}
 			<ul className='locations__suggestions'>

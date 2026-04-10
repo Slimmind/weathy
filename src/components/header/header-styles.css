@@ -28,3 +28,21 @@
 	align-items: center;
   max-width: 50%;
 }
+
+.main-header__lang-toggle {
+  position: relative;
+	padding: 10px 20px;
+	background-color: var(--color-light);
+	border-radius: var(--radius-main);
+  box-shadow: var(--shadow);
+	color: var(--color-text);
+	font-size: 0.75rem;
+	font-weight: bold;
+	cursor: pointer;
+	transition: background-color 0.2s, color 0.2s;
+}
+
+.main-header__lang-toggle:active {
+	background-color: var(--color-dark);
+	color: var(--color-light);
+}

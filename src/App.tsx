@@ -1,5 +1,6 @@
 import { lazy, useMemo, Suspense } from 'react';
 import { WeatherProvider, useWeatherContext } from './context/WeatherContext';
+import { I18nProvider, useI18n } from './i18n';
 import { ErrorBoundary } from './components/error-boundary';
 import Header from './components/header';
 import Preloader from './components/preloader';
@@ -25,10 +26,11 @@ function MainContent() {
 		setRelatedTab,
 		fetchData,
 	} = useWeatherContext();
+	const { t } = useI18n();
 
 	const content = useMemo(() => {
 		if (!location?.id) {
-			return <h2 className='weather__empty'>Please choose your location ;)</h2>;
+			return <h2 className='weather__empty'>{t('message.choose_location')}</h2>;
 		}
 		if (!weather) {
 			return <Preloader />;
@@ -81,7 +83,9 @@ function AppContent() {
 function App() {
 	return (
 		<WeatherProvider>
-			<AppContent />
+			<I18nProvider>
+				<AppContent />
+			</I18nProvider>
 		</WeatherProvider>
 	);
 }

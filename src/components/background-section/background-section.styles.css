@@ -13,7 +13,7 @@
 
 .background-section img {
   display: block;
-  width: 100%;
+  width: 100vw;
 	opacity: 0;
   transform-origin: top;
   transform: scale(1.5);

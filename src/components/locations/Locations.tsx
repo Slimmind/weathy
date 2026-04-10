@@ -6,6 +6,7 @@ import { getCoordinates } from '../../utils/get-coordinates';
 import { getStoredData } from '../../utils/get-stored-data';
 import { getCity } from '../../utils/get-city';
 import { LocalStorage, Location } from '../../utils/constants';
+import { useI18n } from '../../i18n';
 import './locations.styles.css';
 
 const LocationsList = lazy(() => import('./locations-list'));
@@ -21,6 +22,7 @@ export const Locations = ({ changeLocation, toggleMenu }: LocationsProps) => {
 	const [availableLocations, setAvailableLocations] = useState<Location[]>(
 		() => getStoredData(LocalStorage.AVAILABLE_LOCATIONS) || [],
 	);
+	const { t } = useI18n();
 
 	const currentLocation = getStoredData<Location>(LocalStorage.LOCATION);
 
@@ -93,11 +95,13 @@ export const Locations = ({ changeLocation, toggleMenu }: LocationsProps) => {
 				<button
 					className='locations__header-button'
 					onClick={switchLocationsMenu}
-					aria-label='choose location button'
+					aria-label={t('a11y.choose_location')}
 				>
 					<SearchLocationIcon />
 					<span className='locations__header-text'>
-						{currentLocation?.name ? currentLocation.name : 'Choose location'}
+						{currentLocation?.name
+							? currentLocation.name
+							: t('location.choose')}
 					</span>
 				</button>
 			</header>
@@ -110,13 +114,13 @@ export const Locations = ({ changeLocation, toggleMenu }: LocationsProps) => {
 				/>
 				<LocationsSearch addLocationHandler={addLocation} />
 				<footer className='locations__window-footer'>
-					<p className='location__window-phrase'>OR</p>
+					<p className='location__window-phrase'>{t('common.or')}</p>
 					<button
 						onClick={getCurrentPosition}
 						className='location__get-location-button'
-						aria-label='get current location'
+						aria-label={t('a11y.get_current_location')}
 					>
-						<LocationIcon /> Get current position
+						<LocationIcon /> {t('location.current_position')}
 					</button>
 				</footer>
 				<div className='locations__closer' onClick={switchLocationsMenu}></div>
