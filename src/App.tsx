@@ -4,6 +4,7 @@ import { I18nProvider, useI18n } from './i18n';
 import { ErrorBoundary } from './components/error-boundary';
 import Header from './components/header';
 import Preloader from './components/preloader';
+import { checkIsNightTime } from './utils/check-is-night';
 
 const BackgroundSection = lazy(() => import('./components/background-section'));
 const CurrentSection = lazy(() => import('./components/current-section'));
@@ -65,7 +66,13 @@ function MainContent() {
 		);
 	}, [location, weather, forecast, fetchData, relatedTab, currentTime]);
 
-	return <main className={isMenuOpened ? 'blur' : ''}>{content}</main>;
+	return (
+		<main
+			className={`${isMenuOpened ? 'blur' : ''} ${checkIsNightTime(currentTime) ? 'dark' : ''}`}
+		>
+			{content}
+		</main>
+	);
 }
 
 function AppContent() {

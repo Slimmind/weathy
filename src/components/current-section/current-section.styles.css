@@ -80,3 +80,9 @@
   width: 100%;
   transform: translate(-50%, -50%);
 }
+
+.App:has(.dark) {
+  .current-section {
+    background-color: var(--color-light-transparent);
+  }
+}

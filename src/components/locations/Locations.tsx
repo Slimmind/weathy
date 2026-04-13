@@ -1,6 +1,10 @@
 import { useState, useCallback, lazy } from 'react';
 import clsx from 'clsx';
-import { LocationIcon, SearchLocationIcon } from '../../icons';
+import {
+	LocationIcon,
+	SearchLocationIcon,
+	SearchLocationIconLight,
+} from '../../icons';
 import { storeData } from '../../utils/store-data';
 import { getCoordinates } from '../../utils/get-coordinates';
 import { getStoredData } from '../../utils/get-stored-data';
@@ -8,6 +12,7 @@ import { getCity } from '../../utils/get-city';
 import { LocalStorage, Location } from '../../utils/constants';
 import { useI18n } from '../../i18n';
 import './locations.styles.css';
+import { checkIsNightTime } from '../../utils/check-is-night';
 
 const LocationsList = lazy(() => import('./locations-list'));
 const LocationsSearch = lazy(() => import('./locations-search'));
@@ -97,7 +102,11 @@ export const Locations = ({ changeLocation, toggleMenu }: LocationsProps) => {
 					onClick={switchLocationsMenu}
 					aria-label={t('a11y.choose_location')}
 				>
-					<SearchLocationIcon />
+					{checkIsNightTime() ? (
+						<SearchLocationIconLight />
+					) : (
+						<SearchLocationIcon />
+					)}
 					<span className='locations__header-text'>
 						{currentLocation?.name
 							? currentLocation.name

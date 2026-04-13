@@ -57,8 +57,10 @@ body::before {
 }
 
 main {
+  width: 100dvw;
 	min-height: calc(100dvh - 50px);
 	padding-top: 76px;
+  overflow: hidden;
 }
 
 button,

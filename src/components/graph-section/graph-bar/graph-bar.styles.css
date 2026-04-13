@@ -30,3 +30,9 @@
   width: 24px;
   height: 24px;
 }
+
+.App:has(.dark) {
+  .graph-bar {
+    background-color: var(--color-light-transparent);
+  }
+}

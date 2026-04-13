@@ -47,3 +47,9 @@
 .day-card__temperature {
   position: relative;
 }
+
+.App:has(.dark) {
+  .day-card {
+    background-color: var(--color-light-transparent);
+  }
+}

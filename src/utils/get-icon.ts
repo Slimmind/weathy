@@ -10,6 +10,7 @@ import {
 	MoonIcon,
 	CloudMoonIcon,
 } from '../icons';
+import { checkIsNightTime } from './check-is-night';
 
 const ICON_MAP: Map<
 	number,
@@ -18,7 +19,7 @@ const ICON_MAP: Map<
 
 function addMapping(
 	values: number[],
-	icon: React.FunctionComponent<React.SVGProps<SVGSVGElement>>
+	icon: React.FunctionComponent<React.SVGProps<SVGSVGElement>>,
 ): void {
 	values.forEach((value: number) => {
 		ICON_MAP.set(value, icon);
@@ -39,8 +40,7 @@ function handleIconCode(iconCode: number, time?: number): number {
 	let isNightTime = false;
 
 	if (time) {
-		const hour = new Date(time).getHours();
-		isNightTime = hour < 5 || hour > 18;
+		checkIsNightTime(time);
 	}
 
 	if (isNightTime) {
@@ -62,7 +62,7 @@ function handleIconCode(iconCode: number, time?: number): number {
 
 export function getIcon(
 	iconCode: number,
-	hour?: number
+	hour?: number,
 ): React.FunctionComponent<React.SVGProps<SVGSVGElement>> | undefined {
 	return ICON_MAP.get(handleIconCode(iconCode, hour));
 }
