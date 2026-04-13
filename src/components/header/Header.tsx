@@ -7,7 +7,7 @@ import './header-styles.css';
 const Locations = lazy(() => import('../locations'));
 
 export const Header = () => {
-	const fullDate = getLocalDate(Date.now(), 'full');
+	const fullDate = getLocalDate(Date.now());
 	const { changeLocation, setIsMenuOpened } = useWeatherContext();
 	const { language, t, switchLanguage } = useI18n();
 
