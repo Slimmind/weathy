@@ -21,6 +21,134 @@
   --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* ─── Themes ──────────────────────────────────────────────── */
+
+/* Sky (default) — hsl(200, 100%, ...) */
+[data-theme="sky"] {
+	--color-light: hsl(200, 100%, 75%);
+	--color-lighter: hsl(200, 100%, 80%);
+	--color-lightest: hsl(200, 100%, 85%);
+	--color-dark: hsl(200, 100%, 20%);
+	--color-darker: hsl(200, 100%, 10%);
+	--color-border: hsla(200, 100%, 25%, 0.5);
+	--color-window: hsla(200, 100%, 25%, 0.9);
+	--color-bar: hsla(200, 100%, 25%, 0.3);
+	--color-light-transparent: hsla(200, 100%, 75%, 0.7);
+	--color-element-bg: hsla(200, 100%, 75%, 0.2);
+}
+
+/* MediumPurple — hsl(259, 60%, ...) */
+[data-theme="purple"] {
+	--color-light: hsl(259, 60%, 75%);
+	--color-lighter: hsl(259, 60%, 80%);
+	--color-lightest: hsl(259, 60%, 85%);
+	--color-dark: hsl(259, 60%, 20%);
+	--color-darker: hsl(259, 60%, 10%);
+	--color-border: hsla(259, 60%, 25%, 0.5);
+	--color-window: hsla(259, 60%, 25%, 0.9);
+	--color-bar: hsla(259, 60%, 25%, 0.3);
+	--color-light-transparent: hsla(259, 60%, 75%, 0.7);
+	--color-element-bg: hsla(259, 60%, 75%, 0.2);
+}
+
+/* LightSeaGreen — hsl(177, 70%, ...) */
+[data-theme="lightseagreen"] {
+	--color-light: hsl(177, 70%, 70%);
+	--color-lighter: hsl(177, 70%, 78%);
+	--color-lightest: hsl(177, 70%, 85%);
+	--color-dark: hsl(177, 70%, 20%);
+	--color-darker: hsl(177, 70%, 10%);
+	--color-border: hsla(177, 70%, 25%, 0.5);
+	--color-window: hsla(177, 70%, 25%, 0.9);
+	--color-bar: hsla(177, 70%, 25%, 0.3);
+	--color-light-transparent: hsla(177, 70%, 70%, 0.7);
+	--color-element-bg: hsla(177, 70%, 70%, 0.2);
+}
+
+/* SeaGreen — hsl(146, 50%, ...) */
+[data-theme="seagreen"] {
+	--color-light: hsl(146, 50%, 72%);
+	--color-lighter: hsl(146, 50%, 80%);
+	--color-lightest: hsl(146, 50%, 87%);
+	--color-dark: hsl(146, 50%, 18%);
+	--color-darker: hsl(146, 50%, 10%);
+	--color-border: hsla(146, 50%, 25%, 0.5);
+	--color-window: hsla(146, 50%, 25%, 0.9);
+	--color-bar: hsla(146, 50%, 25%, 0.3);
+	--color-light-transparent: hsla(146, 50%, 72%, 0.7);
+	--color-element-bg: hsla(146, 50%, 72%, 0.2);
+}
+
+/* Crimson — hsl(348, 83%, ...) */
+[data-theme="crimson"] {
+	--color-light: hsl(348, 83%, 75%);
+	--color-lighter: hsl(348, 83%, 80%);
+	--color-lightest: hsl(348, 83%, 86%);
+	--color-dark: hsl(348, 83%, 20%);
+	--color-darker: hsl(348, 83%, 10%);
+	--color-border: hsla(348, 83%, 25%, 0.5);
+	--color-window: hsla(348, 83%, 25%, 0.9);
+	--color-bar: hsla(348, 83%, 25%, 0.3);
+	--color-light-transparent: hsla(348, 83%, 75%, 0.7);
+	--color-element-bg: hsla(348, 83%, 75%, 0.2);
+}
+
+/* DarkOrange — hsl(33, 100%, ...) */
+[data-theme="orange"] {
+	--color-light: hsl(33, 100%, 72%);
+	--color-lighter: hsl(33, 100%, 79%);
+	--color-lightest: hsl(33, 100%, 86%);
+	--color-dark: hsl(33, 100%, 22%);
+	--color-darker: hsl(33, 100%, 12%);
+	--color-border: hsla(33, 100%, 27%, 0.5);
+	--color-window: hsla(33, 100%, 27%, 0.9);
+	--color-bar: hsla(33, 100%, 27%, 0.3);
+	--color-light-transparent: hsla(33, 100%, 72%, 0.7);
+	--color-element-bg: hsla(33, 100%, 72%, 0.2);
+}
+
+/* Teal — hsl(180, 100%, ...) */
+[data-theme="teal"] {
+	--color-light: hsl(180, 80%, 65%);
+	--color-lighter: hsl(180, 80%, 74%);
+	--color-lightest: hsl(180, 80%, 82%);
+	--color-dark: hsl(180, 80%, 18%);
+	--color-darker: hsl(180, 80%, 10%);
+	--color-border: hsla(180, 80%, 22%, 0.5);
+	--color-window: hsla(180, 80%, 22%, 0.9);
+	--color-bar: hsla(180, 80%, 22%, 0.3);
+	--color-light-transparent: hsla(180, 80%, 65%, 0.7);
+	--color-element-bg: hsla(180, 80%, 65%, 0.2);
+}
+
+/* Green — hsl(120, 55%, ...) */
+[data-theme="green"] {
+	--color-light: hsl(120, 55%, 72%);
+	--color-lighter: hsl(120, 55%, 80%);
+	--color-lightest: hsl(120, 55%, 87%);
+	--color-dark: hsl(120, 55%, 20%);
+	--color-darker: hsl(120, 55%, 10%);
+	--color-border: hsla(120, 55%, 25%, 0.5);
+	--color-window: hsla(120, 55%, 25%, 0.9);
+	--color-bar: hsla(120, 55%, 25%, 0.3);
+	--color-light-transparent: hsla(120, 55%, 72%, 0.7);
+	--color-element-bg: hsla(120, 55%, 72%, 0.2);
+}
+
+/* DarkSlateGray — hsl(195, 25%, ...) */
+[data-theme="slate"] {
+	--color-light: hsl(195, 25%, 72%);
+	--color-lighter: hsl(195, 25%, 80%);
+	--color-lightest: hsl(195, 25%, 87%);
+	--color-dark: hsl(195, 25%, 20%);
+	--color-darker: hsl(195, 25%, 10%);
+	--color-border: hsla(195, 25%, 25%, 0.5);
+	--color-window: hsla(195, 25%, 25%, 0.9);
+	--color-bar: hsla(195, 25%, 25%, 0.3);
+	--color-light-transparent: hsla(195, 25%, 72%, 0.7);
+	--color-element-bg: hsla(195, 25%, 72%, 0.2);
+}
+
 *,
 *::before,
 *::after {
@@ -42,13 +170,7 @@ body {
 }
 
 body::before {
-	content: '';
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100vw;
-	height: 100dvh;
-	background: url('./assets/bg-pattern.svg');
+	content: none;
 }
 
 .App {

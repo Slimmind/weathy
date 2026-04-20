@@ -19,7 +19,8 @@
 }
 
 .main-header__date {
-  padding: 13px;
+  height: 40px;
+  padding: 11px 10px;
   background-color: var(--color-light-transparent);
   border: 1px solid var(--color-border);
 	border-radius: var(--radius-large);
@@ -35,11 +36,11 @@
   max-width: 50%;
 }
 
-.main-header__lang-toggle {
+.main-header__button {
   position: relative;
   width: 40px;
   height: 40px;
-	padding: 12px 0;
+	padding: 0;
 	background-color: var(--color-light-transparent);
   border: 1px solid var(--color-border);
 	border-radius: 50%;
@@ -53,13 +54,13 @@
 	transition: background-color 0.2s, color 0.2s;
 }
 
-.main-header__lang-toggle:active {
+.main-header__button:active {
 	background-color: var(--color-dark);
 	color: var(--color-light);
 }
 
 .App:has(.dark) {
-  .main-header__lang-toggle,
+  .main-header__button,
   .main-header__date {
     background-color: var(--color-element-bg);
     border-color: var(--color-border);

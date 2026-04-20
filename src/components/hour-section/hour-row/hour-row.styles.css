@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 0.5rem;
-  background-color: hsla(200, 100%, 75%, .5);
+  background-color: var(--color-light-transparent);
   --webkit-backdrop-filter: blur(var(--blur));
   backdrop-filter: blur(var(--blur));
 }
@@ -13,7 +13,7 @@
 }
 
 .hour-section__row:nth-child(2n) {
-  background-color: hsla(200, 100%, 85%, .5);
+  background-color: var(--color-element-bg);
 }
 
 .hour-section__row--separator {

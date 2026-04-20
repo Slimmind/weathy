@@ -4,7 +4,7 @@ export const SearchIcon: React.FC = () => (
 	<svg
 		fill='none'
 		height='24'
-		stroke='hsl(200, 100%, 20%)'
+		stroke='var(--color-dark)'
 		strokeLinecap='round'
 		strokeLinejoin='round'
 		strokeWidth='2'
