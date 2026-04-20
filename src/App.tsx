@@ -22,6 +22,7 @@ function MainContent() {
 		weather,
 		forecast,
 		relatedTab,
+		scrollTrigger,
 		currentTime,
 		isMenuOpened,
 		setRelatedTab,
@@ -58,13 +59,13 @@ function MainContent() {
 						/>
 					</div>
 					<MapSection lat={location.lat} lng={location.lng} />
-					<HourSection data={weather} relatedTab={relatedTab} />
+					<HourSection data={weather} relatedTab={relatedTab} scrollTrigger={scrollTrigger} />
 					<Forecast data={forecast} />
 					<ScrollToTop />
 				</Suspense>
 			</ErrorBoundary>
 		);
-	}, [location, weather, forecast, fetchData, relatedTab, currentTime]);
+	}, [location, weather, forecast, fetchData, relatedTab, scrollTrigger, currentTime]);
 
 	return (
 		<main

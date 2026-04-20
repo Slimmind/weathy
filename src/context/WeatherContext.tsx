@@ -18,6 +18,7 @@ interface WeatherContextType {
 	weather: WeatherData | null | undefined;
 	forecast: ForecastData | null | undefined;
 	relatedTab: number;
+	scrollTrigger: number;
 	currentTime: number;
 	isMenuOpened: boolean;
 	setRelatedTab: (tab: number) => void;
@@ -34,6 +35,12 @@ interface WeatherProviderProps {
 
 export const WeatherProvider: React.FC<WeatherProviderProps> = ({ children }) => {
 	const [relatedTab, setRelatedTab] = useState<number>(0);
+	const [scrollTrigger, setScrollTrigger] = useState<number>(0);
+
+	const handleSetRelatedTab = useCallback((tab: number) => {
+		setRelatedTab(tab);
+		setScrollTrigger((prev) => prev + 1);
+	}, []);
 	const [location, setLocation] = useState<Location | null>(
 		() => getStoredData(LocalStorage.LOCATION) || null
 	);
@@ -84,9 +91,10 @@ export const WeatherProvider: React.FC<WeatherProviderProps> = ({ children }) =>
 		weather,
 		forecast,
 		relatedTab,
+		scrollTrigger,
 		currentTime,
 		isMenuOpened,
-		setRelatedTab,
+		setRelatedTab: handleSetRelatedTab,
 		setIsMenuOpened,
 		changeLocation,
 		fetchData,

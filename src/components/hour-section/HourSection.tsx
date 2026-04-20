@@ -8,6 +8,7 @@ import './hour-section.styles.css';
 interface HourSectionProps {
 	data: WeatherData;
 	relatedTab: number;
+	scrollTrigger: number;
 }
 
 const partitionDataByDay = (
@@ -27,7 +28,7 @@ const partitionDataByDay = (
 	}, []);
 };
 
-export const HourSection = ({ data, relatedTab }: HourSectionProps) => {
+export const HourSection = ({ data, relatedTab, scrollTrigger }: HourSectionProps) => {
 	const { hourly, current_weather } = data;
 	const [activeTab, setActiveTab] = useState<number>(relatedTab);
 	const sectionRef = useRef<HTMLDivElement>(null);
@@ -59,11 +60,10 @@ export const HourSection = ({ data, relatedTab }: HourSectionProps) => {
 	);
 
 	useEffect(() => {
-		if (activeTab !== relatedTab) {
-			scrollToRef();
-			setActiveTab(relatedTab);
-		}
-	}, [relatedTab]);
+		if (scrollTrigger === 0) return;
+		scrollToRef();
+		setActiveTab(relatedTab);
+	}, [scrollTrigger]);
 
 	return (
 		<div className='hour-section' ref={sectionRef}>
