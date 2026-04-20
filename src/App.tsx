@@ -15,6 +15,7 @@ const HourSection = lazy(() => import('./components/hour-section'));
 const Forecast = lazy(() => import('./components/forecast'));
 const Footer = lazy(() => import('./components/footer'));
 const ScrollToTop = lazy(() => import('./components/scroll-to-top'));
+import { BgPattern } from './components/bg-pattern/BgPattern';
 
 function MainContent() {
 	const {
@@ -81,6 +82,7 @@ function AppContent() {
 
 	return (
 		<div className='App'>
+			<BgPattern />
 			<Header />
 			<MainContent />
 			<Footer />
