@@ -121,7 +121,10 @@ export const Locations = ({ changeLocation, toggleMenu }: LocationsProps) => {
 					change={changeLocationHandler}
 					remove={removeLocation}
 				/>
-				<LocationsSearch addLocationHandler={addLocation} />
+				<LocationsSearch
+					addLocationHandler={addLocation}
+					closeSearch={switchLocationsMenu}
+				/>
 				<footer className='locations__window-footer'>
 					<p className='location__window-phrase'>{t('common.or')}</p>
 					<button

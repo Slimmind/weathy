@@ -8,11 +8,13 @@ import './locations-search.styles.css';
 
 interface LocationsSearchProps {
 	addLocationHandler: (location: Location) => void;
+	closeSearch: () => void;
 }
 
-export const LocationsSearch: React.FC<LocationsSearchProps> = ({
+export const LocationsSearch = ({
 	addLocationHandler,
-}) => {
+	closeSearch,
+}: LocationsSearchProps) => {
 	const [searchQuery, setSearchQuery] = useState<string>('');
 	const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
 	const [error, setError] = useState<string>('');
@@ -72,6 +74,7 @@ export const LocationsSearch: React.FC<LocationsSearchProps> = ({
 		addLocationHandler(chosenLocation);
 		setSearchQuery('');
 		setSearchResults([]);
+		closeSearch();
 	};
 
 	const searchClasses = clsx('locations__search', {
