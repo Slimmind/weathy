@@ -1,4 +1,4 @@
-import { lazy, useMemo, Suspense } from 'react';
+import { lazy, useMemo, Suspense, useEffect } from 'react';
 import { WeatherProvider, useWeatherContext } from './context/WeatherContext';
 import { I18nProvider, useI18n } from './i18n';
 import { ErrorBoundary } from './components/error-boundary';
@@ -80,12 +80,22 @@ function MainContent() {
 function AppContent() {
 	const { isMenuOpened } = useWeatherContext();
 
+	useEffect(() => {
+		const el = document.getElementById('app-preloader');
+		if (!el) return;
+		el.classList.add('hidden');
+		const timeout = setTimeout(() => el.remove(), 350);
+		return () => clearTimeout(timeout);
+	}, []);
+
 	return (
 		<div className='App'>
 			<BgPattern />
 			<Header />
 			<MainContent />
-			<Footer />
+			<Suspense fallback={null}>
+				<Footer />
+			</Suspense>
 		</div>
 	);
 }

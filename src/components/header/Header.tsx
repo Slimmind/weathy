@@ -1,12 +1,12 @@
-import { lazy } from 'react';
+import { lazy, Suspense } from 'react';
 import { getLocalDate } from '../../utils/get-local-date';
 import { useWeatherContext } from '../../context/WeatherContext';
 import { useI18n } from '../../i18n';
 import { useTheme } from '../../hooks/useTheme';
-import './header-styles.css';
 import { PaintBrushIcon } from '../../icons/paint-brush';
 import { checkIsNightTime } from "../../utils/check-is-night";
 import { PaintBrushLightIcon } from "../../icons/paint-brush-light";
+import './header-styles.css';
 
 const Locations = lazy(() => import('../locations'));
 
@@ -23,6 +23,14 @@ export const Header = () => {
 
 	return (
 		<header className='main-header'>
+			<div className='main-header__location'>
+				<Suspense fallback={null}>
+					<Locations
+						changeLocation={changeLocation}
+						toggleMenu={setIsMenuOpened}
+					/>
+				</Suspense>
+			</div>
 			<button
 				className='main-header__button'
 				id='theme-button'
@@ -30,17 +38,11 @@ export const Header = () => {
 				aria-label={`Theme: ${theme}`}
 			>
 				{checkIsNightTime() ? (
-            <PaintBrushLightIcon />
-          ) : (
-            <PaintBrushIcon />
-          )}
+					<PaintBrushLightIcon />
+				) : (
+					<PaintBrushIcon />
+				)}
 			</button>
-			<div className='main-header__location'>
-				<Locations
-					changeLocation={changeLocation}
-					toggleMenu={setIsMenuOpened}
-				/>
-			</div>
 			<span className='main-header__date'>{fullDate}</span>
 			<button
 				className='main-header__button'
